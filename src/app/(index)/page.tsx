@@ -6,7 +6,7 @@ import {HomeOutlined} from "@ant-design/icons";
 import ProductItem from "../../assets/pre-product-img.png";
 import Image from "next/image";
 
-export default function Lobby() {
+export default function Index() {
     return (
         <>
             <div className='index-page-container'>
