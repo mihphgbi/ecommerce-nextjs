@@ -1,12 +1,47 @@
+"use client";
 import React from "react";
 import "./style.scss";
 import Title from "antd/lib/typography/Title";
-import {Button, Col, Row, Typography} from "antd";
-import {HomeOutlined} from "@ant-design/icons";
+import {Button, Col, List, Row, Typography} from "antd";
+import {CalendarTwoTone, GiftTwoTone, HomeTwoTone, InteractionTwoTone} from "@ant-design/icons";
 import ProductItem from "../../assets/pre-product-img.png";
 import Image from "next/image";
+import Item from "antd/es/list/Item";
 
-export default function Lobby() {
+const collection = [
+    {image: ProductItem},
+    {image: ProductItem},
+    {image: ProductItem},
+]
+const similarProductList = [
+    {image: ProductItem},
+    {image: ProductItem},
+    {image: ProductItem},
+    {image: ProductItem},
+]
+const incentivesList = [
+    {
+        image: <HomeTwoTone className={"text-[24px]"}/>,
+        title: 'Home Delivery Available',
+        text: 'Get your beauty products delivered straight to your door, saving you time and effort.'
+    },
+    {
+        image: <CalendarTwoTone className={"text-[24px]"}/>,
+        title: '3-year warranty',
+        text: 'Feel confident with our 3-year warranty on beauty products, providing you with peace of mind and protection against potential defects or issues.'
+    },
+    {
+        image: <InteractionTwoTone className={"text-[24px]"}/>,
+        title: 'Free shipping on returns',
+        text: 'Enjoy the convenience of free shipping on returns, making the return process easy and convenient for you.'
+    },
+    {
+        image: <GiftTwoTone className={"text-[24px]"}/>,
+        title: '15% off for our loyal customer',
+        text: 'Sign up for our newsletter and stay in the loop! Get exclusive discounts, product updates, and special offers delivered straight to your inbox.'
+    },
+]
+export default function Index() {
     return (
         <>
             <div className='index-page-container'>
@@ -24,60 +59,30 @@ export default function Lobby() {
                     </div>
                 </div>
                 <div className="p-[48px]">
-                    <Row gutter={[48, 48]}>
-                        <Col span={12}>
-                            <Row className="incentive-item gap-[24px]">
-                                <Col>
-                                    <HomeOutlined className={"text-[24px]"}/>
-                                </Col>
-                                <Col>
-                                    <Title level={4}>Home Delivery Available</Title>
-                                    <Typography>Get your beauty products delivered straight to your door, saving you
-                                        time and effort.</Typography>
-                                </Col>
-                            </Row>
-                        </Col>
-                        <Col span={12}>
-                            <Row className="incentive-item gap-[24px]">
-                                <Col>
-                                    <HomeOutlined className={"text-[24px]"}/>
-                                </Col>
-                                <Col>
-                                    <Title level={4}>Home Delivery Available</Title>
-                                    <Typography>Get your beauty products delivered straight to your door, saving you
-                                        time and effort.</Typography>
-                                </Col>
-                            </Row>
-                        </Col>
-
-                        <Col span={12}>
-                            <Row className="incentive-item gap-[24px]">
-                                <Col>
-                                    <HomeOutlined className={"text-[24px]"}/>
-                                </Col>
-                                <Col>
-                                    <Title level={4}>Home Delivery Available</Title>
-                                    <Typography>Get your beauty products delivered straight to your door, saving you
-                                        time and effort.</Typography>
-                                </Col>
-                            </Row>
-                        </Col>
-                        <Col span={12}>
-                            <Row className="incentive-item gap-[24px]">
-                                <Col>
-                                    <HomeOutlined className={"text-[24px]"}/>
-                                </Col>
-                                <Col>
-                                    <Title level={4}>Home Delivery Available</Title>
-                                    <Typography>Get your beauty products delivered straight to your door, saving you
-                                        time and effort.</Typography>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
+                    <List
+                        bordered={false}
+                        split={false}
+                        itemLayout="vertical"
+                        grid={{gutter: [48, 48], column: 2}}
+                        dataSource={incentivesList}
+                        renderItem={(item) => (
+                            <Item className={'mbe-0'}>
+                                <Row className="gap-[24px] flex-nowrap">
+                                    <Col>
+                                        {item.image}
+                                    </Col>
+                                    <Col>
+                                        <Title level={4} className={'mb-[8px]'}>{item.title}</Title>
+                                        <Typography
+                                            className={'text-[14px] leading-[22px] text-[rgba(0, 0, 0, 0.65)]'}>{item.text}</Typography>
+                                    </Col>
+                                </Row>
+                            </Item>
+                        )}
+                    />
                 </div>
                 <div className={"p-[48px]"}>
-                    <div className={'w-[573px]'}>
+                    <div className={'w-[573px] pb-[32px]'}>
                         <Title level={3}>Shop by Collection</Title>
                         <Typography>
                             Discover a carefully curated selection of unique and stylish products. From trendy
@@ -86,32 +91,25 @@ export default function Lobby() {
                             are handpicked to suit your taste and style.
                         </Typography>
                     </div>
-                    <Row gutter={24}>
-                        <Col span={8} >
-                            <Image src={ProductItem} width={300} height={300}/>
-                            <div className={'p-[16px]'}>
-                                <Typography>Trendy Fashion Collection</Typography>
-                                <Typography>Stay on-trend with our modern and stylish home decor pieces that
-                                    effortlessly elevate your home's aesthetics.</Typography>
-                            </div>
-                        </Col>
-                        <Col span={8} >
-                            <Image src={ProductItem} width={300} height={300}/>
-                            <div className={'p-[16px]'}>
-                                <Typography>Trendy Fashion Collection</Typography>
-                                <Typography>Stay on-trend with our modern and stylish home decor pieces that
-                                    effortlessly elevate your home's aesthetics.</Typography>
-                            </div>
-                        </Col>
-                        <Col span={8} >
-                            <Image src={ProductItem} width={300} height={300}/>
-                            <div className={'p-[16px]'}>
-                                <Typography>Trendy Fashion Collection</Typography>
-                                <Typography>Stay on-trend with our modern and stylish home decor pieces that
-                                    effortlessly elevate your home's aesthetics.</Typography>
-                            </div>
-                        </Col>
-                    </Row>
+                    <div>
+                        <List
+                            bordered={false}
+                            split={false}
+                            itemLayout="vertical"
+                            grid={{gutter: 24, column: 3}}
+                            dataSource={collection}
+                            renderItem={(item) => (
+                                <Item className={'mbe-0'}>
+                                    <Image src={item.image} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
+                                    <div className={'py-[16px]'}>
+                                        <Typography className={'leading-[22px] font-bold text-[14px]'}>Trendy Fashion Collection</Typography>
+                                        <Typography className={'text-[12px]'}>Stay on-trend with our modern and stylish home decor pieces that
+                                            effortlessly elevate your home's aesthetics.</Typography>
+                                    </div>
+                                </Item>
+                            )}
+                        />
+                    </div>
                 </div>
                 <div className={'p-[48px]'}>
                     <Row>
@@ -124,48 +122,27 @@ export default function Lobby() {
                             </div>
                         </Col>
                     </Row>
-                    <Row gutter={24}>
-                        <Col span={6}>
-                            <Image src={ProductItem} width={270} height={270}/>
-                            <div className={'p-[16px]'}>
-                                <Typography>Kicks & Carriers</Typography>
-                                <Typography>Low-top sneakers</Typography>
-                            </div>
-                            <div>
-                                <Typography>$129.99 <span>$189.99</span></Typography>
-                            </div>
-                        </Col>
-                        <Col span={6}>
-                            <Image src={ProductItem} width={270} height={270}/>
-                            <div className={'p-[16px]'}>
-                                <Typography>Kicks & Carriers</Typography>
-                                <Typography>Low-top sneakers</Typography>
-                            </div>
-                            <div>
-                                <Typography>$129.99 <span>$189.99</span></Typography>
-                            </div>
-                        </Col>
-                        <Col span={6}>
-                            <Image src={ProductItem} width={270} height={270}/>
-                            <div className={'p-[16px]'}>
-                                <Typography>Kicks & Carriers</Typography>
-                                <Typography>Low-top sneakers</Typography>
-                            </div>
-                            <div>
-                                <Typography>$129.99 <span>$189.99</span></Typography>
-                            </div>
-                        </Col>
-                        <Col span={6}>
-                            <Image src={ProductItem} width={270} height={270}/>
-                            <div className={'p-[16px]'}>
-                                <Typography>Kicks & Carriers</Typography>
-                                <Typography>Low-top sneakers</Typography>
-                            </div>
-                            <div>
-                                <Typography>$129.99 <span>$189.99</span></Typography>
-                            </div>
-                        </Col>
-                    </Row>
+                    <div>
+                        <List
+                            bordered={false}
+                            split={false}
+                            itemLayout="vertical"
+                            grid={{gutter: 24, column: 4}}
+                            dataSource={similarProductList}
+                            renderItem={(item) => (
+                                <Item className={'mbe-0'}>
+                                    <Image src={item.image} width={270} height={270}/>
+                                    <div className={'p-[16px]'}>
+                                        <Typography>Kicks & Carriers</Typography>
+                                        <Typography>Low-top sneakers</Typography>
+                                    </div>
+                                    <div>
+                                        <Typography>$129.99 <span>$189.99</span></Typography>
+                                    </div>
+                                </Item>
+                            )}
+                        />
+                    </div>
                 </div>
                 <div className={"promo-section h-[612px] p-[48px]"}>
                     <Row gutter={48}>
