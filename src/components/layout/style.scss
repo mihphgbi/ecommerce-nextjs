@@ -1,0 +1,16 @@
+.top-bar-bg {
+  background-color: #0958D9;
+  color: white;
+}
+
+.nav-bar {
+  .ant-menu-overflow {
+    gap: 24px;
+  }
+  .ant-menu-horizontal .ant-menu-submenu, .ant-menu-item{
+    padding-inline: 0;
+  }
+  .ant-menu-light.ant-menu-horizontal >.ant-menu-item::after, .ant-menu-light.ant-menu-horizontal >.ant-menu-submenu::after {
+    inset-inline: 0;
+  }
+}

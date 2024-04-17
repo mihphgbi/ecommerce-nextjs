@@ -1,10 +1,11 @@
 import React from "react";
-import {Button, Layout, Menu, MenuProps} from "antd";
-import {Content, Header} from "antd/lib/layout/layout";
-import {DingdingOutlined} from "@ant-design/icons";
+import {Button, Col, Divider, Flex, Layout, Menu, MenuProps, Row} from "antd";
+import {Header} from "antd/lib/layout/layout";
+import {ShopFilled} from "@ant-design/icons";
 import "../layout/style.scss";
 
 type MenuItem = Required<MenuProps>['items'][number];
+
 function getItem(
     label: React.ReactNode,
     key?: React.Key | null,
@@ -22,38 +23,41 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-    getItem('Categories', 'categories', null,[
-        getItem('Option 5', '5'),
-        getItem('Option 6', '6'),
-        getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
+    getItem(null, null, null),
+    getItem('Products', 'products', null, [
+        getItem('Overview', 'Overview'),
+        getItem('Apps', 'Apps'),
+        getItem('Templates', 'Templates'),
+        getItem('Resources', 'Resources'),
+        getItem('Libraries', 'Libraries'),
+        getItem('Sales', 'Sales'),
     ]),
-
-    getItem('test', 'sub4',null, [
-        getItem('Option 9', '9'),
-        getItem('Option 10', '10'),
-        getItem('Option 11', '11'),
-        getItem('Option 12', '12'),
-    ]),
-    getItem('Blog', 'blog',null)
+    getItem('Docs', 'docs', null),
+    getItem('About us', 'aboutus', null),
+    getItem('Pricing', 'pricing', null),
 ];
 
 const DesktopNavBar = () => {
-    return(
+    return (
         <Layout>
-            <Header className={"flex sticky z-[1] top-0 bg-blue-50"}>
-                <div className="demo-logo flex">
-                    <DingdingOutlined className={"text-[50px] text-blue-950"}/>
-                    Blare
-                </div>
-                <div className="nav-bar flex-grow pl-4">
-                    <Menu mode='horizontal' items={items} style={{background:'none', border: 'none'}}/>
-                </div>
-                <div className="search-box">
-
-                </div>
-                <div className="sign-in">
-                    <Button value={'default'} href={"/sign-in"}>Sign-in</Button>
-                </div>
+            <Header className={"flex sticky z-[1] top-0 bg-white nav-bar"}>
+                <Row className={"w-[100%]"}>
+                    <Col flex={'24px'}>
+                        <ShopFilled className={"text-[24px]"}/>
+                    </Col>
+                    <Col flex={'auto'}>
+                        <Menu mode='horizontal' items={items} style={{background: 'none', justifyContent:'flex-end'}}/>
+                    </Col>
+                    <Col flex={'32px'}>
+                        <Divider type={'vertical'} className={'ml-[24px]'}/>
+                    </Col>
+                    <Col flex={'none'}>
+                        <Flex gap={'8px'} align={'center'} className={'h-[100%]'} justify={'flex-end'}>
+                            <Button type={'text'} href={"/sign-in"}>Sign in</Button>
+                            <Button type={'primary'} href={"/sign-in"}>Sign up</Button>
+                        </Flex>
+                    </Col>
+                </Row>
             </Header>
         </Layout>
     )
