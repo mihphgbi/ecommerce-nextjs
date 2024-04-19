@@ -54,7 +54,7 @@ const DesktopNavBar = () => {
                     <Col flex={'none'}>
                         <Flex gap={'8px'} align={'center'} className={'h-[100%]'} justify={'flex-end'}>
                             <Button type={'text'} href={"/sign-in"}>Sign in</Button>
-                            <Button type={'primary'} href={"/sign-in"}>Sign up</Button>
+                            <Button type={'primary'} href={"/sign-up"}>Sign up</Button>
                         </Flex>
                     </Col>
                 </Row>
