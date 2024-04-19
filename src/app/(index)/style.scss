@@ -14,7 +14,16 @@
   }
 }
 .promo-section {
-  background: linear-gradient(to bottom, transparent 40%, transparent 60%, #000000 60%);
+  background: linear-gradient(to bottom, transparent 50%, transparent 50%, #000000 50%);
+  article {
+    color: white;
+    font-size: 38px;
+    line-height: 46px;
+    margin-bottom: 24px;
+    &.first-text {
+      margin: 0;
+    }
+  }
 }
 .mbe-0 {
   margin-block-end: 0;
