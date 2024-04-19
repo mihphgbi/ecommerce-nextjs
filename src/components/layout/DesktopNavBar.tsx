@@ -1,8 +1,10 @@
-import React from "react";
+"use client";
+import React, {useState} from "react";
 import {Button, Col, Divider, Flex, Layout, Menu, MenuProps, Row} from "antd";
 import {Header} from "antd/lib/layout/layout";
 import {ShopFilled} from "@ant-design/icons";
 import "../layout/style.scss";
+import SignInDialog from "@/app/(auth)/dialog/sign-in";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -38,6 +40,10 @@ const items: MenuItem[] = [
 ];
 
 const DesktopNavBar = () => {
+    const [openSignInPopup, setOpenSignInPopup] = useState(false);
+    const handleOpenSignInPopup = () => {
+        setOpenSignInPopup(true);
+    }
     return (
         <Layout>
             <Header className={"flex sticky z-[1] top-0 bg-white nav-bar"}>
@@ -46,19 +52,20 @@ const DesktopNavBar = () => {
                         <ShopFilled className={"text-[24px]"}/>
                     </Col>
                     <Col flex={'auto'}>
-                        <Menu mode='horizontal' items={items} style={{background: 'none', justifyContent:'flex-end'}}/>
+                        <Menu mode='horizontal' items={items} style={{background: 'none', justifyContent: 'flex-end'}}/>
                     </Col>
                     <Col flex={'32px'}>
                         <Divider type={'vertical'} className={'ml-[24px]'}/>
                     </Col>
                     <Col flex={'none'}>
                         <Flex gap={'8px'} align={'center'} className={'h-[100%]'} justify={'flex-end'}>
-                            <Button type={'text'} href={"/sign-in"}>Sign in</Button>
+                            <Button type={'text'} onClick={handleOpenSignInPopup}>Sign in</Button>
                             <Button type={'primary'} href={"/sign-up"}>Sign up</Button>
                         </Flex>
                     </Col>
                 </Row>
             </Header>
+            {openSignInPopup && <SignInDialog open={openSignInPopup} onClose={() => setOpenSignInPopup(false)}/>}
         </Layout>
     )
 }
