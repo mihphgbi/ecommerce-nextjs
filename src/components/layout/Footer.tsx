@@ -12,10 +12,10 @@ const legalList = ['Legal Notice', 'Privacy Policy', 'Terms & Conditions'];
 
 const Footer: React.FC = () => {
     return (
-        <div className={"p-[48px]"}>
+        <div className={"p-[48px] footer"}>
             <Row gutter={24}>
                 <Col span={8}>
-                    <div>
+                    <div className={'mb-[24px]'}>
                         <ShopFilled className={"text-[24px]"}/>
                     </div>
                     <div>
@@ -24,10 +24,14 @@ const Footer: React.FC = () => {
                     </div>
                 </Col>
                 <Col span={8}>
-                    <Row>
+                    <Row gutter={24}>
                         <Col span={12}>
                             <List
-                                header={<Typography className={'font-bold'}>Shop</Typography>}
+                                header={
+                                    <>
+                                        <Typography className={'font-bold'}>Shop</Typography>
+                                        <Divider className={'mt-[12.5px] mb-[16.5px]'}/>
+                                    </>}
                                 bordered={false}
                                 split={false}
                                 dataSource={shopList}
@@ -40,7 +44,11 @@ const Footer: React.FC = () => {
                         </Col>
                         <Col span={12}>
                             <List
-                                header={<Typography className={'font-bold'}>Gift Cards</Typography>}
+                                header={
+                                    <>
+                                        <Typography className={'font-bold'}>Gift Cards</Typography>
+                                        <Divider className={'mt-[12.5px] mb-[16.5px]'}/>
+                                    </>}
                                 bordered={false}
                                 split={false}
                                 dataSource={giftCardsList}
@@ -54,10 +62,14 @@ const Footer: React.FC = () => {
                     </Row>
                 </Col>
                 <Col span={8}>
-                    <Row>
+                    <Row gutter={24}>
                         <Col span={12}>
                             <List
-                                header={<Typography className={'font-bold'}>About Store</Typography>}
+                                header={
+                                    <>
+                                        <Typography className={'font-bold'}>About Store</Typography>
+                                        <Divider className={'mt-[12.5px] mb-[16.5px]'}/>
+                                    </>}
                                 bordered={false}
                                 split={false}
                                 dataSource={aboutStoreList}
@@ -70,7 +82,12 @@ const Footer: React.FC = () => {
                         </Col>
                         <Col span={12}>
                             <List
-                                header={<Typography className={'font-bold'}>Legal</Typography>}
+                                header={
+                                    <>
+                                        <Typography className={'font-bold'}>Legal</Typography>
+                                        <Divider className={'mt-[12.5px] mb-[16.5px]'}/>
+                                    </>
+                                }
                                 bordered={false}
                                 split={false}
                                 dataSource={legalList}

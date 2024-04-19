@@ -7,17 +7,54 @@ import {CalendarTwoTone, GiftTwoTone, HomeTwoTone, InteractionTwoTone} from "@an
 import ProductItem from "../../assets/pre-product-img.png";
 import Image from "next/image";
 import Item from "antd/es/list/Item";
+import Link from "next/link";
 
 const collection = [
-    {image: ProductItem},
-    {image: ProductItem},
-    {image: ProductItem},
+    {
+        image: ProductItem,
+        title: 'Home Delivery Available',
+        text: 'Get your beauty products delivered straight to your door, saving you time and effort.'
+    },
+    {
+        image: ProductItem,
+        title: 'Home Decor Collection',
+        text: 'Create a warm and inviting atmosphere in your home with our carefully curated selection of chic and timeless decor items.'
+    },
+    {
+        image: ProductItem,
+        title: 'Little Works of Art Collection',
+        text: 'Transform your home into an art gallery with exquisite decor that adds a touch of creativity and uniqueness to your space.'
+    },
 ]
 const similarProductList = [
-    {image: ProductItem},
-    {image: ProductItem},
-    {image: ProductItem},
-    {image: ProductItem},
+    {
+        image: ProductItem,
+        type: 'Kicks & Carriers',
+        name: 'Low-top sneakers',
+        salePrice: '$129.99',
+        price: '$189.99'
+    },
+    {
+        image: ProductItem,
+        type: 'Kicks & Carriers',
+        name: 'Fanny pack',
+        salePrice: '$129.99',
+        price: '$189.99'
+    },
+    {
+        image: ProductItem,
+        type: 'Kicks & Carriers',
+        name: 'High-top sneakers',
+        salePrice: '$129.99',
+        price: '$189.99'
+    },
+    {
+        image: ProductItem,
+        type: 'Kicks & Carriers',
+        name: 'Black Bag',
+        salePrice: '$129.99',
+        price: '$189.99'
+    },
 ]
 const incentivesList = [
     {
@@ -100,11 +137,16 @@ export default function Index() {
                             dataSource={collection}
                             renderItem={(item) => (
                                 <Item className={'mbe-0'}>
-                                    <Image src={item.image} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
+                                    <div className={"w-[100%] h-[400px] relative"}>
+                                        <Image src={item.image}
+                                               style={{objectFit: "cover"}}
+                                               loading="lazy"
+                                               fill={true}/>
+                                    </div>
                                     <div className={'py-[16px]'}>
-                                        <Typography className={'leading-[22px] font-bold text-[14px]'}>Trendy Fashion Collection</Typography>
-                                        <Typography className={'text-[12px]'}>Stay on-trend with our modern and stylish home decor pieces that
-                                            effortlessly elevate your home's aesthetics.</Typography>
+                                        <Typography
+                                            className={'leading-[22px] font-bold text-[14px]'}>{item.title}</Typography>
+                                        <Typography className={'text-[12px]'}>{item.text}</Typography>
                                     </div>
                                 </Item>
                             )}
@@ -118,7 +160,7 @@ export default function Index() {
                         </Col>
                         <Col span={8}>
                             <div className={'flex justify-end'}>
-                                <Typography>See everything </Typography>
+                                <Link href={"/"} className={'text-[#1677FF] underline'}>See everything </Link>
                             </div>
                         </Col>
                     </Row>
@@ -131,36 +173,49 @@ export default function Index() {
                             dataSource={similarProductList}
                             renderItem={(item) => (
                                 <Item className={'mbe-0'}>
-                                    <Image src={item.image} width={270} height={270}/>
-                                    <div className={'p-[16px]'}>
-                                        <Typography>Kicks & Carriers</Typography>
-                                        <Typography>Low-top sneakers</Typography>
+                                    <div className={"w-[100%] h-[300px] relative"}>
+                                        <Image src={item.image}
+                                               style={{objectFit: "cover"}}
+                                               loading="lazy"
+                                               fill={true}/>
                                     </div>
-                                    <div>
-                                        <Typography>$129.99 <span>$189.99</span></Typography>
+                                    <div className={'p-[16px] text-center'}>
+                                        <Typography className={'text-[12px] leading-[20px]'}>{item.type}</Typography>
+                                        <Typography className={'text-14px leading-[22px]'}>{item.name}</Typography>
+                                    </div>
+                                    <div className={'text-center'}>
+                                        <Typography
+                                            className={'text-14px leading-[22px]'}>{item?.salePrice || item.price} {item?.salePrice ?
+                                            <span
+                                                className={'text-[12px] text-[rgba(0, 0, 0, 0.45)] leading-[20px] line-through'}>$189.99</span> : ''}</Typography>
                                     </div>
                                 </Item>
                             )}
                         />
                     </div>
                 </div>
-                <div className={"promo-section h-[612px] p-[48px]"}>
+                <div className={"promo-section h-[612px] p-[48px] overflow-hidden"}>
                     <Row gutter={48}>
-                        <Col span={8}>
-                            <div>
-                                <Title level={1}>Final stock. Up to 50% off.</Title>
-                            </div>
-                            <div>
-                                <Button type={'primary'} href={"/sign-in"}>Shop now</Button>
+                        <Col span={8} className={'relative h-[542px]'}>
+                            <div className={'absolute bottom-0'}>
+                                <div>
+                                    <Typography class={"first-text"}>Final stock.</Typography>
+                                    <Typography class={"second-text"}>Up to 50% off.</Typography>
+                                </div>
+                                <div>
+                                    <Button size={'large'} type={'primary'} href={"/sign-in"}>Shop now</Button>
+                                </div>
                             </div>
                         </Col>
                         <Col span={16}>
                             <Row gutter={32}>
                                 <Col span={12}>
-                                    <Image src={ProductItem} width={470} height={270}/>
+                                    <Image src={ProductItem} width={400} height={250} className={'rounded-[8px] mt-[48px]'}/>
+                                    <Image src={ProductItem} width={400} height={250} className={'rounded-[8px] mt-[32px]'}/>
                                 </Col>
                                 <Col span={12}>
-                                    <Image src={ProductItem} width={470} height={270}/>
+                                    <Image src={ProductItem} width={400} height={250} className={'rounded-[8px]'}/>
+                                    <Image src={ProductItem} width={400} height={250} className={'rounded-[8px] mt-[32px]'}/>
                                 </Col>
                             </Row>
                         </Col>

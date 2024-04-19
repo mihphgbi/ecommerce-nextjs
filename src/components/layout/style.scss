@@ -7,10 +7,23 @@
   .ant-menu-overflow {
     gap: 24px;
   }
-  .ant-menu-horizontal .ant-menu-submenu, .ant-menu-item{
+
+  .ant-menu-horizontal .ant-menu-submenu, .ant-menu-item {
     padding-inline: 0;
   }
-  .ant-menu-light.ant-menu-horizontal >.ant-menu-item::after, .ant-menu-light.ant-menu-horizontal >.ant-menu-submenu::after {
+
+  .ant-menu-light.ant-menu-horizontal > .ant-menu-item::after, .ant-menu-light.ant-menu-horizontal > .ant-menu-submenu::after {
     inset-inline: 0;
   }
 }
+
+.footer {
+  .ant-list-header {
+    padding: 0;
+  }
+
+  .ant-list-item {
+    padding: 6px 0;
+  }
+}
+
