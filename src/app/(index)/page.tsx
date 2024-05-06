@@ -141,6 +141,7 @@ export default function Index() {
                                         <Image src={item.image}
                                                style={{objectFit: "cover"}}
                                                loading="lazy"
+                                               alt={'test'}
                                                fill={true}/>
                                     </div>
                                     <div className={'py-[16px]'}>
@@ -177,6 +178,7 @@ export default function Index() {
                                         <Image src={item.image}
                                                style={{objectFit: "cover"}}
                                                loading="lazy"
+                                               alt={'test'}
                                                fill={true}/>
                                     </div>
                                     <div className={'p-[16px] text-center'}>
@@ -210,12 +212,12 @@ export default function Index() {
                         <Col span={16}>
                             <Row gutter={32}>
                                 <Col span={12}>
-                                    <Image src={ProductItem} width={400} height={250} className={'rounded-[8px] mt-[48px]'}/>
-                                    <Image src={ProductItem} width={400} height={250} className={'rounded-[8px] mt-[32px]'}/>
+                                    <Image alt={'test'} src={ProductItem} width={400} height={250} className={'rounded-[8px] mt-[48px]'}/>
+                                    <Image alt={'test'} src={ProductItem} width={400} height={250} className={'rounded-[8px] mt-[32px]'}/>
                                 </Col>
                                 <Col span={12}>
-                                    <Image src={ProductItem} width={400} height={250} className={'rounded-[8px]'}/>
-                                    <Image src={ProductItem} width={400} height={250} className={'rounded-[8px] mt-[32px]'}/>
+                                    <Image alt={'test'} src={ProductItem} width={400} height={250} className={'rounded-[8px]'}/>
+                                    <Image alt={'test'} src={ProductItem} width={400} height={250} className={'rounded-[8px] mt-[32px]'}/>
                                 </Col>
                             </Row>
                         </Col>
