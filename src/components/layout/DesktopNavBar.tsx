@@ -5,6 +5,7 @@ import {Header} from "antd/lib/layout/layout";
 import {ShopFilled} from "@ant-design/icons";
 import "../layout/style.scss";
 import SignInDialog from "@/app/(auth)/dialog/sign-in";
+import SignUpDialog from "@/app/(auth)/dialog/sign-up";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -40,10 +41,7 @@ const items: MenuItem[] = [
 ];
 
 const DesktopNavBar = () => {
-    const [openSignInPopup, setOpenSignInPopup] = useState(false);
-    const handleOpenSignInPopup = () => {
-        setOpenSignInPopup(true);
-    }
+
     return (
         <Layout>
             <Header className={"flex sticky z-[1] top-0 bg-white nav-bar"}>
@@ -59,13 +57,12 @@ const DesktopNavBar = () => {
                     </Col>
                     <Col flex={'none'}>
                         <Flex gap={'8px'} align={'center'} className={'h-[100%]'} justify={'flex-end'}>
-                            <Button type={'text'} onClick={handleOpenSignInPopup}>Sign in</Button>
-                            <Button type={'primary'} href={"/sign-up"}>Sign up</Button>
+                            <SignInDialog/>
+                            <SignUpDialog/>
                         </Flex>
                     </Col>
                 </Row>
             </Header>
-            {openSignInPopup && <SignInDialog open={openSignInPopup} onClose={() => setOpenSignInPopup(false)}/>}
         </Layout>
     )
 }

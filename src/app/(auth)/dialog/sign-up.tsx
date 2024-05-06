@@ -8,7 +8,7 @@ type FieldType = {
     remember?: string;
 };
 
-export default function SignInDialog() {
+export default function SignUpDialog() {
     const [openSignInPopup, setOpenSignInPopup] = useState(false);
     const handleOpenSignInPopup = () => {
         setOpenSignInPopup(true);
@@ -29,7 +29,7 @@ export default function SignInDialog() {
     }
     return (
         <>
-            <Button type={'text'} onClick={handleOpenSignInPopup}>Sign in</Button>
+            <Button type={'primary'} onClick={handleOpenSignInPopup}>Sign up</Button>
             <Modal title="Sign in" open={openSignInPopup} footer={null} onCancel={handleClose}>
                 <Form
                     name="basic"
