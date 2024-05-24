@@ -16,4 +16,9 @@ model products {
   price       String
   quality     Int
   sale_price  String
+  createdAt   DateTime @default(now())
+  updatedAt   Datetime @updatedAt
+
+  @@map('products')
+
 }
