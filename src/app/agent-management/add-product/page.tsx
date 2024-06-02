@@ -1,39 +1,45 @@
 'use client';
-import prisma from '@/lib/db'
-
 import {Button, Checkbox, Form, FormProps, Input} from "antd";
 import React, {useState} from "react";
 import {ProductItem} from "@/model/product/product";
-
-const addProduct = (formData: ProductItem) => async {
-    'use sever';
-
-    const name = ProductItem.get('name')?.toString
-    await prisma.product.create({
-        data: {
-
-        }
-    })
-
-}
+import {createProduct} from "@/action/product";
 
 const onFinish: FormProps<ProductItem>['onFinish'] = (values) => {
-    console.log('Success:', values);
+    const dataSubmit = {
+        name: values.name,
+        description: values.description,
+        image: values.image,
+        quality: parseInt(values.quality),
+        price: parseFloat(values.price),
+        is_sale: values.is_sale,
+        sale_price: parseFloat(values.sale_price),
+    }
+    createProduct(dataSubmit);
 };
 
 const onFinishFailed: FormProps<ProductItem>['onFinishFailed'] = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.debug('Failed:', errorInfo);
 };
 
 const AddProduct: React.FC = () => {
     const [componentDisabled, setComponentDisabled] = useState(false);
+    const [editObj, setEditObj] = useState<ProductItem>({
+        id: '',
+        name: '',
+        description: '',
+        image: '',
+        quality: 0,
+        price: 0,
+        is_sale: false,
+        sale_price: 0,
+    })
     return (
         <>
             <Form
                 name="basic"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                style={{ maxWidth: 600 }}
+                labelCol={{span: 8}}
+                wrapperCol={{span: 16}}
+                style={{maxWidth: 600}}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
@@ -41,25 +47,33 @@ const AddProduct: React.FC = () => {
                 <Form.Item<ProductItem>
                     label="Product name"
                     name="name"
-                    rules={[{ required: true, message: `Please input your product's name!` }]}
+                    rules={[{required: true, message: `Please input your product's name!`}]}
                 >
-                    <Input />
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item<ProductItem>
                     label="Description"
                     name="description"
-                    rules={[{ required: false }]}
+                    rules={[{required: false}]}
                 >
-                    <Input />
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item<ProductItem>
-                    label="Quantity"
-                    name="quantity"
-                    rules={[{ required: true, message: 'Please input your quantity!' }]}
+                    label="Image"
+                    name="image"
+                    rules={[{required: false}]}
                 >
-                    <Input />
+                    <Input/>
+                </Form.Item>
+
+                <Form.Item<ProductItem>
+                    label="Quality"
+                    name="quality"
+                    rules={[{required: true, message: 'Please input your quantity!'}]}
+                >
+                    <Input/>
                 </Form.Item>
 
                 <Form.Item<ProductItem>
@@ -87,7 +101,7 @@ const AddProduct: React.FC = () => {
                     <Input />
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <Form.Item wrapperCol={{offset: 8, span: 16}}>
                     <Button type="primary" htmlType="submit">
                         Submit
                     </Button>

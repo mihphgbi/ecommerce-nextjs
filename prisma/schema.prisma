@@ -7,18 +7,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model products {
+model Product {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
-  description String
-  image       String
-  is_sale     String
+  description String ?
+  image       String ?
+  is_sale     Boolean @default(false)
   name        String
-  price       String
+  price       Float
   quality     Int
-  sale_price  String
+  sale_price  Float ?
   createdAt   DateTime @default(now())
-  updatedAt   Datetime @updatedAt
+  updatedAt   DateTime @updatedAt
 
-  @@map('products')
+  @@map("products")
+}
 
+model User {
+    id              String @id @default(auto()) @map("_id") @db.ObjectId
+    username        String
+    password        String
+    is_agent        Boolean @default(false)
+    email           String
+    address         String
+    is_authenticate Boolean @default(false)
+    full_name       String
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+
+    @@map("user")
 }

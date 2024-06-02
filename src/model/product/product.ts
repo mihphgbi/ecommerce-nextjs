@@ -3,7 +3,7 @@ export type ProductItem = {
     name?: string;
     description?: string;
     image?: string;
-    quantity?: number;
+    quality?: number;
     price?: number;
     is_sale?: boolean;
     sale_price?: number;
