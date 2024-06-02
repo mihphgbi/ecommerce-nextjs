@@ -1,20 +1,21 @@
 'use client';
-import prisma from '@/lib/db'
-
 import {Button, Checkbox, Form, FormProps, Input} from "antd";
 import React, {useState} from "react";
 import {ProductItem} from "@/model/product/product";
+import {createProduct} from "@/action/product";
 
-const addProduct = (formData: ProductItem) => async {
-    'use sever';
+const addProduct = (formData: FormData) =>  {
+    const dataSubmit = {
+        name: 'test',
+        description: 'none',
+        is_sale: false,
+        quality: 10,
+        image: '',
+        price: 10.5,
+        sale_price: 0
+    };
 
-    const name = ProductItem.get('name')?.toString
-    await prisma.product.create({
-        data: {
-
-        }
-    })
-
+    createProduct(dataSubmit);
 }
 
 const onFinish: FormProps<ProductItem>['onFinish'] = (values) => {
@@ -88,7 +89,7 @@ const AddProduct: React.FC = () => {
                 </Form.Item>
 
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" onClick={addProduct}>
                         Submit
                     </Button>
                 </Form.Item>
