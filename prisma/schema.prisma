@@ -9,15 +9,30 @@ datasource db {
 
 model Product {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
-  description String
-  image       String
+  description String ?
+  image       String ?
   is_sale     Boolean @default(false)
   name        String
   price       Float
   quality     Int
-  sale_price  Float
+  sale_price  Float ?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@map("products")
+}
+
+model User {
+    id              String @id @default(auto()) @map("_id") @db.ObjectId
+    username        String
+    password        String
+    is_agent        Boolean @default(false)
+    email           String
+    address         String
+    is_authenticate Boolean @default(false)
+    full_name       String
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+
+    @@map("user")
 }
