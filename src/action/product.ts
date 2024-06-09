@@ -2,11 +2,23 @@
 
 // const name = FormData.get('name')?.toString
 import prisma from "@/lib/db/prisma";
+import { Prisma } from '@prisma/client'
 
 export const createProduct = async (payload) => {
     try {
         await prisma.product.create({data:payload})
     } catch (e) {
-        console.log(e)
+        if (e instanceof Prisma.PrismaClientValidationError) {
+            // The .code property can be accessed in a type-safe manner
+            if (e.code === 'P2002') {
+                console.log(
+                    'There is a unique constraint violation, a new user cannot be created with this email'
+                )
+            }
+            console.log(
+                'Test success'
+            )
+        }
+        throw e
     }
 }
