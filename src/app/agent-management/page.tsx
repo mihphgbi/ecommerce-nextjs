@@ -4,12 +4,23 @@ import {useRouter} from "next/navigation";
 
 const AgentManagement = () => {
     const router = useRouter();
-    const directToAddProductPage = () => {
-        router.push('/agent-management/add-product')
+    const directToAddProductPage = (name) => {
+        switch (name) {
+            case 'add':
+                router.push('/agent-management/product-management/add-product');
+                break;
+            case 'list':
+                router.push('/agent-management/product-management/product-list')
+                break;
+            default:
+                router.push('/agent-management')
+                break;
+        }
     }
-    return(
+    return (
         <>
-            <Button onClick={directToAddProductPage}>Add Product Item</Button>
+            <Button onClick={() => directToAddProductPage('add')}>Add Product Item</Button>
+            <Button onClick={() => directToAddProductPage('list')}>List Product</Button>
         </>
     )
 }
