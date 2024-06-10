@@ -10,8 +10,8 @@ const DeleteProduct : React.FC = ({id}) => {
     }
     return (
         <>
-            <Button type={'text'} onClick={() => setOpenDeleteDialog(true)}>Edit</Button>
-            <Modal title="Are you sure?" open={openDeleteDialog} footer={null} onCancel={() => setOpenDeleteDialog(true)}>
+            <Button type={'text'} onClick={() => setOpenDeleteDialog(true)}>Delete</Button>
+            <Modal title="Are you sure?" open={openDeleteDialog} footer={null} onCancel={() => setOpenDeleteDialog(false)}>
                 <Button onClick={handleDelete}>Confirm</Button>
                 <Button onClick={() => setOpenDeleteDialog(false)}>Cancel</Button>
             </Modal>
