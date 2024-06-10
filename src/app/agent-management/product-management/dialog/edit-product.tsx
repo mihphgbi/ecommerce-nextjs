@@ -15,7 +15,7 @@ const EditProduct: React.FC = () => {
     return (
         <>
             <Button type={'text'} onClick={() => setEditDialog(true)}>Edit</Button>
-            <Modal title="Sign in" open={openEditDialog} footer={null} onCancel={() => setEditDialog(true)}>
+            <Modal title="Sign in" open={openEditDialog} footer={null} onCancel={() => setEditDialog(false)}>
                 <AdjustProductForm onFinishFailed={onFinishFailed} onFinish={onFinish}/>
             </Modal>
         </>

@@ -1,7 +1,6 @@
-import {Space, Table, TableProps} from "antd";
+import {Table, TableProps} from "antd";
 import prisma from "@/lib/db/prisma";
-import EditProduct from "@/app/agent-management/product-management/dialog/edit-product";
-import DeleteProduct from "@/app/agent-management/product-management/dialog/delete-product";
+import TableAction from "@/app/agent-management/product-management/component/table-action";
 
 interface ListProduct {
     key: string;
@@ -54,12 +53,7 @@ const columns: TableProps<ListProduct>['columns'] = [
     {
         title: 'Action',
         key: 'action',
-        render: () => (
-            <Space size="middle">
-                <EditProduct/>
-                <DeleteProduct id={'111111'}/>
-            </Space>
-        ),
+        render: TableAction
     }
 ];
 
