@@ -22,3 +22,16 @@ export const createProduct = async (payload) => {
         throw e
     }
 }
+
+export const deleteProduct = async (payload) => {
+    try {
+        await prisma.product.delete({
+            where: {
+                id: payload
+            }
+        })
+    }
+    catch (e) {
+        console.log("========", e)
+    }
+}

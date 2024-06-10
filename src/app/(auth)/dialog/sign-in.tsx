@@ -9,7 +9,8 @@ type FieldType = {
 };
 
 export default function SignInDialog() {
-    const [openSignInPopup, setOpenSignInPopup] = useState(false);
+    const [openSignInPopup, setOpenSignInPopup] = useState<boolean>(false);
+
     const handleOpenSignInPopup = () => {
         setOpenSignInPopup(true);
     }
