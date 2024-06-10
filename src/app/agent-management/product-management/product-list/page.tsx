@@ -57,7 +57,7 @@ const columns: TableProps<ListProduct>['columns'] = [
         render: () => (
             <Space size="middle">
                 <EditProduct/>
-                <DeleteProduct/>
+                <DeleteProduct id={'111111'}/>
             </Space>
         ),
     }
