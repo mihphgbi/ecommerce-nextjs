@@ -55,10 +55,12 @@ const columns: TableProps<ListProduct>['columns'] = [
         title: 'Action',
         key: 'action',
         render: (_,record) => {
-            <Space size="middle">
-                <EditProduct/>
-                <DeleteProduct id={record.id}/>
-            </Space>
+            return (
+                <Space size="middle">
+                    <EditProduct/>
+                    <DeleteProduct id={record.id}/>
+                </Space>
+            )
         }
     }
 ];
