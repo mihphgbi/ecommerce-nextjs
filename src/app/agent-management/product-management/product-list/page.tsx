@@ -1,6 +1,4 @@
-import {Table, TableProps} from "antd";
 import prisma from "@/lib/db/prisma";
-import TableAction from "@/app/agent-management/product-management/component/table-action";
 import ProductListTable from "@/app/agent-management/product-management/component/table-action";
 
 
