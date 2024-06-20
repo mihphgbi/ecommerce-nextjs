@@ -1,22 +1,40 @@
 'use client';
-import React, {useState} from "react";
-import {Button, Modal} from "antd";
+import React, {useEffect, useState} from "react";
+import {Button, FormProps, Modal} from "antd";
 import AdjustProductForm
     from "@/app/agent-management/product-management/component/adjust-product-form/adjust-product-form";
+import {ProductItem} from "../../../../model/product/product";
+import {updateProduct} from "../../../../action/product";
 
 const EditProduct: React.FC = ({record}) => {
+    const [fields, setFields] = useState<ProductItem[]>([]);
     const [openEditDialog, setEditDialog] = useState<boolean>(false);
+
+    useEffect(() => {
+        const arr = Object.entries(record).map(([name, value]) => ({ name, value }));
+        setFields(arr)
+    }, [record])
+
     const onFinishFailed = () => {
 
     }
-    const onFinish = () => {
-
-    }
+    const onFinish: FormProps<ProductItem>['onFinish'] = (values) => {
+        const dataSubmit = {
+            name: values.name,
+            description: values.description,
+            image: values.image,
+            quality: parseInt(values.quality),
+            price: parseFloat(values.price),
+            is_sale: values.is_sale,
+            sale_price: parseFloat(values.sale_price),
+        }
+        updateProduct(record.id,dataSubmit);
+    };
     return (
         <>
             <Button type={'text'} onClick={() => setEditDialog(true)}>Edit</Button>
             <Modal title={`Edit product ${record.name}`} open={openEditDialog} footer={null} onCancel={() => setEditDialog(false)}>
-                <AdjustProductForm onFinishFailed={onFinishFailed} onFinish={onFinish}/>
+                <AdjustProductForm fields={fields} onFinishFailed={onFinishFailed} onFinish={onFinish}/>
             </Modal>
         </>
     )
