@@ -7,6 +7,7 @@ const DeleteProduct : React.FC = ({id}) => {
     const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
     const handleDelete = () => {
         deleteProduct(id);
+        setOpenDeleteDialog(false);
     }
     return (
         <>
