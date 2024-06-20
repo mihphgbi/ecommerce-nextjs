@@ -8,7 +8,7 @@ interface AdjustProductFormProps {
 }
 const AdjustProductForm : React.FC<AdjustProductFormProps> = (props) => {
     const [componentDisabled, setComponentDisabled] = useState(false);
-    const {onFinish, onFinishFailed } = props;
+    const {onFinish, onFinishFailed,fields } = props;
     return (
         <Form
             name="basic"
@@ -18,6 +18,7 @@ const AdjustProductForm : React.FC<AdjustProductFormProps> = (props) => {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
+            fields={fields}
         >
             <Form.Item<ProductItem>
                 label="Product name"
