@@ -8,6 +8,7 @@ import ProductItem from "../../assets/pre-product-img.png";
 import Image from "next/image";
 import Item from "antd/es/list/Item";
 import Link from "next/link";
+import {useSession} from "next-auth/react";
 
 const collection = [
     {
