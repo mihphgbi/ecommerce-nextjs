@@ -5,11 +5,7 @@ import { SessionProvider } from "next-auth/react"
 // import { Toaster } from "react-hot-toast"
 import React from "react";
 
-const ClientProvider = ({
-                            children
-                        }: {
-    children: React.ReactNode
-}) => {
+const ClientProvider = ({children}: { children: React.ReactNode }) => {
     // const queryClient = new QueryClient()
 
     return (
