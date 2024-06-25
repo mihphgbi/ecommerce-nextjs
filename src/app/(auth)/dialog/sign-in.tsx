@@ -1,6 +1,7 @@
 "use client";
 import {Button, Checkbox, Form, FormProps, Input, Modal} from "antd";
 import React, {useState} from "react";
+import {signIn} from "next-auth/react";
 
 type FieldType = {
     username?: string;
@@ -19,6 +20,7 @@ export default function SignInDialog() {
     }
 
     const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+        signIn();
         console.log('Success:', values);
     };
 

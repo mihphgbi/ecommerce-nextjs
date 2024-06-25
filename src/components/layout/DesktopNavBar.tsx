@@ -6,6 +6,7 @@ import {ShopFilled} from "@ant-design/icons";
 import "../layout/style.scss";
 import SignInDialog from "@/app/(auth)/dialog/sign-in";
 import SignUpDialog from "@/app/(auth)/dialog/sign-up";
+import {signOut, useSession} from "next-auth/react";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -41,7 +42,10 @@ const items: MenuItem[] = [
 ];
 
 const DesktopNavBar = () => {
-
+    const {data: session} = useSession();
+    const handleOpenSignOut = () => {
+        signOut();
+    }
     return (
         <Layout>
             <Header className={"flex sticky z-[1] top-0 bg-white nav-bar"}>
@@ -57,8 +61,13 @@ const DesktopNavBar = () => {
                     </Col>
                     <Col flex={'none'}>
                         <Flex gap={'8px'} align={'center'} className={'h-[100%]'} justify={'flex-end'}>
-                            <SignInDialog/>
-                            <SignUpDialog/>
+                            {session ?
+                                <Button type={'text'} onClick={handleOpenSignOut}>Sign out</Button> : (
+                                    <>
+                                        <SignInDialog/>
+                                        <SignUpDialog/>
+                                    </>
+                                )}
                         </Flex>
                     </Col>
                 </Row>
