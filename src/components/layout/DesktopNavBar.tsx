@@ -4,8 +4,8 @@ import {Button, Col, Divider, Flex, Layout, Menu, MenuProps, Row} from "antd";
 import {Header} from "antd/lib/layout/layout";
 import {ShopFilled} from "@ant-design/icons";
 import "../layout/style.scss";
-import SignInDialog from "@/app/(auth)/dialog/sign-in";
-import SignUpDialog from "@/app/(auth)/dialog/sign-up";
+import SignInDialog from "@/app/(index)/dialog/sign-in";
+import SignUpDialog from "@/app/(index)/dialog/sign-up";
 import {signOut, useSession} from "next-auth/react";
 
 type MenuItem = Required<MenuProps>['items'][number];
