@@ -4,6 +4,7 @@ import {useRouter} from "next/navigation";
 
 const AgentManagement = () => {
     const router = useRouter();
+
     const directToAddProductPage = (name) => {
         switch (name) {
             case 'add':
