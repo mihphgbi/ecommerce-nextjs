@@ -3,10 +3,11 @@ import React, {useState} from "react";
 import {Button, Col, Divider, Flex, Layout, Menu, MenuProps, Row} from "antd";
 import {Header} from "antd/lib/layout/layout";
 import {ShopFilled} from "@ant-design/icons";
-import "../layout/style.scss";
-import SignInDialog from "@/app/(index)/dialog/sign-in";
-import SignUpDialog from "@/app/(index)/dialog/sign-up";
+import "./style.scss";
+import SignInDialog from "@/app/(home)/dialog/sign-in";
+import SignUpDialog from "@/app/(home)/dialog/sign-up";
 import {signOut, useSession} from "next-auth/react";
+import TopBar from "@/app/components/layout/TopBar";
 
 type MenuItem = Required<MenuProps>['items'][number];
 

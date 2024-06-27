@@ -1,5 +1,5 @@
 import prisma from "@/lib/db/prisma";
-import ProductListTable from "@/app/agent-management/product-management/component/table-action";
+import ProductListTable from "@/app/agent-management/product-management/component/ table/product-list-table";
 
 
 

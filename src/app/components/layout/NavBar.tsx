@@ -1,7 +1,7 @@
 import React from "react";
-import DesktopNavBar from "@/components/layout/DesktopNavBar";
+import DesktopNavBar from "@/app/components/layout/DesktopNavBar";
 import {Col, Row} from "antd";
-import TopBar from "@/components/layout/TopBar";
+import TopBar from "@/app/components/layout/TopBar";
 
 const NavBar = () => {
     return(

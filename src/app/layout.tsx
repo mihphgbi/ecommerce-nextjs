@@ -1,8 +1,8 @@
 import type {Metadata} from "next";
 import {Inter} from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/layout/NavBar";
-import Footer from "@/components/layout/Footer";
+import NavBar from "@/app/components/layout/NavBar";
+import Footer from "@/app/components/layout/Footer";
 import React from "react";
 import ClientProvider from "@/providers/ClientProvider";
 
@@ -16,12 +16,12 @@ export const metadata: Metadata = {
 export default async function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
 
     return (
-        <html lang="en">
-        <body className={inter.className}>
-            <ClientProvider>
-                {children}
-            </ClientProvider>
-        </body>
-        </html>
+        <ClientProvider>
+            <html lang="en">
+            <body className={inter.className}>
+            {children}
+            </body>
+            </html>
+        </ClientProvider>
     );
 }
