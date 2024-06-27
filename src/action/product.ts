@@ -5,6 +5,7 @@ import prisma from "@/lib/db/prisma";
 import { Prisma } from '@prisma/client'
 
 export const getProductData = async () => {
+    let res = []
     try {
         const response = await fetch("/api/products", {
             method: "GET",
@@ -15,9 +16,11 @@ export const getProductData = async () => {
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
-        return response.data.data || []
+        res = response.data.data
     } catch (error: any) {
         console.error("Failed:", error);
+    }finally {
+        return res
     }
 }
 

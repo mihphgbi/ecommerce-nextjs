@@ -1,4 +1,4 @@
-import prisma from "@/lib/db/prisma";
+'use client';
 import ProductListTable from "@/app/agent-management/product-management/component/ table/product-list-table";
 import {useEffect, useState} from "react";
 import {getProductData} from "@/action/product";
