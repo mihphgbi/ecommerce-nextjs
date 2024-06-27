@@ -4,6 +4,23 @@
 import prisma from "@/lib/db/prisma";
 import { Prisma } from '@prisma/client'
 
+export const getProductData = async () => {
+    try {
+        const response = await fetch("/api/products", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.data.data || []
+    } catch (error: any) {
+        console.error("Failed:", error);
+    }
+}
+
 export const createProduct = async (payload) => {
     try {
         await prisma.product.create({data:payload})

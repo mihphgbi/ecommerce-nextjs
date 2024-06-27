@@ -30,7 +30,7 @@ export default function SignUpDialog() {
     return (
         <>
             <Button type={'primary'} onClick={handleOpenSignInPopup}>Sign up</Button>
-            <Modal title="Sign in" open={openSignInPopup} footer={null} onCancel={handleClose}>
+            <Modal title="Sign up" open={openSignInPopup} footer={null} onCancel={handleClose}>
                 <Form
                     name="basic"
                     labelCol={{ span: 5 }}
