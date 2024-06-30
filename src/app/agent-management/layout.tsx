@@ -10,7 +10,7 @@ export default function AgentManagementLayout({children}: {children: React.React
 
     return (
         <>
-            {session ? {children} : router.push('/')}
+            {!session ? children : router.push('/')}
         </>
     )
 }

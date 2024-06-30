@@ -57,14 +57,8 @@ export async function GET(req: Request) {
         //     result = orders;
         // }
 
-        return Response.json(result);
+        return result;
     } catch (error) {
-        console.log(error);
-
-        if (error instanceof z.ZodError) {
-            return new Response("Invalid request data passed", { status: 422 });
-        }
-
-        return new Response("Could not fetch more orders", { status: 500 });
+        Request.status(500).json({ error: 'Failed to fetch products' });
     }
 }
