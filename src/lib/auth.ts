@@ -13,20 +13,41 @@ export const authOptions: NextAuthOptions= {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
         }),
         CredentialsProvider({
-            // The name to display on the sign in form (e.g. 'Sign in with...')
-            name: "Credentials",
-            // The credentials is used to generate a suitable form on the sign in page.
-            // You can specify whatever fields you are expecting to be submitted.
-            // e.g. domain, username, password, 2FA token, etc.
-            // You can pass any HTML attribute to the <input> tag through the object.
             credentials: {
-                email: {},
+                username: {},
                 password: {},
             },
             async authorize(credentials, req) {
+                // console.log({ credentials });
+
+                /* GET User details */
+                const user = await prisma.User.findFirst({
+                    where: {
+                        email: credentials.username,
+                    }
+                });
+
+                // console.log(user);
+
+                if (user.length > 0) {
+                    console.log("USER FOUND");
+                    const passwordCorrect = await compare(credentials.password, user.password);
+
+                    console.log(passwordCorrect);  // True or False
+
+                    if (passwordCorrect) {
+                        return {
+                            id: user.id,
+                            name: user.username,
+                            email: user.email,
+                        };
+                    }
+                }
+
+                console.log("USER NOT FOUND");
                 return null;
-            },
-        }),
+            }
+        })
     ],
     session: {
         strategy: 'jwt',
@@ -42,7 +63,6 @@ export const authOptions: NextAuthOptions= {
                 token.id = user.id
                 token.email = user.email
                 token.name = user.name
-                token.picture = user.image
             }
 
             return token
@@ -52,7 +72,6 @@ export const authOptions: NextAuthOptions= {
                 session.user.id = token.id
                 session.user.name = token.name
                 session.user.email = token.email
-                session.user.image = token.picture
             }
 
             return session
