@@ -3,7 +3,7 @@ import React from "react";
 import {Badge, Button, Checkbox, Divider, Input, List, Switch, Typography} from "antd";
 import Title from "antd/es/typography/Title";
 import {HeartOutlined} from "@ant-design/icons";
-import {ProductData} from "@/api/products/product-data";
+import {ProductData} from "@/app/api/products/product-data";
 import Item from "antd/es/list/Item";
 import '../../style/var_map.scss';
 export default function User() {

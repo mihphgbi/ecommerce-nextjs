@@ -5,7 +5,7 @@ import Title from "antd/es/typography/Title";
 import "../[productId]/style/product-detail.scss";
 import {HeartOutlined, QuestionCircleOutlined} from "@ant-design/icons";
 import Item from "antd/es/list/Item";
-import {ProductData} from "@/api/products/product-data";
+import {ProductData} from "@/app/api/products/product-data";
 
 export default function ProductDetail() {
     const {Text, Paragraph} = Typography;
