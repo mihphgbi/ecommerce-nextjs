@@ -1,7 +1,7 @@
 'use client';
 import React, {useState} from "react";
 import {Button, Modal} from "antd";
-import {deleteProduct} from "@/action/product";
+import {deleteProduct} from "@/app/action/product";
 
 const DeleteProduct : React.FC = ({id}) => {
     const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);

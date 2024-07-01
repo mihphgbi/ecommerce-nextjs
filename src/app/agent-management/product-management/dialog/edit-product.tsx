@@ -4,7 +4,7 @@ import {Button, FormProps, Modal} from "antd";
 import AdjustProductForm
     from "@/app/agent-management/product-management/component/adjust-product-form/adjust-product-form";
 import {ProductItem} from "../../../../model/product/product";
-import {updateProduct} from "../../../../action/product";
+import {updateProduct} from "../../../action/product";
 
 const EditProduct: React.FC = ({record}) => {
     const [fields, setFields] = useState<ProductItem[]>([]);

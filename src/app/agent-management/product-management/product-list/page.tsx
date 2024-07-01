@@ -1,21 +1,21 @@
-import prisma from "@/lib/db/prisma";
+'use client';
 import ProductListTable from "@/app/agent-management/product-management/component/ table/product-list-table";
-// import {useEffect, useState} from "react";
-// import {getProductData} from "@/action/product";
+import {useEffect, useState} from "react";
+import {getProductData} from "@/app/action/product";
 
-
-
-const ProductList: React.FC = async () => {
-    // const [res,setRes] = useState([]);
-    const res = await prisma.product.findMany();
-    // useEffect(() => {
-    //     let temp =  getProductData() || []
-    //     setRes(temp);
-    // },[])
+const ProductList: React.FC = () => {
+    const [products,setProducts] = useState([]);
+    useEffect(() => {
+        async function fetchProducts() {
+            const productsData = await getProductData();
+            setProducts(productsData);
+        }
+        fetchProducts()
+    }, []);
 
     return (
         <>
-            <ProductListTable data={res}/>
+            <ProductListTable data={products}/>
         </>
     )
 }

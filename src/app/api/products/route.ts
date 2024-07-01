@@ -1,64 +1,30 @@
-import { z } from "zod";
+import prisma from "@/lib/db/prisma";
+import {getAuthSession} from "@/lib/auth";
+import {NextResponse} from "next/server";
 
-import { getAuthSession } from "@/lib/auth";
-import prisma from "@/lib/db";
-
-export async function GET(req: Request) {
+export async function GET(res: Response) {
     try {
-        const session = await getAuthSession();
-
-        if (!session?.user) {
-            return new Response("Unauthorized", { status: 401 });
-        }
-
-        const url = new URL(req.url);
-
-        // const { limit, page, status } = z
-        //     .object({
-        //         limit: z.string(),
-        //         page: z.string(),
-        //         status: z.enum(["PENDING", "PAID", "CANCELED", "null"]),
-        //     })
-        //     .parse({
-        //         limit: url.searchParams.get("limit"),
-        //         page: url.searchParams.get("page"),
-        //         status: url.searchParams.get("status"),
-        //     });
-
-        let result;
-        const products = await prisma.product.findMany()
-        result = products
-        // if (status != "null") {
-        //     const orders = await prisma.order.findMany({
-        //         where: {
-        //             status,
-        //             userId: session.user.id,
-        //         },
-        //         take: parseInt(limit),
-        //         skip: (parseInt(page) - 1) * parseInt(limit),
-        //         orderBy: {
-        //             createdAt: "desc",
-        //         },
-        //     });
-        //
-        //     result = orders;
-        // } else {
-        //     const orders = await prisma.order.findMany({
-        //         where: {
-        //             userId: session.user.id,
-        //         },
-        //         take: parseInt(limit),
-        //         skip: (parseInt(page) - 1) * parseInt(limit),
-        //         orderBy: {
-        //             createdAt: "desc",
-        //         },
-        //     });
-        //
-        //     result = orders;
-        // }
-
-        return result;
+        const res = await prisma.product.findMany();
+        return NextResponse.json({data: res})
     } catch (error) {
-        Request.status(500).json({ error: 'Failed to fetch products' });
+        console.error(error);
+    }
+}
+
+export async function DELETE(req: Request) {
+    const searchParams = req.nextUrl.searchParams;
+    const id = searchParams.get('id');
+    try {
+        const res = await prisma.product.delete({
+            where: {
+                id: id
+            }
+        })
+        return NextResponse.json({res});
+    } catch (error) {
+        return NextResponse(
+            {error: 'Internal server error - delete '},
+            {status: 500}
+        );
     }
 }

@@ -1,7 +1,7 @@
 'use client';
 import {FormProps} from "antd";
 import {ProductItem} from "@/model/product/product";
-import {createProduct} from "@/action/product";
+import {createProduct} from "@/app/action/product";
 import AdjustProductForm
     from "@/app/agent-management/product-management/component/adjust-product-form/adjust-product-form";
 
