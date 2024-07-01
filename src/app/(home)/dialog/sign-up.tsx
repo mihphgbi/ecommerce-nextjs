@@ -1,12 +1,8 @@
 "use client";
-import {Button, Checkbox, Form, FormProps, Input, Modal} from "antd";
+import {Button, FormProps, Modal} from "antd";
 import React, {useState} from "react";
-
-type FieldType = {
-    username?: string;
-    password?: string;
-    remember?: string;
-};
+import SignUpForm from "@/app/components/form/sign-up";
+import {SignUpFieldType} from "@/model/form/form";
 
 export default function SignUpDialog() {
     const [openSignInPopup, setOpenSignInPopup] = useState<boolean>(false);
@@ -17,60 +13,19 @@ export default function SignUpDialog() {
         setOpenSignInPopup(false);
     }
 
-    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    const onFinish: FormProps<SignUpFieldType>['onFinish'] = (values) => {
         console.log('Success:', values);
     };
 
-    const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+    const onFinishFailed: FormProps<SignUpFieldType>['onFinishFailed'] = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-    const handleOk = () => {
 
-    }
     return (
         <>
             <Button type={'primary'} onClick={handleOpenSignInPopup}>Sign up</Button>
             <Modal title="Sign up" open={openSignInPopup} footer={null} onCancel={handleClose}>
-                <Form
-                    name="basic"
-                    labelCol={{ span: 5 }}
-                    wrapperCol={{ span: 19 }}
-                    style={{ maxWidth: 600 }}
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                    autoComplete="off"
-
-                >
-                    <Form.Item<FieldType>
-                        label="Username"
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item<FieldType>
-                        label="Password"
-                        name="password"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
-                    >
-                        <Input.Password />
-                    </Form.Item>
-
-                    <Form.Item<FieldType>
-                        name="remember"
-                        valuePropName="checked"
-                        wrapperCol={{ offset: 8, span: 16 }}
-                    >
-                        <Checkbox>Remember me</Checkbox>
-                    </Form.Item>
-                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
-                    </Form.Item>
-                </Form>
+                <SignUpForm onFinish={onFinish} onFinishFailed={onFinishFailed}/>
             </Modal>
         </>
     )
