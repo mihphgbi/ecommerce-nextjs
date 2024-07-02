@@ -3,6 +3,7 @@ import {Button, FormProps, Modal} from "antd";
 import React, {useState} from "react";
 import SignUpForm from "@/app/components/form/sign-up";
 import {SignUpFieldType} from "@/model/form/form";
+import {createUser} from "@/app/action/auth";
 
 export default function SignUpDialog() {
     const [openSignInPopup, setOpenSignInPopup] = useState<boolean>(false);
@@ -15,6 +16,7 @@ export default function SignUpDialog() {
 
     const onFinish: FormProps<SignUpFieldType>['onFinish'] = (values) => {
         console.log('Success:', values);
+        createUser(values);
     };
 
     const onFinishFailed: FormProps<SignUpFieldType>['onFinishFailed'] = (errorInfo) => {

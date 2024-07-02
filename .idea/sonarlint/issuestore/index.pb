@@ -3,10 +3,6 @@
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 S
 #src/app/agent-management/layout.tsx,b\0\b0fd89d2ee91709bed3a3f67bab6bb588d946745
-Q
-!src/app/(home)/dialog/sign-up.tsx,8\b\8b618a32634af2c2ebb0a81540798c27347f59be
-R
-"src/app/api/auth/register/route.ts,f\5\f525f995acc2ae752cf0d75ee2ba9727d4114040
 ƒ
 Ssrc/app/agent-management/product-management/component/ table/product-list-table.tsx,a\6\a678c22e6ba629fc02305de95efd243fa5f72860
 \

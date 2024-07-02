@@ -1,14 +1,27 @@
 import {NextResponse} from "next/server";
+import prisma from "@/lib/db/prisma";
 
-export async function POST(request: Request) {
+export async function POST(req: Request ) {
     try {
-        const { email, password } = await request.json();
-        // YOU MAY WANT TO ADD SOME VALIDATION HERE
-
-        console.log({ email, password });
-    } catch (e) {
-        console.log({ e });
+        const body = await req.json()
+        const parseData = {
+            email: body.email,
+            username: body.username,
+            password: body.password,
+            phone: '11111111111111111'.toString(),
+            address: body.isSeller,
+            is_agent: body.isSeller,
+            is_authenticate: false,
+            full_name:'tesssssssssss'
+        }
+        console.log("==============",parseData)
+        await prisma.user.create({data:parseData})
+        return new NextResponse({status: 202},{data: {status: 'ok'}})
+    } catch (error) {
+        console.log("===========",error)
+        return new NextResponse(
+            {error: 'Internal server error - delete '},
+            {status: 500}
+        );
     }
-
-    return NextResponse.json({ message: "success" });
 }
