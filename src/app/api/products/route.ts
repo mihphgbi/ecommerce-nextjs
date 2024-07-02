@@ -29,11 +29,20 @@ export async function DELETE(req: Request) {
     }
 }
 
-export async function POST(req: Request,res: Response ) {
+export async function POST(req: Request ) {
     try {
-        const body = res.body
-        await prisma.product.create({data:body})
-        return NextResponse.json({status: 202})
+        const body = await req.json()
+        const parseData = {
+            name: body.name,
+            description: body.description,
+            image: body.image,
+            quality: parseInt(body.quality),
+            price: parseFloat(body.price),
+            is_sale: body.is_sale,
+            sale_price: parseFloat(body.sale_price),
+        }
+        await prisma.product.create({data:parseData})
+        return new NextResponse({status: 202},{data: {status: 'ok'}})
     } catch (error) {
         return NextResponse(
             {error: 'Internal server error - delete '},
@@ -44,9 +53,16 @@ export async function POST(req: Request,res: Response ) {
 
 export async function PUT(req: Request,res: Response ) {
     try {
-        const body = res.body
-        await prisma.product.create({data:body})
-        return NextResponse.json({status: 202})
+        const searchParams = req.nextUrl.searchParams;
+        const id = searchParams.get('id');
+        const body = await req.json()
+        await prisma.product.update({
+            where: {
+                id: id,
+            },
+            data: body,
+        })
+        return new NextResponse({status: 202})
     } catch (error) {
         return NextResponse(
             {error: 'Internal server error - delete '},

@@ -1,9 +1,19 @@
 
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-P
- src/api/products/product-data.ts,1\9\193c179e8fba351d07190af4356bdef8d0ffd043
 S
-#src/api/auth/[...nextauth]/route.ts,a\e\ae9c82457ac3394d92236f8a4175bd47a3ea1684
-<
-package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
+#src/app/agent-management/layout.tsx,b\0\b0fd89d2ee91709bed3a3f67bab6bb588d946745
+Q
+!src/app/(home)/dialog/sign-up.tsx,8\b\8b618a32634af2c2ebb0a81540798c27347f59be
+R
+"src/app/api/auth/register/route.ts,f\5\f525f995acc2ae752cf0d75ee2ba9727d4114040
+ƒ
+Ssrc/app/agent-management/product-management/component/ table/product-list-table.tsx,a\6\a678c22e6ba629fc02305de95efd243fa5f72860
+\
+,.idea/inspectionProfiles/Project_Default.xml,4\9\496a238a6afa168dbaf6efd37bb459331589579c
+w
+G.idea/sonarlint/issuestore/7/0/7030d0b2f71b999ff89a343de08c414af32fc93a,9\d\9d19eaab4327edc07435a682d68ef383811840e5
+w
+G.idea/sonarlint/issuestore/8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d,b\4\b4a0b63ce8560bbc5de0f9995c20cc861dc2adb3
+s
+Csrc/app/agent-management/product-management/dialog/edit-product.tsx,d\a\da341bacb91f5a9d6331503132457c0d70e9110f

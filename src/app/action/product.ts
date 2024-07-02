@@ -26,48 +26,40 @@ export const getProductData = async () => {
 
 export const createProduct = async (payload) => {
     try {
-        await prisma.product.create({data:payload})
-    } catch (e) {
-        if (e instanceof Prisma.PrismaClientValidationError) {
-            // The .code property can be accessed in a type-safe manner
-            if (e.code === 'P2002') {
-                console.log(
-                    'There is a unique constraint violation, a new user cannot be created with this email'
-                )
-            }
-            console.log(
-                'Test success'
-            )
+        const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/products`, {
+            method: 'POST',
+            body: JSON.stringify(payload),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-        throw e
+    } catch (error) {
+        console.error('Failed to fetch products:', error);
+        return [];
     }
 }
 
 export const updateProduct = async (id, payload) => {
     try {
-        const updateUser = await prisma.product.update({
-            where: {
-                id: id,
+        const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/products?id=${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(payload),
+            headers: {
+                'Content-Type': 'application/json',
             },
-            data: payload,
-        })
-    } catch (e) {
-        if (e instanceof Prisma.PrismaClientValidationError) {
-            // The .code property can be accessed in a type-safe manner
-            if (e.code === 'P2002') {
-                console.log(
-                    'There is a unique constraint violation, a new user cannot be created with this email'
-                )
-            }
-            console.log(
-                'Test success'
-            )
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-        throw e
+        return response.ok;
+    } catch (error) {
+        console.error('Failed to fetch products:', error);
+        return [];
     }
 }
-
-
 
 export const deleteProduct = async (payload) => {
     try {
