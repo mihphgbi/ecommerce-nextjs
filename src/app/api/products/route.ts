@@ -28,3 +28,29 @@ export async function DELETE(req: Request) {
         );
     }
 }
+
+export async function POST(req: Request,res: Response ) {
+    try {
+        const body = res.body
+        await prisma.product.create({data:body})
+        return NextResponse.json({status: 202})
+    } catch (error) {
+        return NextResponse(
+            {error: 'Internal server error - delete '},
+            {status: 500}
+        );
+    }
+}
+
+export async function PUT(req: Request,res: Response ) {
+    try {
+        const body = res.body
+        await prisma.product.create({data:body})
+        return NextResponse.json({status: 202})
+    } catch (error) {
+        return NextResponse(
+            {error: 'Internal server error - delete '},
+            {status: 500}
+        );
+    }
+}
