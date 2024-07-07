@@ -13,3 +13,27 @@ w
 G.idea/sonarlint/issuestore/8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d,b\4\b4a0b63ce8560bbc5de0f9995c20cc861dc2adb3
 s
 Csrc/app/agent-management/product-management/dialog/edit-product.tsx,d\a\da341bacb91f5a9d6331503132457c0d70e9110f
+u
+Esrc/app/agent-management/product-management/dialog/delete-product.tsx,1\f\1ff9bf203025ea21f93842be2ad49fe60fff6056
+?
+src/lib/auth.ts,8\0\80ce480af42cb44ed4d118984df8521ef580bc98
+q
+Asrc/app/agent-management/product-management/product-list/page.tsx,4\9\49e4faaebbb6a12b90c8fa330340584f899d6f74
+p
+@src/app/agent-management/product-management/add-product/page.tsx,f\d\fde35a882240d3343ec01b1f7cf17b810e097c7f
+O
+src/app/(auth)/sign-in/page.tsx,6\d\6d85e9acbbf2ce5b79a830d158cc2f252fa797ad
+O
+src/app/(auth)/sign-up/page.tsx,e\8\e85858d29aa4764870d6cdd2f5308558ad274a4b
+w
+G.idea/sonarlint/issuestore/b/0/b0fd89d2ee91709bed3a3f67bab6bb588d946745,0\4\046236b498ebbce25bbd6a34483dd2b2b4f2a001
+w
+G.idea/sonarlint/issuestore/d/a/da341bacb91f5a9d6331503132457c0d70e9110f,e\f\efad73bb77116795e06db36e8cd4615dffdbdcf3
+w
+G.idea/sonarlint/issuestore/4/9/496a238a6afa168dbaf6efd37bb459331589579c,6\e\6e9644ddf83ab52f39902ecdbfdf4118285ac40c
+w
+G.idea/sonarlint/issuestore/9/d/9d19eaab4327edc07435a682d68ef383811840e5,0\2\02d93fd190b210acdc01b748c787d878e0baf56d
+w
+G.idea/sonarlint/issuestore/b/4/b4a0b63ce8560bbc5de0f9995c20cc861dc2adb3,b\0\b04578cffb47b1e57970601a0cacef6081245859
+w
+G.idea/sonarlint/issuestore/a/6/a678c22e6ba629fc02305de95efd243fa5f72860,3\0\30405380ec931824fdbdf1915f37cc9c0bcd4d18
