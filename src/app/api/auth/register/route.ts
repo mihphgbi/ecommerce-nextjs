@@ -1,13 +1,12 @@
 import {NextResponse} from "next/server";
 import prisma from "@/lib/db/prisma";
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 import {PASSWORD_REGEX} from "@/regex/auth";
 
 export async function POST(req: Request ) {
     try {
         const body = await req.json()
         if (!PASSWORD_REGEX.test(body.password)) {
-            console.log("===========fail");
             throw new Error('Password does not meet criteria')
         }
         // kiểm tra username đã có chưa
@@ -22,15 +21,10 @@ export async function POST(req: Request ) {
             is_authenticate: false,
             full_name:body.fullName.toString()
         }
-        console.log("==============",parseData)
         await prisma.user.create({data:parseData})
-        return new NextResponse({status: 202},{data: {status: 'ok'}})
+        return NextResponse.json({ status: 'ok' }, { status: 202 })
 
     } catch (error) {
-        console.log("===========",error)
-        return new NextResponse(
-            { error: error.message }, // Return the error message thrown
-            { status: 400 } // Use appropriate status code based on the error
-        );
+        return NextResponse.json({ error: error?.message }, { status: 401 })
     }
 }

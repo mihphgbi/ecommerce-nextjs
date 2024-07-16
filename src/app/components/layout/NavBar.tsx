@@ -1,4 +1,3 @@
-import React from "react";
 import DesktopNavBar from "@/app/components/layout/DesktopNavBar";
 import {Col, Row} from "antd";
 import TopBar from "@/app/components/layout/TopBar";

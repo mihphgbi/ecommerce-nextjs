@@ -151,7 +151,7 @@ export default function ProductDetail() {
                                     This classic white t-shirt is made from 100% cotton, providing a comfortable and
                                     breathable fit. The unisex design makes it a versatile option for men and women. Perfect
                                     for layering or wearing on its own, this t-shirt is a must-have in any wardrobe. It is
-                                    available in a variety of sizes, making it easy to find the perfect fit. Whether you're
+                                    available in a variety of sizes, making it easy to find the perfect fit. Whether you are
                                     running errands or dressing up for a night out, this white t-shirt is a versatile and
                                     timeless piece.
                                 </Paragraph>

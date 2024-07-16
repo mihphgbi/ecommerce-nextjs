@@ -8,7 +8,7 @@ const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL
 export const getUserProfile = () => {
 
 }
-export const createUser = async (payload) => {
+export const createUser = async (payload: any) => {
     try {
         const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/auth/register`, {
             method: 'POST',
@@ -17,7 +17,6 @@ export const createUser = async (payload) => {
                 'Content-Type': 'application/json',
             },
         });
-        console.log("=================",response)
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

@@ -1,3 +1,4 @@
+'use client';
 import SignInForm from "@/app/components/form/sign-in";
 import {SignInFieldType} from "@/model/form/form";
 import {FormProps} from "antd";

@@ -1,8 +1,7 @@
 import prisma from "@/lib/db/prisma";
-import {getAuthSession} from "@/lib/auth";
-import {NextResponse} from "next/server";
+import {NextRequest, NextResponse} from "next/server";
 
-export async function GET(res: Response) {
+export async function GET(res: NextResponse) {
     try {
         const res = await prisma.product.findMany();
         return NextResponse.json({data: res})
@@ -11,7 +10,7 @@ export async function GET(res: Response) {
     }
 }
 
-export async function DELETE(req: Request) {
+export async function DELETE(req: NextRequest, res: NextResponse) {
     const searchParams = req.nextUrl.searchParams;
     const id = searchParams.get('id');
     try {
@@ -22,14 +21,14 @@ export async function DELETE(req: Request) {
         })
         return NextResponse.json({res});
     } catch (error) {
-        return NextResponse(
+        return NextResponse.json(
             {error: 'Internal server error - delete '},
             {status: 500}
         );
     }
 }
 
-export async function POST(req: Request ) {
+export async function POST(req: NextRequest, res: NextResponse ) {
     try {
         const body = await req.json()
         const parseData = {
@@ -42,16 +41,16 @@ export async function POST(req: Request ) {
             sale_price: parseFloat(body.sale_price),
         }
         await prisma.product.create({data:parseData})
-        return new NextResponse({status: 202},{data: {status: 'ok'}})
+        return NextResponse.json({status: 202},{ msg: 'ok'})
     } catch (error) {
-        return NextResponse(
+        return NextResponse.json(
             {error: 'Internal server error - delete '},
             {status: 500}
         );
     }
 }
 
-export async function PUT(req: Request,res: Response ) {
+export async function PUT(req: NextRequest, res: NextResponse ) {
     try {
         const searchParams = req.nextUrl.searchParams;
         const id = searchParams.get('id');
@@ -62,9 +61,9 @@ export async function PUT(req: Request,res: Response ) {
             },
             data: body,
         })
-        return new NextResponse({status: 202})
+        return NextResponse.json({status: 202})
     } catch (error) {
-        return NextResponse(
+        return NextResponse.json(
             {error: 'Internal server error - delete '},
             {status: 500}
         );

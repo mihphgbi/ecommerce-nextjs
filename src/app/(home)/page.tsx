@@ -88,7 +88,7 @@ export default function Index() {
                         <Title level={1} className={"text-center text-white"}>Explore Our Newest Cosmetic
                             Arrivals!</Title>
                         <Typography className={"text-center text-[16px] leading-[24px]"}>
-                            Our latest cosmetic arrivals have just landed, and they're sure to dazzle you.
+                            Our latest cosmetic arrivals have just landed, and they are sure to dazzle you.
                             Check out the freshest makeup, skincare, beauty products and elevate your beauty routine.
                         </Typography>
                         <div className={'text-center'}>

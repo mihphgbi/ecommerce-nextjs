@@ -1,3 +1,4 @@
+'use client';
 import React from "react";
 import {Button, Checkbox, Form, Input} from "antd";
 import {SignUpFieldType} from "@/model/form/form";
