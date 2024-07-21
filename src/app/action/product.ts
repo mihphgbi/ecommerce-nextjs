@@ -3,9 +3,12 @@
 // const name = FormData.get('name')?.toString
 import prisma from "@/lib/db/prisma";
 import { Prisma } from '@prisma/client'
+import {deleteItem} from "@/lib/store/product/productSlice";
+import {Dispatch} from "redux";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
 const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL
-export const getProductData = async () => {
+export const getProductData = createAsyncThunk('product/getList',async () => {
     try {
         const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/products`, {
             method: 'GET',
@@ -22,7 +25,7 @@ export const getProductData = async () => {
         console.error('Failed to fetch products:', error);
         return [];
     }
-};
+});
 
 export const createProduct = async (payload) => {
     try {
@@ -61,7 +64,7 @@ export const updateProduct = async (id, payload) => {
     }
 }
 
-export const deleteProduct = async (payload) => {
+export const deleteProduct =  createAsyncThunk('product/deleteItem', async (payload: any) => {
     try {
         const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/products?id=${payload}`, {
             method: 'DELETE',
@@ -77,4 +80,4 @@ export const deleteProduct = async (payload) => {
         console.error('Failed to fetch products:', error);
         return [];
     }
-}
+})

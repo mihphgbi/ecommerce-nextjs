@@ -221,8 +221,8 @@ export default function ProductDetail() {
                                         </div>
                                         <div className={'py-[16px]'}>
                                             <Typography
-                                                className={'leading-[22px] font-bold text-[14px]'}>{item.title}</Typography>
-                                            <Typography className={'text-[12px]'}>{item.text}</Typography>
+                                                className={'leading-[22px] font-bold text-[14px]'}>{item.name}</Typography>
+                                            <Typography className={'text-[12px]'}>{item.name}</Typography>
                                         </div>
                                     </Item>
                                 )}

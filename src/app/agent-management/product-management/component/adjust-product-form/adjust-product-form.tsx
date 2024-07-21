@@ -4,7 +4,8 @@ import {ProductItem} from "@/model/product/product";
 import {Button, Checkbox, Form, Input} from "antd";
 interface AdjustProductFormProps {
     onFinish: any,
-    onFinishFailed: any
+    onFinishFailed: any,
+    fields: any
 }
 const AdjustProductForm : React.FC<AdjustProductFormProps> = (props) => {
     const [componentDisabled, setComponentDisabled] = useState(false);

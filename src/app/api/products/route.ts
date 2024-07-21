@@ -12,7 +12,7 @@ export async function GET(res: NextResponse) {
 
 export async function DELETE(req: NextRequest, res: NextResponse) {
     const searchParams = req.nextUrl.searchParams;
-    const id = searchParams.get('id');
+    const id = searchParams.get('id') || '';
     try {
         const res = await prisma.product.delete({
             where: {
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest, res: NextResponse ) {
 export async function PUT(req: NextRequest, res: NextResponse ) {
     try {
         const searchParams = req.nextUrl.searchParams;
-        const id = searchParams.get('id');
+        const id = searchParams.get('id') || '';
         const body = await req.json()
         await prisma.product.update({
             where: {

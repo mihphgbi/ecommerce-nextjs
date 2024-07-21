@@ -11,6 +11,7 @@
   "dependencies": {
     "@auth/prisma-adapter": "^1.5.2",
     "@prisma/client": "^5.16.1",
+    "@reduxjs/toolkit": "^2.2.6",
     "antd": "^5.16.0",
     "bcrypt": "^5.1.1",
     "eslint-config-prettier": "^9.1.0",
@@ -21,6 +22,7 @@
     "prisma": "^5.14.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-redux": "^9.1.2",
     "sass": "^1.74.1",
     "zod": "^3.23.8"
   },

@@ -2,17 +2,23 @@
 import ProductListTable from "@/app/agent-management/product-management/component/ table/product-list-table";
 import {useEffect, useState} from "react";
 import {getProductData} from "@/app/action/product";
+import {useSelector} from "react-redux";
+import {useAppDispatch, useAppSelector} from "@/lib/hook";
 
 const ProductList: React.FC = () => {
+    const dispatch = useAppDispatch();
     const [products,setProducts] = useState([]);
+    const isDelete = useAppSelector(state => state.products.isDelete);
+    const productList = useAppSelector(state => state.products.productList);
     useEffect(() => {
-        async function fetchProducts() {
-            const productsData = await getProductData();
-            setProducts(productsData);
-        }
-        fetchProducts()
-    }, []);
+         dispatch(getProductData());
 
+    }, [isDelete]);
+    useEffect(() => {
+        if(productList?.length > 0) {
+            setProducts(productList);
+        }
+    }, [productList]);
     return (
         <>
             <ProductListTable data={products}/>
