@@ -5,12 +5,10 @@ import AdjustProductForm
     from "@/app/agent-management/product-management/component/adjust-product-form/adjust-product-form";
 import {ProductItem} from "@/model/product/product";
 import {updateProduct} from "@/app/action/product";
+import {useAppDispatch} from "@/lib/hook";
 
-interface EditProductProps {
-    record?: any
-}
-
-const EditProduct: React.FC<EditProductProps> = (record: any) => {
+const EditProduct: React.FC = ({record}) => {
+    const dispatch = useAppDispatch();
     const [fields, setFields] = useState<ProductItem[]>([]);
     const [openEditDialog, setEditDialog] = useState<boolean>(false);
 
@@ -23,16 +21,17 @@ const EditProduct: React.FC<EditProductProps> = (record: any) => {
 
     }
     const onFinish: FormProps<ProductItem>['onFinish'] = (values: any) => {
-        const dataSubmit = {
+        const data = {
             name: values.name,
             description: values.description,
             image: values.image,
             quality: parseInt(values.quality),
             price: parseFloat(values.price),
             is_sale: values.is_sale,
-            sale_price: parseFloat(values.sale_price),
+            sale_price: values.is_sale ? parseFloat(values.sale_price) : 0,
         }
-        updateProduct(record.id, dataSubmit);
+        dispatch(updateProduct({id: record.id, data}));
+        setEditDialog(false)
     };
     return (
         <>

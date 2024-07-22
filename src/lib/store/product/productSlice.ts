@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 // @ts-ignore
-import {deleteProduct, getProductData} from "@/app/action/product";
+import {createProduct, deleteProduct, getProductData, updateProduct} from "@/app/action/product";
 
 // Define a type for the slice state
 interface ProductState {
@@ -38,7 +38,25 @@ export const productSlice = createSlice({
                 state.error = action.error.message
             })
             .addCase(deleteProduct.fulfilled,(state,action) => {
-            state.isDelete = !state.isDelete;
+                state.isDelete = !state.isDelete;
+            })
+            .addCase(createProduct.pending, (state, action) => {
+
+            })
+            .addCase(createProduct.fulfilled, (state, action) => {
+                state.isDelete =!state.isDelete
+            })
+            .addCase(createProduct.rejected, (state, action) => {
+
+            })
+            .addCase(updateProduct.pending, (state, action) => {
+
+            })
+            .addCase(updateProduct.fulfilled, (state, action) => {
+                state.isDelete =!state.isDelete
+            })
+            .addCase(updateProduct.rejected, (state, action) => {
+
             })
             .addCase(getProductData.fulfilled, (state, action) => {
                 state.productList = action.payload
