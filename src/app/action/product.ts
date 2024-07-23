@@ -1,10 +1,5 @@
 'use client';
 
-// const name = FormData.get('name')?.toString
-import prisma from "@/lib/db/prisma";
-import { Prisma } from '@prisma/client'
-import {deleteItem} from "@/lib/store/product/productSlice";
-import {Dispatch} from "redux";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 
 const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL
@@ -27,7 +22,7 @@ export const getProductData = createAsyncThunk('product/getList',async () => {
     }
 });
 
-export const createProduct = async (payload) => {
+export const createProduct = createAsyncThunk('product/createItem',async (payload) => {
     try {
         const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/products`, {
             method: 'POST',
@@ -43,13 +38,15 @@ export const createProduct = async (payload) => {
         console.error('Failed to fetch products:', error);
         return [];
     }
-}
+})
 
-export const updateProduct = async (id, payload) => {
+export const updateProduct = createAsyncThunk('product/updateItem',async (payload) => {
     try {
+        // @ts-ignore
+        const {id, data} = payload
         const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/products?id=${id}`, {
             method: 'PUT',
-            body: JSON.stringify(payload),
+            body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -62,7 +59,7 @@ export const updateProduct = async (id, payload) => {
         console.error('Failed to fetch products:', error);
         return [];
     }
-}
+})
 
 export const deleteProduct =  createAsyncThunk('product/deleteItem', async (payload: any) => {
     try {
