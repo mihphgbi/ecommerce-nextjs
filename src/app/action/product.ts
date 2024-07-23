@@ -22,7 +22,7 @@ export const getProductData = createAsyncThunk('product/getList',async () => {
     }
 });
 
-export const createProduct = createAsyncThunk('product/createItem',async (payload) => {
+export const createProduct = createAsyncThunk('product/createItem',async (payload,ttt,yyy) => {
     try {
         const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/products`, {
             method: 'POST',
