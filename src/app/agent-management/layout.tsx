@@ -5,12 +5,12 @@ import {useRouter} from "next/navigation";
 import React, { useState } from 'react';
 import {
     MenuFoldOutlined,
-    MenuUnfoldOutlined,
+    MenuUnfoldOutlined, PlusCircleOutlined, ShoppingCartOutlined,
     UploadOutlined,
     UserOutlined,
     VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Button, Layout, Menu, theme } from 'antd';
+import {Button, Layout, Menu, MenuProps, theme} from 'antd';
 
 const { Header, Sider, Content } = Layout;
 
@@ -22,27 +22,36 @@ const AgentManagementLayout = ({children}: {children: React.ReactNode}) => {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
 
+    const onClick: MenuProps['onClick'] = (e) => {
+        const NAVIGATE_CONSTANT = {
+            [1]: '/agent-management/product-management/add-product',
+            [2]: '/agent-management/product-management/product-list'
+        }
+        router.push(NAVIGATE_CONSTANT[e.key]);
+    };
+
     return (
         <>
             {
                 !session ? (
-                    <Layout style={{height: '100%'}}>
-                        <Sider trigger={null} collapsible collapsed={collapsed}>
+                    <Layout style={{height: '100vh'}}>
+                        <Sider trigger={null} collapsible collapsed={collapsed} style={{paddingTop:'3rem'}}>
                             <div className="demo-logo-vertical" />
                             <Menu
+                                onClick={onClick}
                                 theme="dark"
                                 mode="inline"
                                 defaultSelectedKeys={['1']}
                                 items={[
                                     {
                                         key: '1',
-                                        icon: <UserOutlined />,
-                                        label: 'Product Management',
+                                        icon: <PlusCircleOutlined />,
+                                        label: 'Add Product',
                                     },
                                     {
                                         key: '2',
-                                        icon: <UserOutlined />,
-                                        label: 'Information',
+                                        icon: <ShoppingCartOutlined />,
+                                        label: 'Product List',
                                     },
                                 ]}
                             />

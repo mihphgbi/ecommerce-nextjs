@@ -8,7 +8,7 @@ interface DeleteProductProps {
     id?: string
 }
 
-const DeleteProduct: React.FC<DeleteProductProps> = (id) => {
+const DeleteProduct: React.FC<DeleteProductProps> = ({id}) => {
     const dispatch = useAppDispatch();
     const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
     const handleDelete = () => {

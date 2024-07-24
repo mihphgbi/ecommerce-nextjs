@@ -7,7 +7,11 @@ import {ProductItem} from "@/model/product/product";
 import {updateProduct} from "@/app/action/product";
 import {useAppDispatch} from "@/lib/hook";
 
-const EditProduct: React.FC = ({record}) => {
+interface EditProductProps {
+    record?: any
+}
+
+const EditProduct: React.FC<EditProductProps> = ({record}) => {
     const dispatch = useAppDispatch();
     const [fields, setFields] = useState<ProductItem[]>([]);
     const [openEditDialog, setEditDialog] = useState<boolean>(false);
