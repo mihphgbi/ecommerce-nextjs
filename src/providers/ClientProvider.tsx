@@ -5,13 +5,19 @@ import {SessionProvider} from "next-auth/react"
 // import { Toaster } from "react-hot-toast"
 import React from "react";
 import StoreProvider from "@/app/ProviderStore";
+import {Session} from "next-auth";
 
-const ClientProvider = ({children}: { children: React.ReactNode }) => {
+interface ProvidersProps {
+    children: React.ReactNode;
+    session?: Session | null;
+}
+
+const ClientProvider = ({ children, session }: ProvidersProps) => {
     // const queryClient = new QueryClient()
 
     return (
         // <QueryClientProvider client={queryClient}>
-        <SessionProvider>
+        <SessionProvider session={session}>
             <StoreProvider>
                 {/*<Toaster />*/}
                 {children}
