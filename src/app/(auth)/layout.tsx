@@ -1,8 +1,11 @@
 import React from "react";
+
 export default function AuthLayout({children}: React.PropsWithChildren) {
     return (
         <>
-            {children}
+            <div className={'w-[100%] h-[100vh] justify-center items-center flex'}>
+                {children}
+            </div>
         </>
     )
 }

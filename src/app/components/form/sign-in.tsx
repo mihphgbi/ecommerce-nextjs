@@ -12,7 +12,7 @@ const SignInForm = ({onFinish,onFinishFailed}) => {
                 name="basic"
                 labelCol={{ span: 5 }}
                 wrapperCol={{ span: 19 }}
-                style={{ maxWidth: 600 }}
+                style={{ minWidth: 400 }}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
@@ -38,11 +38,11 @@ const SignInForm = ({onFinish,onFinishFailed}) => {
                 <Form.Item<SignInFieldType>
                     name="remember"
                     valuePropName="checked"
-                    wrapperCol={{ offset: 8, span: 16 }}
+                    wrapperCol={{ offset: 2, span: 16 }}
                 >
                     <Checkbox>Remember me</Checkbox>
                 </Form.Item>
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <Form.Item wrapperCol={{ offset: 10, span: 12 }}>
                     <Button type="primary" htmlType="submit">
                         Submit
                     </Button>

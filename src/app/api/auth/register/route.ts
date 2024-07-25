@@ -1,14 +1,22 @@
 import {NextResponse} from "next/server";
 import prisma from "@/lib/db/prisma";
-import bcrypt from 'bcrypt';
 import {PASSWORD_REGEX} from "@/regex/auth";
 
 export async function POST(req: Request ) {
     try {
         const body = await req.json()
+
+
         if (!PASSWORD_REGEX.test(body.password)) {
             throw new Error('Password does not meet criteria')
         }
+        const bcrypt = require('bcrypt');
+        const saltRounds = 10;
+        bcrypt.genSalt(saltRounds, (err: any, salt: any) => {
+            bcrypt.hash(body.password, salt, function(err, hash) {
+                // Store hash in the database
+            });
+        })
         // kiểm tra username đã có chưa
         // kiểm tra email đã có chưa
         const parseData = {

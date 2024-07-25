@@ -8,9 +8,9 @@ const SignUpForm = ({onFinish,onFinishFailed}) => {
         <>
             <Form
                 name="basic"
-                labelCol={{ span: 5 }}
-                wrapperCol={{ span: 19 }}
-                style={{ maxWidth: 600 }}
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+                style={{ minWidth: 400, maxWidth: 600 }}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}

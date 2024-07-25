@@ -19,35 +19,40 @@ export const authOptions: NextAuthOptions= {
                 password: {},
             },
             async authorize(credentials, req) {
-                console.log({ credentials });
+                try {
+                    const user = await prisma.User.findFirst({
+                        where: {
+                            username: credentials.username,
+                        }
+                    });
+                    console.log({ credentials });
 
-                /* GET User details */
-                const user = await prisma.User.findFirst({
-                    where: {
-                        username: credentials.username,
+                    /* GET User details */
+
+                    console.log(user);
+
+                    if (Object.keys(user).length > 0) {
+                        console.log("USER FOUND");
+                        // const hashPass = await bcrypt.hash(credentials.password, 10)
+                        const passwordCorrect =  credentials.password === user.password;
+                        console.log("rrrrrrrrrrr",passwordCorrect);  // True or False
+
+
+                        if (passwordCorrect) {
+                            return {
+                                id: user.id,
+                                name: user.username,
+                                email: user.email,
+                            };
+                        }
                     }
-                });
 
-                console.log(user);
-
-                if (Object.keys(user).length > 0) {
-                    console.log("USER FOUND");
-                    // const hashPass = await bcrypt.hash(credentials.password, 10)
-                    const passwordCorrect =  credentials.password === user.password;
-                    console.log("rrrrrrrrrrr",passwordCorrect);  // True or False
-
-
-                    if (passwordCorrect) {
-                        return {
-                            id: user.id,
-                            name: user.username,
-                            email: user.email,
-                        };
-                    }
+                    console.log("USER NOT FOUND");
+                    return null;
                 }
-
-                console.log("USER NOT FOUND");
-                return null;
+                catch (error) {
+                    throw new Error ('Login fail')
+                }
             }
         })
     ],
