@@ -5,7 +5,7 @@ import {useRouter} from "next/navigation";
 const AgentManagement = () => {
     const router = useRouter();
 
-    const directToAddProductPage = (name) => {
+    const directToAddProductPage = (name: string) => {
         switch (name) {
             case 'add':
                 router.push('/agent-management/product-management/add-product');

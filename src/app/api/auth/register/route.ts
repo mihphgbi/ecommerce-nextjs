@@ -14,7 +14,7 @@ export async function POST(req: Request ) {
         const parseData = {
             email: body.email,
             username: body.username,
-            password: await bcrypt.hash(body.password, 10),
+            password: body.password,
             phone: body.password.toString(),
             address: body.address,
             is_agent: body.isSeller,

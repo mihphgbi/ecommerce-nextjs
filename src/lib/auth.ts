@@ -3,6 +3,7 @@ import {getServerSession, NextAuthOptions} from "next-auth";
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/db/prisma";
+import bcrypt from "bcrypt";
 
 
 export const authOptions: NextAuthOptions= {
@@ -18,22 +19,23 @@ export const authOptions: NextAuthOptions= {
                 password: {},
             },
             async authorize(credentials, req) {
-                // console.log({ credentials });
+                console.log({ credentials });
 
                 /* GET User details */
                 const user = await prisma.User.findFirst({
                     where: {
-                        email: credentials.username,
+                        username: credentials.username,
                     }
                 });
 
-                // console.log(user);
+                console.log(user);
 
-                if (user.length > 0) {
+                if (Object.keys(user).length > 0) {
                     console.log("USER FOUND");
-                    const passwordCorrect = await compare(credentials.password, user.password);
+                    // const hashPass = await bcrypt.hash(credentials.password, 10)
+                    const passwordCorrect =  credentials.password === user.password;
+                    console.log("rrrrrrrrrrr",passwordCorrect);  // True or False
 
-                    console.log(passwordCorrect);  // True or False
 
                     if (passwordCorrect) {
                         return {
