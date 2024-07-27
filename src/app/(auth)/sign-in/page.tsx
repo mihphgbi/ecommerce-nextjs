@@ -35,7 +35,7 @@ const SignInPage = () => {
     return (
         <>
             <SignInForm onFinish={onFinish} onFinishFailed={onFinishFailed}/>
-            <p>Don't have an account? <Link href={'/sign-up'} className={'text-blue-600'}>Sign up</Link></p>
+            <p>Do not have an account? <Link href={'/sign-up'} className={'text-blue-600'}>Sign up</Link></p>
         </>
     )
 }
