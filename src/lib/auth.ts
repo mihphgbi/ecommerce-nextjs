@@ -1,11 +1,8 @@
-// import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import {getServerSession, NextAuthOptions} from "next-auth";
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from "next-auth/providers/credentials";
-import prisma from "@/lib/db/prisma";
-import bcrypt from "bcrypt";
 
-
+const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL
 export const authOptions: NextAuthOptions= {
     // adapter: PrismaAdapter(prisma),
     providers: [
@@ -18,37 +15,31 @@ export const authOptions: NextAuthOptions= {
                 username: {},
                 password: {},
             },
-            async authorize(credentials, req) {
+            async authorize(credentials: any, req) {
                 try {
-                    const user = await prisma.User.findFirst({
-                        where: {
-                            username: credentials.username,
-                        }
+                    const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/user?name=${credentials.username}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
                     });
-                    console.log({ credentials });
-
-                    /* GET User details */
-
-                    console.log(user);
+                    const data = await response.json()
+                    const user = data.data;
 
                     if (Object.keys(user).length > 0) {
-                        console.log("USER FOUND");
-                        // const hashPass = await bcrypt.hash(credentials.password, 10)
-                        const passwordCorrect =  credentials.password === user.password;
-                        console.log("rrrrrrrrrrr",passwordCorrect);  // True or False
-
-
+                        const bcrypt = require('bcrypt');
+                        const passwordCorrect = await bcrypt.compare(credentials.password, user.password);
                         if (passwordCorrect) {
+                        console.log("USER FOUND");
                             return {
                                 id: user.id,
                                 name: user.username,
                                 email: user.email,
                             };
                         }
+                    } else {
+                        return new Error('User not found');
                     }
-
-                    console.log("USER NOT FOUND");
-                    return null;
                 }
                 catch (error) {
                     throw new Error ('Login fail')

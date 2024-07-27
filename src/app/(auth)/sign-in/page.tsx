@@ -3,10 +3,9 @@ import SignInForm from "@/app/components/form/sign-in";
 import {SignInFieldType} from "@/model/form/form";
 import {FormProps} from "antd";
 import {signIn} from 'next-auth/react';
+import Link from "next/link";
 
 const SignInPage = () => {
-
-
     const onFinish: FormProps<SignInFieldType>['onFinish'] = async (values) => {
         'use sever';
         try {
@@ -24,8 +23,7 @@ const SignInPage = () => {
                 console.log("SIGN IN FAILED")
                 // Here you can display an error message to the user
             }
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error)
         }
 
@@ -37,6 +35,7 @@ const SignInPage = () => {
     return (
         <>
             <SignInForm onFinish={onFinish} onFinishFailed={onFinishFailed}/>
+            <p>Don't have an account? <Link href={'/sign-up'} className={'text-blue-600'}>Sign up</Link></p>
         </>
     )
 }
