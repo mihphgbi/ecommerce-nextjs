@@ -27,7 +27,7 @@ const AgentManagementLayout = ({children}: { children: React.ReactNode }) => {
         router.push(NAVIGATE_CONSTANT[e.key]);
     };
     console.log("==========", session)
-    if (session) {
+    if (!session) {
         return (
             <Layout style={{height: '100vh'}}>
                 <Sider trigger={null} collapsible collapsed={collapsed} style={{paddingTop: '3rem'}}>
