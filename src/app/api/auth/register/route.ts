@@ -23,7 +23,6 @@ export async function POST(req: Request ) {
             is_authenticate: false,
             full_name:body.fullName.toString()
         }
-        console.log("==================",parseData)
         await prisma.user.create({data:parseData})
         return NextResponse.json({ status: 'ok' }, { status: 202 })
 
