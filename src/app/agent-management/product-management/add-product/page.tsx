@@ -1,10 +1,10 @@
 'use client';
 import {FormProps} from "antd";
 import {ProductItem} from "@/model/product/product";
-import {createProduct} from "@/app/action/product";
+import {createProduct} from "@/lib/redux/action/product";
 import AdjustProductForm
     from "@/app/agent-management/product-management/component/adjust-product-form/adjust-product-form";
-import {useAppDispatch, useAppSelector} from "@/lib/hook";
+import {useAppDispatch, useAppSelector} from "@/lib/redux/hook";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 

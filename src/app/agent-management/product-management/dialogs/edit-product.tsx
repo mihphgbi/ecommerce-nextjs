@@ -4,8 +4,8 @@ import {Button, FormProps, Modal} from "antd";
 import AdjustProductForm
     from "@/app/agent-management/product-management/component/adjust-product-form/adjust-product-form";
 import {ProductItem} from "@/model/product/product";
-import {updateProduct} from "@/app/action/product";
-import {useAppDispatch} from "@/lib/hook";
+import {updateProduct} from "@/lib/redux/action/product";
+import {useAppDispatch} from "@/lib/redux/hook";
 
 interface EditProductProps {
     record?: any

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 // @ts-ignore
-import {createProduct, deleteProduct, getProductData, updateProduct} from "@/app/action/product";
+import {createProduct, deleteProduct, getProductData, updateProduct} from "@/lib/redux/action/product";
 
 // Define a type for the slice state
 interface ProductState {

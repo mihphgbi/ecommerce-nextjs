@@ -1,9 +1,9 @@
 'use client';
 import ProductListTable from "@/app/agent-management/product-management/component/ table/product-list-table";
 import {useEffect, useState} from "react";
-import {getProductData} from "@/app/action/product";
+import {getProductData} from "@/lib/redux/action/product";
 import {useSelector} from "react-redux";
-import {useAppDispatch, useAppSelector} from "@/lib/hook";
+import {useAppDispatch, useAppSelector} from "@/lib/redux/hook";
 
 const ProductList: React.FC = () => {
     const dispatch = useAppDispatch();

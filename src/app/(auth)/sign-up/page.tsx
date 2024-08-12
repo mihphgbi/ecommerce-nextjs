@@ -3,8 +3,8 @@ import React, {useEffect} from "react";
 import {FormProps} from "antd";
 import SignUpForm from "@/app/components/form/sign-up";
 import {SignUpFieldType} from "@/model/form/form";
-import {createUser} from "@/app/action/auth";
-import {useAppDispatch, useAppSelector} from "@/lib/hook";
+import {createUser} from "@/lib/redux/action/auth";
+import {useAppDispatch, useAppSelector} from "@/lib/redux/hook";
 import {useRouter} from "next/navigation";
 
 const SignUpPage = () => {

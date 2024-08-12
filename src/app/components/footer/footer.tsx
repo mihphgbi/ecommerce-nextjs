@@ -2,7 +2,7 @@
 import React from "react";
 import {Col, Divider, List, Row, Typography} from "antd";
 import {ShopFilled} from "@ant-design/icons";
-import "./style.scss";
+import "../navigations/style.scss";
 import Item from "antd/lib/list/Item";
 
 const shopList = ['Clothing', 'Shoes', 'Accessories', 'Brands', 'Sale', 'Gift Cards'];

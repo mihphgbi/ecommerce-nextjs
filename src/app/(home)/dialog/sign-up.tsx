@@ -3,8 +3,8 @@ import {Button, FormProps, Modal} from "antd";
 import React, {useState} from "react";
 import SignUpForm from "@/app/components/form/sign-up";
 import {SignUpFieldType} from "@/model/form/form";
-import {createUser} from "@/app/action/auth";
-import {useAppDispatch, useAppSelector} from "@/lib/hook";
+import {createUser} from "@/lib/redux/action/auth";
+import {useAppDispatch, useAppSelector} from "@/lib/redux/hook";
 
 export default function SignUpDialog() {
     const [openSignInPopup, setOpenSignInPopup] = useState<boolean>(false);

@@ -7,7 +7,7 @@ import "./style.scss";
 import SignInDialog from "@/app/(home)/dialog/sign-in";
 import SignUpDialog from "@/app/(home)/dialog/sign-up";
 import {signOut, useSession} from "next-auth/react";
-import TopBar from "@/app/components/layout/TopBar";
+import TopBar from "@/app/components/navigations/top-bar";
 
 type MenuItem = Required<MenuProps>['items'][number];
 

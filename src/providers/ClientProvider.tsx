@@ -4,7 +4,7 @@
 import {SessionProvider} from "next-auth/react"
 // import { Toaster } from "react-hot-toast"
 import React from "react";
-import StoreProvider from "@/app/ProviderStore";
+import StoreProvider from "@/providers/ProviderStore";
 import {Session} from "next-auth";
 
 interface ProvidersProps {

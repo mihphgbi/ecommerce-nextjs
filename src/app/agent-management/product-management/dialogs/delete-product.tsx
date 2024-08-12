@@ -1,8 +1,8 @@
 'use client';
 import React, {useState} from "react";
 import {Button, Modal} from "antd";
-import {useAppDispatch} from "@/lib/hook";
-import {deleteProduct} from "@/app/action/product";
+import {useAppDispatch} from "@/lib/redux/hook";
+import {deleteProduct} from "@/lib/redux/action/product";
 
 interface DeleteProductProps {
     id?: string

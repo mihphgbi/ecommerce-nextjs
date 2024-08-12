@@ -1,6 +1,6 @@
-import DesktopNavBar from "@/app/components/layout/DesktopNavBar";
+import DesktopNavBar from "@/app/components/navigations/desktop-nav-bar";
 import {Col, Row} from "antd";
-import TopBar from "@/app/components/layout/TopBar";
+import TopBar from "@/app/components/navigations/top-bar";
 
 const NavBar = () => {
     return(
