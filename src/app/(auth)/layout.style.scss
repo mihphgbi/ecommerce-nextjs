@@ -1,0 +1,15 @@
+@import "src/style/var_map.scss";
+.bg {
+  background-image: linear-gradient(45deg, colors(purple700) 0%, colors(cyan500) 100%);
+}
+.box{
+
+}
+.input{
+  border: 4px solid #e5e5e5;
+  border-bottom-width: 2px;
+  border-bottom-width: 2px;
+  box-shadow: 0 -2px 0px rgba(4, 4, 4, 0.19) inset, 0 3px 6px
+  rgba(214, 214, 214, 0.3);
+  border-radius: 30px;
+}

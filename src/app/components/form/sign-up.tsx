@@ -7,22 +7,23 @@ const SignUpForm = ({onFinish,onFinishFailed}) => {
     return (
         <>
             <Form
-                name="basic"
+                name="sign-up"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
-                style={{ minWidth: 400, maxWidth: 600 }}
+                style={{ minWidth: 450, maxWidth: 600 }}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
-
+                labelAlign={'left'}
+                requiredMark={false}
             >
                 <Form.Item<SignUpFieldType>
                     label="Username"
                     name="username"
                     rules={[{ required: true, message: 'Please input your username!' }]}
                 >
-                    <Input />
+                    <Input size={'large'} />
                 </Form.Item>
 
                 <Form.Item<SignUpFieldType>
@@ -30,7 +31,7 @@ const SignUpForm = ({onFinish,onFinishFailed}) => {
                     name="password"
                     rules={[{ required: true, message: 'Please input your password!' }]}
                 >
-                    <Input.Password />
+                    <Input.Password size={'large'} />
                 </Form.Item>
 
                 <Form.Item<SignUpFieldType>
@@ -38,7 +39,7 @@ const SignUpForm = ({onFinish,onFinishFailed}) => {
                     name="rePassword"
                     rules={[{ required: true, message: 'Please input your password!' }]}
                 >
-                    <Input.Password />
+                    <Input.Password size={'large'} />
                 </Form.Item>
 
                 <Form.Item<SignUpFieldType>
@@ -46,7 +47,7 @@ const SignUpForm = ({onFinish,onFinishFailed}) => {
                     name="fullName"
                     rules={[{ required: true, message: 'Please input your name!' }]}
                 >
-                    <Input />
+                    <Input size={'large'}/>
                 </Form.Item>
 
                 <Form.Item<SignUpFieldType>
@@ -54,7 +55,7 @@ const SignUpForm = ({onFinish,onFinishFailed}) => {
                     name="email"
                     rules={[{ required: true, message: 'Please input your email!' }]}
                 >
-                    <Input />
+                    <Input size={'large'}/>
                 </Form.Item>
 
                 <Form.Item<SignUpFieldType>
@@ -62,27 +63,12 @@ const SignUpForm = ({onFinish,onFinishFailed}) => {
                     name="phone"
                     rules={[{ required: true, message: 'Please input your address!' }]}
                 >
-                    <Input />
+                    <Input size={'large'}/>
                 </Form.Item>
 
-                <Form.Item<SignUpFieldType>
-                    label="Address"
-                    name="address"
-                    rules={[{ required: true, message: 'Please input your address!' }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item<SignUpFieldType>
-                    name="isSeller"
-                    valuePropName="checked"
-                    wrapperCol={{ offset: 8, span: 16 }}
-                >
-                    <Checkbox>Is seller</Checkbox>
-                </Form.Item>
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                     <Button type="primary" htmlType="submit">
-                        Submit
+                       Create an account
                     </Button>
                 </Form.Item>
             </Form>

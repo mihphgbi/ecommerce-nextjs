@@ -12,7 +12,7 @@ const SignUpPage = () => {
     const isLogin = useAppSelector(state => state.auth.isLogin);
     const route = useRouter();
     useEffect(() => {
-        if(isLogin) {
+        if (isLogin) {
             route.push('/')
         }
     }, [isLogin]);
@@ -26,9 +26,9 @@ const SignUpPage = () => {
         console.log('Failed:', errorInfo);
     };
     return (
-        <>
+        <div className={'form-wrapper'}>
             <SignUpForm onFinish={onFinish} onFinishFailed={onFinishFailed}/>
-        </>
+        </div>
     )
 }
 export default SignUpPage

@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import {productSlice} from "@/lib/redux/store/product/productSlice";
 import {authSlice} from "@/lib/redux/store/auth/authSlice";
+import {layoutSlice} from "@/lib/redux/store/layout/layoutSlice";
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
             products:productSlice.reducer,
-            auth: authSlice.reducer
+            auth: authSlice.reducer,
+            layout: layoutSlice.reducer
         },
     })
 }

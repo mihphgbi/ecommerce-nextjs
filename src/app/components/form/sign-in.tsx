@@ -1,15 +1,13 @@
 'use client';
 import React from "react";
-import {Button, Checkbox, Form, Input} from "antd";
+import {Button, Checkbox, Col, Form, Input, Row} from "antd";
 import {SignInFieldType} from "@/model/form/form";
-
-
 
 const SignInForm = ({onFinish,onFinishFailed}) => {
     return (
         <>
             <Form
-                name="basic"
+                name="sign-in"
                 labelCol={{ span: 5 }}
                 wrapperCol={{ span: 19 }}
                 style={{ minWidth: 400 }}
@@ -17,6 +15,8 @@ const SignInForm = ({onFinish,onFinishFailed}) => {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
+                requiredMark={false}
+                labelAlign='left'
 
             >
                 <Form.Item<SignInFieldType>
@@ -24,7 +24,7 @@ const SignInForm = ({onFinish,onFinishFailed}) => {
                     name="username"
                     rules={[{ required: true, message: 'Please input your username!' }]}
                 >
-                    <Input />
+                    <Input size={'large'} />
                 </Form.Item>
 
                 <Form.Item<SignInFieldType>
@@ -32,21 +32,25 @@ const SignInForm = ({onFinish,onFinishFailed}) => {
                     name="password"
                     rules={[{ required: true, message: 'Please input your password!' }]}
                 >
-                    <Input.Password />
+                    <Input.Password size={'large'} />
                 </Form.Item>
-
-                <Form.Item<SignInFieldType>
-                    name="remember"
-                    valuePropName="checked"
-                    wrapperCol={{ offset: 2, span: 16 }}
-                >
-                    <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-                <Form.Item wrapperCol={{ offset: 10, span: 12 }}>
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
-                </Form.Item>
+                <Row>
+                    <Col span={12}>
+                        <Form.Item<SignInFieldType>
+                            name="remember"
+                            valuePropName="checked"
+                        >
+                            <Checkbox>Remember me</Checkbox>
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit">
+                                Submit
+                            </Button>
+                        </Form.Item>
+                    </Col>
+                </Row>
             </Form>
         </>
     )

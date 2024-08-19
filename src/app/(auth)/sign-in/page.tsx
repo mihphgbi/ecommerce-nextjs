@@ -33,10 +33,10 @@ const SignInPage = () => {
         console.log('Failed:', errorInfo);
     };
     return (
-        <>
-            <SignInForm onFinish={onFinish} onFinishFailed={onFinishFailed}/>
-            <p>Do not have an account? <Link href={'/sign-up'} className={'text-blue-600'}>Sign up</Link></p>
-        </>
+            <div className={'form-wrapper'}>
+                <SignInForm onFinish={onFinish} onFinishFailed={onFinishFailed}/>
+                <p>Do not have an account? <Link href={'/sign-up'} className={'text-blue-600'}>Sign up</Link></p>
+            </div>
     )
 }
 export default SignInPage

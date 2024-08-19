@@ -1,5 +1,23 @@
 $colors: (
-        colorPrimaryActive: #0958D9,
+        primary500: #0958D9,
+        primary200: #2f6cd0,
+        cyan500: #78ebfc,
+        purple700: #6731d9
+);
+
+@function colors($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+$breakpoints: (
+        xs: 320px,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1440px,
+        xxxl: 1600px,
+        xxxxl: 1700px,
 );
 
 .mbe-0 {
