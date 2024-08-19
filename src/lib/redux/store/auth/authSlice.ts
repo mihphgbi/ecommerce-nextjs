@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {createUser} from "@/lib/redux/action/auth";
+import {createUser} from "@/lib/redux/action/users";
 
 // Define a type for the slice state
 interface AuthState {

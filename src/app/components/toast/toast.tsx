@@ -2,8 +2,8 @@
 
 import React, {useEffect, useState} from "react";
 import {Alert} from "antd";
-import {useDispatch} from "react-redux";
 import {closeAlert} from "@/lib/redux/store/layout/layoutSlice";
+import {useAppDispatch} from "@/lib/redux/hook";
 
 
 type ToastAlertProps = {
@@ -15,7 +15,7 @@ type ToastAlertProps = {
 }
 
 const ToastAlert: React.FC<ToastAlertProps> = ({...props}) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const {open} = props
     const [openToast, setOpen] = useState(open);
     const handleClose = () => {
@@ -29,7 +29,7 @@ const ToastAlert: React.FC<ToastAlertProps> = ({...props}) => {
     }, []);
     return (
         <>
-            <div className={'fixed top-20 right-3 max-w-80'}>
+            <div className={'fixed top-20 right-3 max-w-80 z-50'}>
                 {openToast && <Alert
                     {...props}
 					closable

@@ -3,7 +3,7 @@ import {Button, FormProps, Modal} from "antd";
 import React, {useState} from "react";
 import SignUpForm from "@/app/components/form/sign-up";
 import {SignUpFieldType} from "@/model/form/form";
-import {createUser} from "@/lib/redux/action/auth";
+import {createUser} from "@/lib/redux/action/users";
 import {useAppDispatch, useAppSelector} from "@/lib/redux/hook";
 
 export default function SignUpDialog() {

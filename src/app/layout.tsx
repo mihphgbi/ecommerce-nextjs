@@ -3,6 +3,8 @@ import {Inter} from "next/font/google";
 import "./globals.scss";
 import React from "react";
 import ClientProvider from "@/providers/client-provider";
+import ToastAlert from "@/app/components/toast/toast";
+import {useAppSelector} from "@/lib/redux/hook";
 
 const inter = Inter({subsets: ["latin"]});
 

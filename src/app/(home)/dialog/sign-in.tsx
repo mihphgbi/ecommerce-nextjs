@@ -4,6 +4,9 @@ import React, {useState} from "react";
 import {signIn} from "next-auth/react";
 import SignInForm from "@/app/components/form/sign-in";
 import {SignInFieldType} from "@/model/form/form";
+import {openErrorAlert, openSuccessAlert} from "@/lib/redux/store/layout/layoutSlice";
+import {useAppDispatch} from "@/lib/redux/hook";
+import {useDispatch} from "react-redux";
 
 type FieldType = {
     username?: string;
@@ -13,6 +16,7 @@ type FieldType = {
 
 export default function SignInDialog() {
     const [openSignInPopup, setOpenSignInPopup] = useState<boolean>(false);
+    const dispatch = useAppDispatch();
 
     const handleOpenSignInPopup = () => {
         setOpenSignInPopup(true);
@@ -32,10 +36,13 @@ export default function SignInDialog() {
             });
 
             if (!response.error) {
-                console.log("SUCCESSFULLY SIGNED IN")
+                'use client';
+                handleClose();
+                dispatch(openSuccessAlert({isOpenAlert: true, msgAlert: 'Log in success'}))
                 // Here you can navigate to a new route, or perform any action as required
             } else {
-                console.log("SIGN IN FAILED")
+                'use client';
+                dispatch(openErrorAlert({isOpenAlert: true, msgAlert: 'Log in failed'}))
                 // Here you can display an error message to the user
             }
         }
@@ -45,7 +52,7 @@ export default function SignInDialog() {
     };
 
     const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+        console.error('Failed:', errorInfo);
     };
 
     return (
