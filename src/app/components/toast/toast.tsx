@@ -27,9 +27,10 @@ const ToastAlert: React.FC<ToastAlertProps> = ({...props}) => {
             handleClose();
         },2000)
     }, []);
+
     return (
         <>
-            <div className={'fixed top-20 right-3 max-w-80 z-50'}>
+            <div className={'fixed top-20 right-3 max-w-80 z-[2000]'}>
                 {openToast && <Alert
                     {...props}
 					closable
