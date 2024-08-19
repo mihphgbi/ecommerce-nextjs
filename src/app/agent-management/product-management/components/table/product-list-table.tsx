@@ -1,7 +1,7 @@
 'use client';
-import EditProduct from "@/app/agent-management/product-management/dialog/edit-product";
-import DeleteProduct from "@/app/agent-management/product-management/dialog/delete-product";
 import {Space, Table, TableProps} from "antd";
+import EditProduct from "@/app/agent-management/product-management/dialogs/edit-product";
+import DeleteProduct from "@/app/agent-management/product-management/dialogs/delete-product";
 
 interface ListProduct {
     id: string;

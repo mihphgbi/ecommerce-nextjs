@@ -1,11 +1,11 @@
 'use client';
 import React, {useEffect, useState} from "react";
 import {Button, FormProps, Modal} from "antd";
-import AdjustProductForm
-    from "@/app/agent-management/product-management/component/adjust-product-form/adjust-product-form";
 import {ProductItem} from "@/model/product/product";
 import {updateProduct} from "@/lib/redux/action/product";
 import {useAppDispatch} from "@/lib/redux/hook";
+import AdjustProductForm
+    from "@/app/agent-management/product-management/components/adjust-product-form/adjust-product-form";
 
 interface EditProductProps {
     record?: any
