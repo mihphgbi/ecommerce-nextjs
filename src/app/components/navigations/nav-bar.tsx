@@ -7,7 +7,7 @@ const NavBar = () => {
         <>
             <Row>
                 <Col span={24}>
-                    <TopBar></TopBar>
+                    <TopBar/>
                 </Col>
             </Row>
             <Row>

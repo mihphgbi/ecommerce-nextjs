@@ -61,7 +61,7 @@ const SignUpForm = ({onFinish,onFinishFailed}) => {
                 <Form.Item<SignUpFieldType>
                     label="Phone"
                     name="phone"
-                    rules={[{ required: true, message: 'Please input your address!' }]}
+                    rules={[{ required: true, message: 'Please input your phone!' }]}
                 >
                     <Input size={'large'}/>
                 </Form.Item>

@@ -1,13 +1,12 @@
 "use client";
-import React, {useState} from "react";
-import {Button, Col, Divider, Flex, Layout, Menu, MenuProps, Row} from "antd";
+import React from "react";
+import {Button, Col, Divider, Dropdown, Flex, Layout, Menu, MenuProps, Row, Space} from "antd";
 import {Header} from "antd/lib/layout/layout";
-import {ShopFilled} from "@ant-design/icons";
+import {ShopFilled, UserOutlined} from "@ant-design/icons";
 import "./style.scss";
 import SignInDialog from "@/app/(home)/dialog/sign-in";
 import SignUpDialog from "@/app/(home)/dialog/sign-up";
 import {signOut, useSession} from "next-auth/react";
-import TopBar from "@/app/components/navigations/top-bar";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -42,11 +41,20 @@ const items: MenuItem[] = [
     getItem('Pricing', 'pricing', null),
 ];
 
+const userOption: MenuItem[] = [
+    getItem(<a href={'/user-management/useId=1'}>Information</a>, 'information', null),
+    getItem(<a href={'/user-management/useId=1'}>Setting</a>, 'setting', null),
+];
+
+
 const DesktopNavBar = () => {
     const {data: session} = useSession();
+
     const handleOpenSignOut = () => {
         signOut();
     }
+
+
     return (
         <Layout>
             <Header className={"flex sticky z-[1] top-0 bg-white nav-bar"}>
@@ -62,13 +70,22 @@ const DesktopNavBar = () => {
                     </Col>
                     <Col flex={'none'}>
                         <Flex gap={'8px'} align={'center'} className={'h-[100%]'} justify={'flex-end'}>
-                            {session ?
-                                <Button type={'text'} onClick={handleOpenSignOut}>Sign out</Button> : (
-                                    <>
-                                        <SignInDialog/>
-                                        <SignUpDialog/>
-                                    </>
-                                )}
+                            {session ? (
+                                <>
+                                    <div>
+                                        <Dropdown menu={{items: userOption}}>
+                                            <Button icon={<UserOutlined/>} style={{border: 'none'}}/>
+                                        </Dropdown>
+                                    </div>
+                                    <Button type={'text'} onClick={handleOpenSignOut}>Sign out</Button>
+                                </>
+
+                            ) : (
+                                <>
+                                    <SignInDialog/>
+                                    <SignUpDialog/>
+                                </>
+                            )}
                         </Flex>
                     </Col>
                 </Row>

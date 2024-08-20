@@ -3,7 +3,7 @@ export type User = {
     email: number;
     name?: string;
     address?: string;
-    phoneNumber: number;
+    phone_number: number;
     is_agent?: boolean;
     description?: string;
     image?: string;
