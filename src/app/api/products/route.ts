@@ -41,7 +41,7 @@ export async function POST(req: NextRequest, res: NextResponse ) {
             sale_price: parseFloat(body.sale_price),
         }
         await prisma.product.create({data:parseData})
-        return NextResponse.json({status: 202},{ msg: 'ok'})
+        return NextResponse.json({status: 202},{ statusText: 'ok'})
     } catch (error) {
         return NextResponse.json(
             {error: 'Internal server error - delete '},

@@ -19,11 +19,12 @@ const AgentManagementLayout = ({children}: { children: React.ReactNode }) => {
         token: {colorBgContainer, borderRadiusLG},
     } = theme.useToken();
 
-    const onClick: MenuProps['onClick'] = (e) => {
+    const onClick: MenuProps['onClick'] = (e:any) => {
         const NAVIGATE_CONSTANT = {
-            [1]: '/agent-management/product-management/add-product',
-            [2]: '/agent-management/product-management/product-list'
+            ['1']: '/agent-management/product-management/add-product',
+            ['2']: '/agent-management/product-management/product-list'
         }
+        // @ts-ignore
         router.push(NAVIGATE_CONSTANT[e.key]);
     };
     if (session) {

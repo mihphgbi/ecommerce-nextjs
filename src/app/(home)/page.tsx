@@ -202,8 +202,8 @@ export default function Index() {
                         <Col span={8} className={'relative h-[542px]'}>
                             <div className={'absolute bottom-0'}>
                                 <div>
-                                    <Typography class={"first-text"}>Final stock.</Typography>
-                                    <Typography class={"second-text"}>Up to 50% off.</Typography>
+                                    <Typography className={"first-text"}>Final stock.</Typography>
+                                    <Typography className={"second-text"}>Up to 50% off.</Typography>
                                 </div>
                                 <div>
                                     <Button size={'large'} type={'primary'} href={"/sign-in"}>Shop now</Button>

@@ -21,6 +21,7 @@ const AddProduct = () => {
             is_sale: values.is_sale,
             sale_price: parseFloat(values.sale_price),
         }
+        // @ts-ignore
         const res = await dispatch(createProduct(dataSubmit));
         if(res.meta.requestStatus === 'fulfilled') {
             router.push('/agent-management/product-management/product-list')
@@ -33,7 +34,7 @@ const AddProduct = () => {
 
     return (
         <>
-            <AdjustProductForm onFinish={onFinish} onFinishFailed={onFinishFailed}/>
+            <AdjustProductForm fields={null} onFinish={onFinish} onFinishFailed={onFinishFailed}/>
         </>
     )
 }

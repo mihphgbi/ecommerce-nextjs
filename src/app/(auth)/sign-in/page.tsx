@@ -4,29 +4,14 @@ import {SignInFieldType} from "@/model/form/form";
 import {FormProps} from "antd";
 import {signIn} from 'next-auth/react';
 import Link from "next/link";
+import {login} from "@/lib/redux/action/auth";
+import {useAppDispatch} from "@/lib/redux/hook";
 
 const SignInPage = () => {
+    const dispatch = useAppDispatch();
+
     const onFinish: FormProps<SignInFieldType>['onFinish'] = async (values) => {
-        'use sever';
-        try {
-            console.log('Success:', values);
-            const response = await signIn('credentials', {
-                username: values.username,
-                password: values.password,
-                redirect: false,
-            });
-
-            if (!response.error) {
-                console.log("SUCCESSFULLY SIGNED IN")
-                // Here you can navigate to a new route, or perform any action as required
-            } else {
-                console.log("SIGN IN FAILED")
-                // Here you can display an error message to the user
-            }
-        } catch (error) {
-            console.error(error)
-        }
-
+        dispatch(login(values))
     };
 
     const onFinishFailed: FormProps<SignInFieldType>['onFinishFailed'] = (errorInfo) => {

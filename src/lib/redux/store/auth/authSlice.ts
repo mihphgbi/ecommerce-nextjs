@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {createUser} from "@/lib/redux/action/users";
+import {login} from "@/lib/redux/action/auth";
 
 // Define a type for the slice state
 interface AuthState {
@@ -20,15 +20,15 @@ export const authSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(createUser.pending, (state, action) => {
+            .addCase(login.pending, (state, action) => {
                 state.isLogin = false
                 // Add any fetched posts to the array
             })
-            .addCase(createUser.rejected, (state, action) => {
+            .addCase(login.rejected, (state, action) => {
                 state.isLogin = false
                 state.error = action.error.message
             })
-            .addCase(createUser.fulfilled,(state,action) => {
+            .addCase(login.fulfilled,(state,action) => {
                 state.isLogin = !state.isLogin;
             })
     }

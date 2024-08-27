@@ -30,11 +30,11 @@ export const authOptions: NextAuthOptions= {
                         const bcrypt = require('bcrypt');
                         const passwordCorrect = await bcrypt.compare(credentials.password, user.password);
                         if (passwordCorrect) {
-                        console.log("USER FOUND");
                             return {
                                 id: user.id,
                                 name: user.username,
                                 email: user.email,
+                                isAgent: user.isAgent
                             };
                         }
                     } else {
