@@ -27,7 +27,7 @@ const AgentManagementLayout = ({children}: { children: React.ReactNode }) => {
         // @ts-ignore
         router.push(NAVIGATE_CONSTANT[e.key]);
     };
-    if (session) {
+    if (session?.user?.isAgent) {
         return (
             <Layout style={{height: '100vh'}}>
                 <Sider trigger={null} collapsible collapsed={collapsed} style={{paddingTop: '3rem'}}>
@@ -78,6 +78,8 @@ const AgentManagementLayout = ({children}: { children: React.ReactNode }) => {
                 </Layout>
             </Layout>
         );
+    } else {
+        router.push('/',{replace: true});
     }
 };
 

@@ -2,9 +2,10 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 
 const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL
 
-export const getUserProfile = () => {
+export const getUserProfile = createAsyncThunk('user/profile',async (payload: any) => {
 
-}
+
+})
 export const createUser = createAsyncThunk( 'user/create',async (payload: any) => {
     try {
         const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/user`, {

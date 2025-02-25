@@ -32,9 +32,12 @@ export const authOptions: NextAuthOptions= {
                         if (passwordCorrect) {
                             return {
                                 id: user.id,
-                                name: user.username,
+                                username: user.username,
                                 email: user.email,
-                                isAgent: user.isAgent
+                                isAgent: user.is_agent,
+                                isAuthenticate: user.is_authenticate,
+                                phone: user.phone,
+                                fullName: user.full_name
                             };
                         }
                     } else {
@@ -60,16 +63,19 @@ export const authOptions: NextAuthOptions= {
             if (user) {
                 token.id = user.id
                 token.email = user.email
-                token.name = user.name
+                token.username = user.username
+                token.isAgent = user.isAgent
             }
 
             return token
         },
         async session({ token, session }) {
+            console.log("=========token",token)
             if (session.user) {
                 session.user.id = token.id
-                session.user.name = token.name
+                session.user.username = token.username
                 session.user.email = token.email
+                session.user.isAgent = token.isAgent
             }
 
             return session

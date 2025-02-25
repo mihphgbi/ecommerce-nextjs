@@ -80,6 +80,8 @@ const incentivesList = [
     },
 ]
 export default function Index() {
+    const {data: session} = useSession();
+
     return (
         <>
             <div className='index-page-container'>
@@ -91,9 +93,11 @@ export default function Index() {
                             Our latest cosmetic arrivals have just landed, and they are sure to dazzle you.
                             Check out the freshest makeup, skincare, beauty products and elevate your beauty routine.
                         </Typography>
-                        <div className={'text-center'}>
-                            <Button type={'primary'} href={"/sign-in"} className={'text-center'}>Shop now</Button>
-                        </div>
+                        {!session?.user &&
+                            <div className={'text-center'}>
+                                <Button type={'primary'} href={"/sign-in"} className={'text-center'}>Shop now</Button>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className="p-[48px]">
@@ -213,12 +217,16 @@ export default function Index() {
                         <Col span={16}>
                             <Row gutter={32}>
                                 <Col span={12}>
-                                    <Image alt={'test'} src={ProductItem} width={400} height={250} className={'rounded-[8px] mt-[48px]'}/>
-                                    <Image alt={'test'} src={ProductItem} width={400} height={250} className={'rounded-[8px] mt-[32px]'}/>
+                                    <Image alt={'test'} src={ProductItem} width={400} height={250}
+                                           className={'rounded-[8px] mt-[48px]'}/>
+                                    <Image alt={'test'} src={ProductItem} width={400} height={250}
+                                           className={'rounded-[8px] mt-[32px]'}/>
                                 </Col>
                                 <Col span={12}>
-                                    <Image alt={'test'} src={ProductItem} width={400} height={250} className={'rounded-[8px]'}/>
-                                    <Image alt={'test'} src={ProductItem} width={400} height={250} className={'rounded-[8px] mt-[32px]'}/>
+                                    <Image alt={'test'} src={ProductItem} width={400} height={250}
+                                           className={'rounded-[8px]'}/>
+                                    <Image alt={'test'} src={ProductItem} width={400} height={250}
+                                           className={'rounded-[8px] mt-[32px]'}/>
                                 </Col>
                             </Row>
                         </Col>
