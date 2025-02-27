@@ -10,7 +10,27 @@ import Item from "antd/es/list/Item";
 import Link from "next/link";
 import {useSession} from "next-auth/react";
 
-const collection = [
+interface CollectionItem {
+    image: string;
+    title: string;
+    text: string;
+}
+
+interface ProductItem {
+    image: string;
+    type: string;
+    name: string;
+    salePrice: string;
+    price: string;
+}
+
+interface IncentiveItem {
+    image: JSX.Element;
+    title: string;
+    text: string;
+}
+
+const collection: CollectionItem[] = [
     {
         image: ProductItem,
         title: 'Home Delivery Available',
@@ -26,8 +46,9 @@ const collection = [
         title: 'Little Works of Art Collection',
         text: 'Transform your home into an art gallery with exquisite decor that adds a touch of creativity and uniqueness to your space.'
     },
-]
-const similarProductList = [
+];
+
+const similarProductList: ProductItem[] = [
     {
         image: ProductItem,
         type: 'Kicks & Carriers',
@@ -56,30 +77,31 @@ const similarProductList = [
         salePrice: '$129.99',
         price: '$189.99'
     },
-]
-const incentivesList = [
+];
+
+const incentivesList: IncentiveItem[] = [
     {
-        image: <HomeTwoTone className={"text-[24px]"}/>,
+        image: <HomeTwoTone className={"text-[24px]"} />,
         title: 'Home Delivery Available',
         text: 'Get your beauty products delivered straight to your door, saving you time and effort.'
     },
     {
-        image: <CalendarTwoTone className={"text-[24px]"}/>,
+        image: <CalendarTwoTone className={"text-[24px]"} />,
         title: '3-year warranty',
         text: 'Feel confident with our 3-year warranty on beauty products, providing you with peace of mind and protection against potential defects or issues.'
     },
     {
-        image: <InteractionTwoTone className={"text-[24px]"}/>,
+        image: <InteractionTwoTone className={"text-[24px]"} />,
         title: 'Free shipping on returns',
         text: 'Enjoy the convenience of free shipping on returns, making the return process easy and convenient for you.'
     },
     {
-        image: <GiftTwoTone className={"text-[24px]"}/>,
+        image: <GiftTwoTone className={"text-[24px]"} />,
         title: '15% off for our loyal customer',
         text: 'Sign up for our newsletter and stay in the loop! Get exclusive discounts, product updates, and special offers delivered straight to your inbox.'
     },
 ]
-export default function Index() {
+export default function Index(): React.ReactElement {
     return (
         <>
             <div className='index-page-container'>
