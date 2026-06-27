@@ -6,17 +6,17 @@ import ToastAlert from "@/app/components/toast/toast";
 import {useAppSelector} from "@/lib/redux/hook";
 
 
-export default function IndexLayout({children}: {children: React.ReactNode}) {
+export default function IndexLayout({children}: { children: React.ReactNode }): React.ReactElement {
     const {alertStatus, isOpenAlert, msgAlert} = useAppSelector((state: any) => state.layout)
     return (
         <>
-            <NavBar/>
+            <NavBar />
             {
                 isOpenAlert &&
-				<ToastAlert  open={isOpenAlert} type={alertStatus} message={msgAlert}></ToastAlert>
+				<ToastAlert open={isOpenAlert} type={alertStatus} message={msgAlert}></ToastAlert>
             }
             {children}
-            <Footer/>
+            <Footer />
         </>
     )
 }
