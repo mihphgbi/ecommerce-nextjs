@@ -26,10 +26,10 @@ export const authSlice = createSlice({
             })
             .addCase(login.rejected, (state, action) => {
                 state.isLogin = false
-                state.error = action.error.message
+                state.error = action.payload || action.error.message
             })
             .addCase(login.fulfilled,(state,action) => {
-                state.isLogin = !state.isLogin;
+                state.isLogin = true;
             })
     }
 })

@@ -21,8 +21,16 @@ export async function POST(req: Request ) {
     try {
         const body = await req.json()
 
+        if (!body.username || !body.password || !body.rePassword || !body.email || !body.phone || !body.fullName) {
+            return NextResponse.json({ error: 'Please fill in all required fields' }, { status: 400 })
+        }
+
+        if (body.password !== body.rePassword) {
+            return NextResponse.json({ error: 'Passwords do not match' }, { status: 400 })
+        }
+
         if (!PASSWORD_REGEX.test(body.password)) {
-            throw new Error('Password does not meet criteria');
+            return NextResponse.json({ error: 'Password does not meet criteria' }, { status: 400 })
         }
 
         const bcrypt = require('bcrypt');
@@ -39,9 +47,10 @@ export async function POST(req: Request ) {
             full_name:body.fullName.toString()
         }
         await prisma.user.create({data:parseData})
-        return NextResponse.json({ status: 'ok' }, { status: 202 })
+        return NextResponse.json({ status: 'ok', message: 'Create account success' }, { status: 201 })
 
     } catch (error) {
-        return NextResponse.json({ error: error }, { status: 401 })
+        console.error(error);
+        return NextResponse.json({ error: 'Create account failed' }, { status: 500 })
     }
 }

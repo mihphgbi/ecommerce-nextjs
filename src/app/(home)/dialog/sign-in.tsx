@@ -44,7 +44,14 @@ export default function SignInDialog() {
     return (
         <>
             <Button type={'text'} onClick={handleOpenSignInPopup}>Sign in</Button>
-            <Modal title="Sign in" open={openSignInPopup} footer={null} onCancel={handleClose}>
+            <Modal
+                title="Sign in"
+                open={openSignInPopup}
+                footer={null}
+                onCancel={handleClose}
+                width={520}
+                className={"auth-modal"}
+            >
                 <SignInForm onFinish={onFinish} onFinishFailed={onFinishFailed}/>
             </Modal>
         </>

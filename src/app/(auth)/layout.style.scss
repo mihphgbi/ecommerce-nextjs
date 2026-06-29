@@ -2,6 +2,19 @@
 .bg {
   background-image: linear-gradient(45deg, colors(purple700) 0%, colors(cyan500) 100%);
 }
+
+.auth-layout {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0;
+  overflow-y: auto;
+}
+
 .box{
 
 }

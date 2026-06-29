@@ -1,25 +1,27 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 
-const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL
-
 export const getUserProfile = createAsyncThunk('user/profile',async (payload: any) => {
 
 
 })
-export const createUser = createAsyncThunk( 'user/create',async (payload: any) => {
+export const createUser = createAsyncThunk( 'user/create',async (payload: any, {rejectWithValue}) => {
     try {
-        const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/user`, {
+        const response = await fetch('/api/user', {
             method: 'POST',
             body: JSON.stringify(payload),
             headers: {
                 'Content-Type': 'application/json',
             },
         });
+        const data = await response.json();
+
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            return rejectWithValue(data?.error || 'Create account failed');
         }
+
+        return data;
     } catch (error) {
-        console.error('Failed to fetch products:', error);
-        return [];
+        console.error('Failed to create user:', error);
+        return rejectWithValue('Create account failed');
     }
 })

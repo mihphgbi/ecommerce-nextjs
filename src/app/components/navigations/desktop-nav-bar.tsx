@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
-import {Button, Col, Divider, Dropdown, Flex, Layout, Menu, MenuProps, Row, Space} from "antd";
+import Link from "next/link";
+import {Button, Col, Divider, Dropdown, Flex, Layout, Menu, MenuProps, Row} from "antd";
 import {Header} from "antd/lib/layout/layout";
 import {ShopFilled, UserOutlined} from "@ant-design/icons";
 import "./style.scss";
@@ -26,10 +27,9 @@ function getItem(
     } as MenuItem;
 }
 
-const items: MenuItem[] = [
-    getItem(null, null, null),
+export const navigationItems: MenuItem[] = [
     getItem('Products', 'products', null, [
-        getItem('Overview', 'Overview'),
+        getItem(<a href={'/products'}>Overview</a>, 'Overview'),
         getItem('Apps', 'Apps'),
         getItem('Templates', 'Templates'),
         getItem('Resources', 'Resources'),
@@ -57,13 +57,15 @@ const DesktopNavBar = () => {
 
     return (
         <Layout>
-            <Header className={"flex sticky z-[1] top-0 bg-white nav-bar"}>
-                <Row className={"w-[100%]"}>
+            <Header className={"desktop-nav flex sticky z-[1] top-0 bg-white nav-bar"}>
+                <Row className={"w-[100%]"} align={'middle'}>
                     <Col flex={'24px'}>
-                        <ShopFilled className={"text-[24px]"}/>
+                        <Link href={"/"} className={"nav-logo"} aria-label={"Go to landing page"}>
+                            <ShopFilled className={"text-[24px]"}/>
+                        </Link>
                     </Col>
                     <Col flex={'auto'}>
-                        <Menu mode='horizontal' items={items} style={{background: 'none', justifyContent: 'flex-end'}}/>
+                        <Menu mode='horizontal' items={navigationItems} className={"desktop-nav-menu"} style={{background: 'none'}}/>
                     </Col>
                     <Col flex={'32px'}>
                         <Divider type={'vertical'} className={'ml-[24px]'}/>

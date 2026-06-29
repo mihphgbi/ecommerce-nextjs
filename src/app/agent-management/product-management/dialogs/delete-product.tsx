@@ -12,6 +12,8 @@ const DeleteProduct: React.FC<DeleteProductProps> = ({id}) => {
     const dispatch = useAppDispatch();
     const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
     const handleDelete = () => {
+        if (!id) return;
+
         dispatch(deleteProduct(id));
         setOpenDeleteDialog(false);
     }

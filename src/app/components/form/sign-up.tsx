@@ -1,16 +1,22 @@
 'use client';
 import React from "react";
-import {Button, Checkbox, Form, Input} from "antd";
+import {Button, Form, FormProps, Input} from "antd";
 import {SignUpFieldType} from "@/model/form/form";
+import "./style.scss";
 
-const SignUpForm = ({onFinish,onFinishFailed}) => {
+type SignUpFormProps = {
+    onFinish: FormProps<SignUpFieldType>['onFinish'];
+    onFinishFailed: FormProps<SignUpFieldType>['onFinishFailed'];
+}
+
+const SignUpForm = ({onFinish,onFinishFailed}: SignUpFormProps) => {
     return (
         <>
             <Form
                 name="sign-up"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                style={{ minWidth: 450, maxWidth: 600 }}
+                className={"auth-form"}
+                labelCol={{xs: 24, sm: 8}}
+                wrapperCol={{xs: 24, sm: 16}}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
@@ -66,8 +72,8 @@ const SignUpForm = ({onFinish,onFinishFailed}) => {
                     <Input size={'large'}/>
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
+                <Form.Item wrapperCol={{xs: {span: 24}, sm: {offset: 8, span: 16}}}>
+                    <Button type="primary" htmlType="submit" className={"auth-submit-button"}>
                        Create an account
                     </Button>
                 </Form.Item>

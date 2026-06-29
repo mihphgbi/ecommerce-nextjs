@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from "react";
-import { FormProps } from "antd";
+import { FormProps, message } from "antd";
 import SignUpForm from "@/app/components/form/sign-up";
 import { SignUpFieldType } from "@/model/form/form";
 import { createUser } from "@/lib/redux/action/users";
@@ -19,9 +19,14 @@ const SignUpPage: React.FC = () => {
         }
     }, [isLogin, route]);
 
-    const onFinish: FormProps<SignUpFieldType>['onFinish'] = (values: SignUpFieldType) => {
-        console.log('Success:', values);
-        dispatch(createUser(values));
+    const onFinish: FormProps<SignUpFieldType>['onFinish'] = async (values: SignUpFieldType) => {
+        try {
+            await dispatch(createUser(values)).unwrap();
+            message.success('Create account success');
+            route.push('/products');
+        } catch (error) {
+            message.error(typeof error === 'string' ? error : 'Create account failed');
+        }
     };
 
     const onFinishFailed: FormProps<SignUpFieldType>['onFinishFailed'] = (errorInfo) => {

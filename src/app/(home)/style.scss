@@ -1,10 +1,13 @@
 .panel-background {
   background: url("~/src/assets/background.svg");
   width: 100%;
-  height: 593px;
+  min-height: 593px;
+  padding: 48px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-position: center;
+  background-size: cover;
 
   .panel-text {
     max-width: 467px;
@@ -13,8 +16,69 @@
     }
   }
 }
+
+.home-section {
+  padding: 48px;
+}
+
+.section-intro {
+  max-width: 573px;
+  padding-bottom: 32px;
+}
+
+.collection-image,
+.product-image {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.collection-image {
+  height: clamp(260px, 34vw, 400px);
+}
+
+.product-image {
+  height: clamp(240px, 26vw, 300px);
+}
+
+.similar-link {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.similar-product-card {
+  display: block;
+  color: inherit;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    color: inherit;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  }
+}
+
 .promo-section {
+  min-height: 612px;
   background: linear-gradient(to bottom, transparent 50%, transparent 50%, #000000 50%);
+
+  .promo-copy {
+    min-height: 542px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .promo-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .promo-image-offset {
+    margin-top: 48px;
+  }
+
   article {
     color: white;
     font-size: 38px;
@@ -22,6 +86,77 @@
     margin-bottom: 24px;
     &.first-text {
       margin: 0;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .home-section {
+    padding: 40px 24px;
+  }
+
+  .promo-section {
+    min-height: auto;
+    background: #000000;
+
+    .promo-copy {
+      min-height: auto;
+    }
+
+    .promo-image-offset {
+      margin-top: 0;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .panel-background {
+    min-height: 520px;
+    padding: 40px 16px;
+
+    .panel-text {
+      max-width: 100%;
+    }
+  }
+
+  .home-section {
+    padding: 32px 16px;
+  }
+
+  .section-intro {
+    max-width: 100%;
+    padding-bottom: 24px;
+  }
+
+  .similar-link {
+    justify-content: flex-start;
+  }
+
+  .similar-product-card {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid rgba(5, 5, 5, 0.06);
+
+    .product-image {
+      grid-row: 1 / span 2;
+      height: 120px;
+    }
+
+    > div:nth-child(2),
+    > div:nth-child(3) {
+      grid-column: 2;
+      padding: 0;
+      text-align: left;
+    }
+  }
+
+  .promo-section {
+    article {
+      font-size: 30px;
+      line-height: 38px;
     }
   }
 }

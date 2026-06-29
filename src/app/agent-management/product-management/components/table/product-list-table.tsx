@@ -64,9 +64,9 @@ const columns: TableProps<ListProduct>['columns'] = [
         }
     }
 ];
-const ProductListTable = ({data}) => {
+const ProductListTable = ({data}: {data: ListProduct[]}) => {
     return (
-        <Table columns={columns} dataSource={data}/>
+        <Table columns={columns} dataSource={data} rowKey="id"/>
     )
 }
 export default ProductListTable

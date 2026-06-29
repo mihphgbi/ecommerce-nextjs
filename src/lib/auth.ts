@@ -1,9 +1,8 @@
 import {getServerSession, NextAuthOptions} from "next-auth";
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from "next-auth/providers/credentials";
+import prisma from "@/lib/db/prisma";
 
-// Resolve an app base URL for server-side usage. Prefer explicit env vars, then fallback to localhost.
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXTAUTH_URL || `http://localhost:${process.env.PORT || 3000}`;
 export const authOptions: NextAuthOptions = {
     // adapter: PrismaAdapter(prisma),
     providers: [
@@ -18,23 +17,17 @@ export const authOptions: NextAuthOptions = {
             },
             async authorize(credentials: any) {
                 try {
-                    // Build URL safely using the resolved APP_URL so we don't accidentally call "undefined/..."
-                    const endpoint = new URL('/api/user', APP_URL);
-                    endpoint.searchParams.set('name', credentials.username || '');
+                    if (!credentials?.username || !credentials?.password) {
+                        return null;
+                    }
 
-                    // Optional debug: if APP_URL looks suspicious, surface it in logs
-                    if (!APP_URL) console.error('APP_URL is not defined (processed to empty string). Check NEXT_PUBLIC_APP_URL or NEXTAUTH_URL env vars.');
-
-                    const response = await fetch(endpoint.toString(), {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                    const user = await prisma.user.findFirst({
+                        where: {
+                            username: credentials.username,
+                        }
                     });
-                    const data = await response.json()
-                    const user = data.data;
 
-                    if (user && Object.keys(user).length > 0) {
+                    if (user) {
                         const bcrypt = require('bcrypt');
                         const passwordCorrect = await bcrypt.compare(credentials.password, user.password);
                         if (passwordCorrect) {
@@ -74,13 +67,24 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXT_AUTH_SECRET,
     callbacks: {
         async jwt({token, user}) {
+            const t: any = token as any;
+
             if (user) {
-                const t: any = token as any;
                 const u: any = user as any;
                 t.id = u.id
                 t.email = u.email
                 t.username = u.username
                 t.isAgent = u.isAgent
+            } else if (t.id) {
+                const currentUser = await prisma.user.findUnique({
+                    where: {
+                        id: t.id,
+                    },
+                });
+
+                if (currentUser) {
+                    t.isAgent = currentUser.is_agent;
+                }
             }
 
             return token
@@ -97,8 +101,16 @@ export const authOptions: NextAuthOptions = {
 
             return session
         },
-        redirect() {
-            return '/'
+        redirect({url, baseUrl}) {
+            if (url.startsWith('/')) {
+                return `${baseUrl}${url}`;
+            }
+
+            if (new URL(url).origin === baseUrl) {
+                return url;
+            }
+
+            return baseUrl;
         },
     },
 };

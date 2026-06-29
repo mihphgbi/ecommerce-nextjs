@@ -19,9 +19,8 @@ const AddProduct = () => {
             quality: parseInt(values.quality),
             price: parseFloat(values.price),
             is_sale: values.is_sale,
-            sale_price: parseFloat(values.sale_price),
+            sale_price: values.is_sale ? parseFloat(values.sale_price) : undefined,
         }
-        // @ts-ignore
         const res = await dispatch(createProduct(dataSubmit));
         if(res.meta.requestStatus === 'fulfilled') {
             router.push('/agent-management/product-management/product-list')

@@ -1,12 +1,31 @@
 'use client';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Badge, Button, Checkbox, Divider, Input, List, Switch, Typography} from "antd";
 import Title from "antd/es/typography/Title";
 import {HeartOutlined} from "@ant-design/icons";
-import {ProductData} from "@/app/api/products/product-data";
 import Item from "antd/es/list/Item";
+import {ProductItem} from "@/model/product/product";
+
 export default function User() {
     const {Text} = Typography;
+    const [products, setProducts] = useState<ProductItem[]>([]);
+
+    useEffect(() => {
+        const loadProducts = async () => {
+            const response = await fetch('/api/products');
+
+            if (!response.ok) {
+                setProducts([]);
+                return;
+            }
+
+            const result = await response.json();
+            setProducts(result.data || []);
+        }
+
+        loadProducts();
+    }, []);
+
     const onChange = () => {
 
     }
@@ -84,11 +103,11 @@ export default function User() {
                             xl: 4,
                             xxl: 3,
                         }}
-                        dataSource={ProductData}
+                        dataSource={products}
                         renderItem={(item) => (
                             <Item className={'mbe-0'}>
                                 {
-                                    item.isDiscount ? (
+                                    item.is_sale ? (
                                         // <Space direction="vertical" size="middle" style={{width: '100%'}}>
                                         <Badge.Ribbon text="Discount" color="primary">
                                             <div>
@@ -103,8 +122,8 @@ export default function User() {
                                                         <Text>{item.description}</Text>
                                                     </div>
                                                     <div className={'flex gap-[4px] pb-[16px]'}>
-                                                        <Text strong>{item.salePrice}</Text>
-                                                        <Text delete>{item.price}</Text>
+                                                        <Text strong>${item.sale_price?.toFixed(2)}</Text>
+                                                        <Text delete>${item.price?.toFixed(2)}</Text>
                                                     </div>
                                                     <div className={'flex gap-[8px]'}>
                                                         <Button className={'py-0 w-[200px]'}>Add to cart</Button>
@@ -127,7 +146,7 @@ export default function User() {
                                                     <Text>{item.description}</Text>
                                                 </div>
                                                 <div className={'flex gap-[4px] pb-[16px]'}>
-                                                    <Text strong>{item.price}</Text>
+                                                    <Text strong>${item.price?.toFixed(2)}</Text>
                                                 </div>
                                                 <div className={'flex gap-[8px]'}>
                                                     <Button className={'py-0 w-[200px]'}>Add to cart</Button>

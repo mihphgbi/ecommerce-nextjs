@@ -1,0 +1,35 @@
+CREATE TABLE IF NOT EXISTS products (
+    id VARCHAR(24) PRIMARY KEY,
+    description TEXT,
+    image TEXT,
+    is_sale BOOLEAN NOT NULL DEFAULT FALSE,
+    name VARCHAR(255) NOT NULL,
+    price DOUBLE PRECISION NOT NULL,
+    quality INTEGER NOT NULL,
+    sale_price DOUBLE PRECISION,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS products_name_idx
+    ON products (name);
+
+CREATE TABLE IF NOT EXISTS "user" (
+    id VARCHAR(24) PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password TEXT NOT NULL,
+    is_agent BOOLEAN NOT NULL DEFAULT FALSE,
+    email VARCHAR(255) NOT NULL,
+    address TEXT,
+    is_authenticate BOOLEAN NOT NULL DEFAULT FALSE,
+    full_name VARCHAR(255),
+    phone VARCHAR(50),
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS user_username_idx
+    ON "user" (username);
+
+CREATE UNIQUE INDEX IF NOT EXISTS user_email_idx
+    ON "user" (email);

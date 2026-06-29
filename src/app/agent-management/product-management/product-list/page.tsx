@@ -12,11 +12,9 @@ const ProductList: React.FC = () => {
     useEffect(() => {
          dispatch(getProductData());
 
-    }, [isDelete]);
+    }, [dispatch, isDelete]);
     useEffect(() => {
-        if(productList?.length > 0) {
-            setProducts(productList);
-        }
+        setProducts(productList || []);
     }, [productList]);
     return (
         <>

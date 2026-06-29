@@ -1,11 +1,11 @@
 'use client';
 
 import {createAsyncThunk} from "@reduxjs/toolkit";
+import {ProductItem} from "@/model/product/product";
 
-const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL
 export const getProductData = createAsyncThunk('product/getList',async () => {
     try {
-        const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/products`, {
+        const response = await fetch('/api/products', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,9 +22,9 @@ export const getProductData = createAsyncThunk('product/getList',async () => {
     }
 });
 
-export const createProduct = createAsyncThunk('product/createItem',async (payload) => {
+export const createProduct = createAsyncThunk('product/createItem',async (payload: ProductItem) => {
     try {
-        const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/products`, {
+        const response = await fetch('/api/products', {
             method: 'POST',
             body: JSON.stringify(payload),
             headers: {
@@ -34,17 +34,19 @@ export const createProduct = createAsyncThunk('product/createItem',async (payloa
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+        const data = await response.json();
+
+        return data.data;
     } catch (error) {
         console.error('Failed to fetch products:', error);
-        return [];
+        throw error;
     }
 })
 
-export const updateProduct = createAsyncThunk('product/updateItem',async (payload) => {
+export const updateProduct = createAsyncThunk('product/updateItem',async (payload: {id: string, data: ProductItem}) => {
     try {
-        // @ts-ignore
         const {id, data} = payload
-        const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/products?id=${id}`, {
+        const response = await fetch(`/api/products?id=${id}`, {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: {
@@ -57,13 +59,13 @@ export const updateProduct = createAsyncThunk('product/updateItem',async (payloa
         return response.ok;
     } catch (error) {
         console.error('Failed to fetch products:', error);
-        return [];
+        throw error;
     }
 })
 
-export const deleteProduct =  createAsyncThunk('product/deleteItem', async (payload: any) => {
+export const deleteProduct =  createAsyncThunk('product/deleteItem', async (payload: string) => {
     try {
-        const response = await fetch(`${NEXT_PUBLIC_APP_URL}/api/products?id=${payload}`, {
+        const response = await fetch(`/api/products?id=${payload}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -75,6 +77,6 @@ export const deleteProduct =  createAsyncThunk('product/deleteItem', async (payl
         return response.ok;
     } catch (error) {
         console.error('Failed to fetch products:', error);
-        return [];
+        throw error;
     }
 })

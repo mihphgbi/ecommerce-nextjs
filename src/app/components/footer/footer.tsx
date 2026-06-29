@@ -12,9 +12,9 @@ const legalList = ['Legal Notice', 'Privacy Policy', 'Terms & Conditions'];
 
 const Footer: React.FC = () => {
     return (
-        <div className={"p-[48px] footer"}>
-            <Row gutter={24}>
-                <Col span={8}>
+        <div className={"footer"}>
+            <Row gutter={[24, 32]}>
+                <Col xs={24} md={8}>
                     <div className={'mb-[24px]'}>
                         <ShopFilled className={"text-[24px]"}/>
                     </div>
@@ -23,9 +23,9 @@ const Footer: React.FC = () => {
                             sustainability.</Typography>
                     </div>
                 </Col>
-                <Col span={8}>
-                    <Row gutter={24}>
-                        <Col span={12}>
+                <Col xs={24} md={8}>
+                    <Row gutter={[24, 24]}>
+                        <Col xs={12} sm={12}>
                             <List
                                 header={
                                     <>
@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
                                 )}
                             />
                         </Col>
-                        <Col span={12}>
+                        <Col xs={12} sm={12}>
                             <List
                                 header={
                                     <>
@@ -61,9 +61,9 @@ const Footer: React.FC = () => {
                         </Col>
                     </Row>
                 </Col>
-                <Col span={8}>
-                    <Row gutter={24}>
-                        <Col span={12}>
+                <Col xs={24} md={8}>
+                    <Row gutter={[24, 24]}>
+                        <Col xs={12} sm={12}>
                             <List
                                 header={
                                     <>
@@ -80,7 +80,7 @@ const Footer: React.FC = () => {
                                 )}
                             />
                         </Col>
-                        <Col span={12}>
+                        <Col xs={12} sm={12}>
                             <List
                                 header={
                                     <>

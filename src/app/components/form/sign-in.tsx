@@ -2,15 +2,17 @@
 import React from "react";
 import {Button, Checkbox, Col, Form, Input, Row} from "antd";
 import {SignInFieldType} from "@/model/form/form";
+import "./style.scss";
 
+// @ts-ignore
 const SignInForm = ({onFinish,onFinishFailed}) => {
     return (
         <>
             <Form
                 name="sign-in"
-                labelCol={{ span: 5 }}
-                wrapperCol={{ span: 19 }}
-                style={{ minWidth: 400 }}
+                className={"auth-form"}
+                labelCol={{xs: 24, sm: 5}}
+                wrapperCol={{xs: 24, sm: 19}}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
@@ -35,7 +37,7 @@ const SignInForm = ({onFinish,onFinishFailed}) => {
                     <Input.Password size={'large'} />
                 </Form.Item>
                 <Row>
-                    <Col span={12}>
+                    <Col xs={24} sm={12}>
                         <Form.Item<SignInFieldType>
                             name="remember"
                             valuePropName="checked"
@@ -43,9 +45,9 @@ const SignInForm = ({onFinish,onFinishFailed}) => {
                             <Checkbox>Remember me</Checkbox>
                         </Form.Item>
                     </Col>
-                    <Col span={12}>
+                    <Col xs={24} sm={12}>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit">
+                            <Button type="primary" htmlType="submit" className={"auth-submit-button"}>
                                 Submit
                             </Button>
                         </Form.Item>

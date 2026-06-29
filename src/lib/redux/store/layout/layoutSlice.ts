@@ -23,17 +23,17 @@ export const layoutSlice = createSlice({
             state.activeItemMenu = action.payload
         },
         openWarningAlert: (state,action) => {
-            state.isOpenAlert = !state.isOpenAlert
+            state.isOpenAlert = true
             state.alertStatus = 'warning'
             state.msgAlert = action.payload.msgAlert
         },
         openSuccessAlert: (state,action) => {
-            state.isOpenAlert = !state.isOpenAlert
+            state.isOpenAlert = true
             state.alertStatus = 'success'
             state.msgAlert = action.payload.msgAlert
         },
         openErrorAlert: (state,action) => {
-            state.isOpenAlert = !state.isOpenAlert
+            state.isOpenAlert = true
             state.alertStatus = 'error'
             state.msgAlert = action.payload.msgAlert
         },

@@ -5,16 +5,19 @@ import Title from "antd/es/typography/Title";
 import "../[productId]/style/product-detail.scss";
 import {HeartOutlined, QuestionCircleOutlined} from "@ant-design/icons";
 import Item from "antd/es/list/Item";
-import {ProductData} from "@/app/api/products/product-data";
+import NavBar from "@/app/components/navigations/nav-bar";
+import Footer from "@/app/components/footer/footer";
 
 export default function ProductDetail() {
     const {Text, Paragraph} = Typography;
+    const relatedProducts: any[] = [];
     const [valueColor, setValueColor] = useState('white')
     const handleChange = (value: string) => {
         setValueColor(value)
     }
     return (
         <>
+            <NavBar/>
             {/*START-PRODUCT DETAIL*/}
             <div className={'p-[48px]'}>
                 <div className={'flex gap-[48px]'}>
@@ -209,15 +212,14 @@ export default function ProductDetail() {
                                 split={false}
                                 itemLayout="vertical"
                                 grid={{gutter: 24, column: 3}}
-                                dataSource={ProductData}
+                                dataSource={relatedProducts}
                                 renderItem={(item) => (
                                     <Item className={'mbe-0'}>
                                         <div className={"w-[100%] h-[400px] relative"}>
                                             <Image src={item.image}
                                                    style={{objectFit: "cover"}}
                                                    loading="lazy"
-                                                   alt={'test'}
-                                                   fill={true}/>
+                                                   alt={'test'}/>
                                         </div>
                                         <div className={'py-[16px]'}>
                                             <Typography
@@ -233,6 +235,7 @@ export default function ProductDetail() {
                 </div>
             </div>
             {/*END-CUSTOMER REVIEW*/}
+            <Footer/>
         </>
 
 

@@ -29,6 +29,7 @@ const collection = [
 ]
 const similarProductList = [
     {
+        id: 'low-top-sneakers',
         image: ProductItem,
         type: 'Kicks & Carriers',
         name: 'Low-top sneakers',
@@ -36,6 +37,7 @@ const similarProductList = [
         price: '$189.99'
     },
     {
+        id: 'fanny-pack',
         image: ProductItem,
         type: 'Kicks & Carriers',
         name: 'Fanny pack',
@@ -43,6 +45,7 @@ const similarProductList = [
         price: '$189.99'
     },
     {
+        id: 'high-top-sneakers',
         image: ProductItem,
         type: 'Kicks & Carriers',
         name: 'High-top sneakers',
@@ -50,6 +53,7 @@ const similarProductList = [
         price: '$189.99'
     },
     {
+        id: 'black-bag',
         image: ProductItem,
         type: 'Kicks & Carriers',
         name: 'Black Bag',
@@ -100,12 +104,12 @@ export default function Index() {
                         }
                     </div>
                 </div>
-                <div className="p-[48px]">
+                <div className="home-section">
                     <List
                         bordered={false}
                         split={false}
                         itemLayout="vertical"
-                        grid={{gutter: [48, 48], column: 2}}
+                        grid={{gutter: [24, 24], xs: 1, sm: 1, md: 2, lg: 2, xl: 2, xxl: 2}}
                         dataSource={incentivesList}
                         renderItem={(item) => (
                             <Item className={'mbe-0'}>
@@ -123,8 +127,8 @@ export default function Index() {
                         )}
                     />
                 </div>
-                <div className={"p-[48px]"}>
-                    <div className={'w-[573px] pb-[32px]'}>
+                <div className={"home-section"}>
+                    <div className={'section-intro'}>
                         <Title level={3}>Shop by Collection</Title>
                         <Typography>
                             Discover a carefully curated selection of unique and stylish products. From trendy
@@ -138,11 +142,11 @@ export default function Index() {
                             bordered={false}
                             split={false}
                             itemLayout="vertical"
-                            grid={{gutter: 24, column: 3}}
+                            grid={{gutter: 24, xs: 1, sm: 1, md: 2, lg: 3, xl: 3, xxl: 3}}
                             dataSource={collection}
                             renderItem={(item) => (
                                 <Item className={'mbe-0'}>
-                                    <div className={"w-[100%] h-[400px] relative"}>
+                                    <div className={"collection-image relative"}>
                                         <Image src={item.image}
                                                style={{objectFit: "cover"}}
                                                loading="lazy"
@@ -159,14 +163,14 @@ export default function Index() {
                         />
                     </div>
                 </div>
-                <div className={'p-[48px]'}>
-                    <Row>
-                        <Col span={16}>
+                <div className={'home-section'}>
+                    <Row gutter={[16, 8]} align={"middle"}>
+                        <Col xs={24} sm={16}>
                             <Title level={3}>Similar Product</Title>
                         </Col>
-                        <Col span={8}>
-                            <div className={'flex justify-end'}>
-                                <Link href={"/"} className={'text-[#1677FF] underline'}>See everything </Link>
+                        <Col xs={24} sm={8}>
+                            <div className={'similar-link'}>
+                                <Link href={"/products"} className={'text-[#1677FF] underline'}>See everything </Link>
                             </div>
                         </Col>
                     </Row>
@@ -175,36 +179,38 @@ export default function Index() {
                             bordered={false}
                             split={false}
                             itemLayout="vertical"
-                            grid={{gutter: 24, column: 4}}
+                            grid={{gutter: 24, xs: 1, sm: 2, md: 2, lg: 4, xl: 4, xxl: 4}}
                             dataSource={similarProductList}
                             renderItem={(item) => (
                                 <Item className={'mbe-0'}>
-                                    <div className={"w-[100%] h-[300px] relative"}>
-                                        <Image src={item.image}
-                                               style={{objectFit: "cover"}}
-                                               loading="lazy"
-                                               alt={'test'}
-                                               fill={true}/>
-                                    </div>
-                                    <div className={'p-[16px] text-center'}>
-                                        <Typography className={'text-[12px] leading-[20px]'}>{item.type}</Typography>
-                                        <Typography className={'text-14px leading-[22px]'}>{item.name}</Typography>
-                                    </div>
-                                    <div className={'text-center'}>
-                                        <Typography
-                                            className={'text-14px leading-[22px]'}>{item?.salePrice || item.price} {item?.salePrice ?
-                                            <span
-                                                className={'text-[12px] text-[rgba(0, 0, 0, 0.45)] leading-[20px] line-through'}>$189.99</span> : ''}</Typography>
-                                    </div>
+                                    <Link href={`/products/${item.id}`} className={'similar-product-card'}>
+                                        <div className={"product-image relative"}>
+                                            <Image src={item.image}
+                                                   style={{objectFit: "cover"}}
+                                                   loading="lazy"
+                                                   alt={item.name}
+                                                   fill={true}/>
+                                        </div>
+                                        <div className={'p-[16px] text-center'}>
+                                            <Typography className={'text-[12px] leading-[20px]'}>{item.type}</Typography>
+                                            <Typography className={'text-14px leading-[22px]'}>{item.name}</Typography>
+                                        </div>
+                                        <div className={'text-center'}>
+                                            <Typography
+                                                className={'text-14px leading-[22px]'}>{item?.salePrice || item.price} {item?.salePrice ?
+                                                <span
+                                                    className={'text-[12px] text-[rgba(0, 0, 0, 0.45)] leading-[20px] line-through'}>$189.99</span> : ''}</Typography>
+                                        </div>
+                                    </Link>
                                 </Item>
                             )}
                         />
                     </div>
                 </div>
-                <div className={"promo-section h-[612px] p-[48px] overflow-hidden"}>
-                    <Row gutter={48}>
-                        <Col span={8} className={'relative h-[542px]'}>
-                            <div className={'absolute bottom-0'}>
+                <div className={"promo-section home-section overflow-hidden"}>
+                    <Row gutter={[48, 32]} align={"bottom"}>
+                        <Col xs={24} lg={8} className={'promo-copy'}>
+                            <div>
                                 <div>
                                     <Typography className={"first-text"}>Final stock.</Typography>
                                     <Typography className={"second-text"}>Up to 50% off.</Typography>
@@ -214,19 +220,19 @@ export default function Index() {
                                 </div>
                             </div>
                         </Col>
-                        <Col span={16}>
-                            <Row gutter={32}>
-                                <Col span={12}>
+                        <Col xs={24} lg={16}>
+                            <Row gutter={[32, 32]}>
+                                <Col xs={24} sm={12}>
                                     <Image alt={'test'} src={ProductItem} width={400} height={250}
-                                           className={'rounded-[8px] mt-[48px]'}/>
+                                           className={'promo-image rounded-[8px] promo-image-offset'}/>
                                     <Image alt={'test'} src={ProductItem} width={400} height={250}
-                                           className={'rounded-[8px] mt-[32px]'}/>
+                                           className={'promo-image rounded-[8px] mt-[32px]'}/>
                                 </Col>
-                                <Col span={12}>
+                                <Col xs={24} sm={12}>
                                     <Image alt={'test'} src={ProductItem} width={400} height={250}
-                                           className={'rounded-[8px]'}/>
+                                           className={'promo-image rounded-[8px]'}/>
                                     <Image alt={'test'} src={ProductItem} width={400} height={250}
-                                           className={'rounded-[8px] mt-[32px]'}/>
+                                           className={'promo-image rounded-[8px] mt-[32px]'}/>
                                 </Col>
                             </Row>
                         </Col>
