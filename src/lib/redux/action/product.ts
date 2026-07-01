@@ -3,9 +3,40 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {ProductItem} from "@/model/product/product";
 
-export const getProductData = createAsyncThunk('product/getList',async () => {
+type ProductListParams = {
+    product_type_id?: string;
+    agent_only?: boolean;
+    page?: number;
+    limit?: number;
+};
+
+const buildProductListUrl = (params?: ProductListParams) => {
+    const searchParams = new URLSearchParams();
+
+    if (params?.product_type_id) {
+        searchParams.set('product_type_id', params.product_type_id);
+    }
+
+    if (params?.agent_only) {
+        searchParams.set('agent_only', 'true');
+    }
+
+    if (params?.page) {
+        searchParams.set('page', params.page.toString());
+    }
+
+    if (params?.limit) {
+        searchParams.set('limit', params.limit.toString());
+    }
+
+    const queryString = searchParams.toString();
+
+    return queryString ? `/api/products?${queryString}` : '/api/products';
+}
+
+export const getProductData = createAsyncThunk('product/getList',async (params?: ProductListParams) => {
     try {
-        const response = await fetch('/api/products', {
+        const response = await fetch(buildProductListUrl(params), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

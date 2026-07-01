@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import './styles/user-side-bar-left-menu.style.scss'
 import {useSelector} from "react-redux";
+import {useSession} from "next-auth/react";
 
 type SideBarLeftMenuProps = {};
 type LabelLinkProps = {
@@ -38,11 +39,6 @@ const LabelLink: React.FC<LabelLinkProps> = ({title, href}) => {
     )
 }
 
-const menuItems: MenuItem[] = [
-    getItem(<LabelLink title={'Settings'} href={'/user-management/useId=1'}/>,'setting' , <SettingFilled/>),
-    getItem(<LabelLink title={'Help'} href={'/user-management/useId=1'}/>, 'help', <InfoCircleFilled/>),
-];
-
 const siderStyle: React.CSSProperties = {
     color: 'var(--white-color)',
     minHeight: '100vh',
@@ -52,9 +48,15 @@ const siderStyle: React.CSSProperties = {
 };
 
 const UserSideBarLeftMenu: React.FC<SideBarLeftMenuProps> = () => {
+    const {data: session} = useSession();
     const activeItemMenu = useSelector((state: any) => state.layout.activeItemMenu);
 
     const [selectedKey, setSelectedKey] = useState('');
+    const userInformationHref = session ? '/user-management/me' : '/sign-in';
+    const menuItems: MenuItem[] = [
+        getItem(<LabelLink title={'Information'} href={userInformationHref}/>, 'information', <InfoCircleFilled/>),
+        getItem(<LabelLink title={'Settings'} href={userInformationHref}/>, 'setting', <SettingFilled/>),
+    ];
 
     useEffect(() => {
         setSelectedKey(activeItemMenu);

@@ -7,7 +7,6 @@ Main files:
 
 - `src/app/products/[productId]/page.tsx`
 - `src/app/products/[productId]/style/product-detail.scss`
-- `src/app/api/products/product-data.ts`
 - `src/app/components/navigations/nav-bar.tsx`
 - `src/app/components/footer/footer.tsx`
 
@@ -26,7 +25,7 @@ The page includes:
 - Review summary.
 - Color selector.
 - Size selector.
-- Quantity input.
+- Quantity input labeled as `Quality`.
 - Add-to-cart button.
 - Favorite button.
 - Product features.
@@ -45,7 +44,7 @@ Default detail flow:
 3. The detail content renders from `src/app/products/[productId]/page.tsx`.
 4. The page displays static product information for `Classic T-shirt`.
 5. The user can change color and size selectors.
-6. The user can enter a quantity.
+6. The user can enter a quantity-like value.
 7. `Footer` renders below the customer review section.
 
 Navigation from product list:
@@ -60,8 +59,8 @@ Navigation from landing page Similar Product:
 1. User opens `/`.
 2. User scrolls to Similar Product.
 3. User clicks a similar product card.
-4. The card links to `/products/{item.id}`.
-5. The product item detail page renders instead of the product list page.
+4. The card links to `/products/{item.id}` if wired to product ids.
+5. The product item detail page renders.
 
 ## User States
 
@@ -115,9 +114,8 @@ Agent users can view the detail page like normal users. Product management remai
 - Quantity input is visible but not connected to cart behavior.
 - Add-to-cart button is visible but has no handler.
 - Favorite button is visible but has no handler.
-- Customer review cards use `ProductData` from `src/app/api/products/product-data.ts`.
-- Customer review cards use placeholder product image data.
-- The page now includes the shared navigation header and footer.
+- The customer review list currently receives an empty `relatedProducts` array, so no review cards are displayed.
+- The page includes the shared navigation header and footer.
 
 ## API
 
@@ -126,6 +124,10 @@ The product item detail page currently does not call an API.
 Related existing API:
 
 - `GET /api/products`
+- `GET /api/products?page={page}&limit={limit}`
+- `GET /api/products?product_type_id={productTypeId}`
+- `GET /api/products?is_sale=true`
+- `GET /api/products?sort_by=sold_items`
 - `POST /api/products`
 - `PUT /api/products?id={id}`
 - `DELETE /api/products?id={id}`
@@ -156,7 +158,7 @@ If this page becomes data-driven, likely options are:
 - Read `productId` from route params and fetch the matching product.
 - Add a single-product API route or extend `GET /api/products` to support an `id` query.
 - Render product name, description, price, sale price, and image from live data.
-- Add a real main product image/gallery area.
+- Add a real main product image or gallery area.
 - Wire Add to cart to cart state.
 - Wire favorite to wishlist state.
 - Validate quantity input.

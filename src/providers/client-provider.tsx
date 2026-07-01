@@ -6,6 +6,7 @@ import {SessionProvider} from "next-auth/react"
 
 // import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import StoreProvider from "@/providers/provider-store";
+import SessionExpirationGuard from "@/providers/session-expiration-guard";
 
 interface ProvidersProps {
     children: React.ReactNode;
@@ -17,8 +18,9 @@ const ClientProvider = ({children, session}: ProvidersProps) => {
 
     return (
         // <QueryClientProvider client={queryClient}>
-        <SessionProvider session={session}>
+        <SessionProvider session={session} refetchInterval={60} refetchWhenOffline={false}>
             <StoreProvider>
+                <SessionExpirationGuard/>
                 {children}
             </StoreProvider>
         </SessionProvider>

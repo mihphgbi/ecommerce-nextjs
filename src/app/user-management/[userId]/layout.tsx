@@ -6,6 +6,7 @@ import {Content} from "antd/lib/layout/layout";
 import {useSelector} from "react-redux";
 import ToastAlert from "../../components/toast/toast";
 import UserSideBarLeftMenu from "@/app/components/side-bar/user-side-bar-left-menu";
+import NavBar from "@/app/components/navigations/nav-bar";
 
 interface LayoutProps {
     children: ReactNode;
@@ -17,6 +18,7 @@ const UserManagementLayout: FC<LayoutProps> = ({children, title}): ReactElement 
 
     return (
         <div className={'min-h-[100vh] min-w-[100%]'}>
+            <NavBar/>
             <Layout className={'flex-row'}>
                 <UserSideBarLeftMenu/>
                 <Layout className={'flex-col bg-white-color'}>

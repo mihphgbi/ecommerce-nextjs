@@ -41,14 +41,23 @@ export const navigationItems: MenuItem[] = [
     getItem('Pricing', 'pricing', null),
 ];
 
-const userOption: MenuItem[] = [
-    getItem(<a href={'/user-management/useId=1'}>Information</a>, 'information', null),
-    getItem(<a href={'/user-management/useId=1'}>Setting</a>, 'setting', null),
-];
-
-
 const DesktopNavBar = () => {
     const {data: session} = useSession();
+    const isAgent = (session?.user as any)?.isAgent === true || (session?.user as any)?.isAgent === 'true';
+    const userInformationHref = session ? '/user-management/me' : '/sign-in';
+    const userOption: MenuItem[] = [
+        getItem(<a href={userInformationHref}>Information</a>, 'information', null),
+        getItem(<a href={userInformationHref}>Setting</a>, 'setting', null),
+        ...(isAgent ? [
+            getItem(
+                <a href={'/agent-management'} target={'_blank'} rel={'noreferrer'}>
+                    Agent Management
+                </a>,
+                'agent-management',
+                null,
+            ),
+        ] : []),
+    ];
 
     const handleOpenSignOut = () => {
         signOut();

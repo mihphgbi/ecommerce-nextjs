@@ -13,6 +13,8 @@ import "./style.scss";
 const MobileNavBar = () => {
     const [open, setOpen] = useState<boolean>(false);
     const {data: session} = useSession();
+    const isAgent = (session?.user as any)?.isAgent === true || (session?.user as any)?.isAgent === 'true';
+    const userInformationHref = session ? '/user-management/me' : '/sign-in';
 
     return(
         <Layout className={"mobile-nav"}>
@@ -38,7 +40,12 @@ const MobileNavBar = () => {
                 <div className={"mobile-nav-actions"}>
                     {session ? (
                         <Flex vertical gap={8}>
-                            <Button icon={<UserOutlined/>} href={"/user-management/useId=1"}>Information</Button>
+                            <Button icon={<UserOutlined/>} href={userInformationHref}>Information</Button>
+                            {isAgent && (
+                                <Button href={"/agent-management"} target={"_blank"} rel={"noreferrer"}>
+                                    Agent Management
+                                </Button>
+                            )}
                             <Button type={"text"} onClick={() => signOut()}>Sign out</Button>
                         </Flex>
                     ) : (

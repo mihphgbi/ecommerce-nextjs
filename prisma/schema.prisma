@@ -8,18 +8,33 @@ datasource db {
 }
 
 model Product {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  description String ?
-  image       String ?
-  is_sale     Boolean @default(false)
-  name        String
-  price       Float
-  quality     Int
-  sale_price  Float ?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id              String       @id @default(auto()) @map("_id") @db.ObjectId
+  description     String?
+  image           String?
+  is_sale         Boolean      @default(false)
+  name            String
+  price           Float
+  quality         Int
+  sold_items      Int          @default(0)
+  sale_price      Float?
+  saler_id        String       @db.ObjectId
+  saler           User         @relation(fields: [saler_id], references: [id])
+  product_type_id String?      @db.ObjectId
+  product_type    ProductType? @relation(fields: [product_type_id], references: [id])
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 
   @@map("products")
+}
+
+model ProductType {
+    id        String    @id @default(auto()) @map("_id") @db.ObjectId
+    name      String    @unique
+    products  Product[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+
+    @@map("product_types")
 }
 
 model User {
@@ -32,6 +47,7 @@ model User {
     is_authenticate Boolean @default(false)
     full_name       String  ?
     phone           String  ?
+    products        Product[]
     createdAt       DateTime @default(now())
     updatedAt       DateTime @updatedAt
 

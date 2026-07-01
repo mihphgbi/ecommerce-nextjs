@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./style.scss";
 import Title from "antd/lib/typography/Title";
 import {Button, Col, List, Row, Typography} from "antd";
@@ -9,6 +9,7 @@ import Image from "next/image";
 import Item from "antd/es/list/Item";
 import Link from "next/link";
 import {useSession} from "next-auth/react";
+import {ProductItem as ProductModel} from "@/model/product/product";
 
 const collection = [
     {
@@ -25,40 +26,6 @@ const collection = [
         image: ProductItem,
         title: 'Little Works of Art Collection',
         text: 'Transform your home into an art gallery with exquisite decor that adds a touch of creativity and uniqueness to your space.'
-    },
-]
-const similarProductList = [
-    {
-        id: 'low-top-sneakers',
-        image: ProductItem,
-        type: 'Kicks & Carriers',
-        name: 'Low-top sneakers',
-        salePrice: '$129.99',
-        price: '$189.99'
-    },
-    {
-        id: 'fanny-pack',
-        image: ProductItem,
-        type: 'Kicks & Carriers',
-        name: 'Fanny pack',
-        salePrice: '$129.99',
-        price: '$189.99'
-    },
-    {
-        id: 'high-top-sneakers',
-        image: ProductItem,
-        type: 'Kicks & Carriers',
-        name: 'High-top sneakers',
-        salePrice: '$129.99',
-        price: '$189.99'
-    },
-    {
-        id: 'black-bag',
-        image: ProductItem,
-        type: 'Kicks & Carriers',
-        name: 'Black Bag',
-        salePrice: '$129.99',
-        price: '$189.99'
     },
 ]
 const incentivesList = [
@@ -85,6 +52,23 @@ const incentivesList = [
 ]
 export default function Index() {
     const {data: session} = useSession();
+    const [saleProducts, setSaleProducts] = useState<ProductModel[]>([]);
+
+    useEffect(() => {
+        const loadSaleProducts = async () => {
+            const response = await fetch('/api/products?is_sale=true&sort_by=sold_items&limit=4');
+
+            if (!response.ok) {
+                setSaleProducts([]);
+                return;
+            }
+
+            const result = await response.json();
+            setSaleProducts(result.data || []);
+        }
+
+        loadSaleProducts();
+    }, []);
 
     return (
         <>
@@ -180,26 +164,26 @@ export default function Index() {
                             split={false}
                             itemLayout="vertical"
                             grid={{gutter: 24, xs: 1, sm: 2, md: 2, lg: 4, xl: 4, xxl: 4}}
-                            dataSource={similarProductList}
+                            dataSource={saleProducts}
                             renderItem={(item) => (
                                 <Item className={'mbe-0'}>
                                     <Link href={`/products/${item.id}`} className={'similar-product-card'}>
                                         <div className={"product-image relative"}>
-                                            <Image src={item.image}
+                                            <Image src={ProductItem}
                                                    style={{objectFit: "cover"}}
                                                    loading="lazy"
-                                                   alt={item.name}
+                                                   alt={item.name || 'Sale product'}
                                                    fill={true}/>
                                         </div>
                                         <div className={'p-[16px] text-center'}>
-                                            <Typography className={'text-[12px] leading-[20px]'}>{item.type}</Typography>
+                                            <Typography className={'text-[12px] leading-[20px]'}>{item.product_type?.name || 'Sale product'}</Typography>
                                             <Typography className={'text-14px leading-[22px]'}>{item.name}</Typography>
                                         </div>
                                         <div className={'text-center'}>
                                             <Typography
-                                                className={'text-14px leading-[22px]'}>{item?.salePrice || item.price} {item?.salePrice ?
+                                                className={'text-14px leading-[22px]'}>${(item.sale_price || item.price || 0).toFixed(2)} {item.sale_price ?
                                                 <span
-                                                    className={'text-[12px] text-[rgba(0, 0, 0, 0.45)] leading-[20px] line-through'}>$189.99</span> : ''}</Typography>
+                                                    className={'text-[12px] text-[rgba(0, 0, 0, 0.45)] leading-[20px] line-through'}>${(item.price || 0).toFixed(2)}</span> : ''}</Typography>
                                         </div>
                                     </Link>
                                 </Item>

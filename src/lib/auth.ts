@@ -3,6 +3,8 @@ import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/db/prisma";
 
+const SESSION_MAX_AGE_SECONDS = 24 * 60 * 60;
+
 export const authOptions: NextAuthOptions = {
     // adapter: PrismaAdapter(prisma),
     providers: [
@@ -57,7 +59,7 @@ export const authOptions: NextAuthOptions = {
     ],
     session: {
         strategy: 'jwt',
-        maxAge: 2 * 24 * 60 * 60
+        maxAge: SESSION_MAX_AGE_SECONDS
     },
     pages: {
         signIn: '/sign-in',

@@ -3,49 +3,72 @@
 import React, {useEffect, useMemo, useState} from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {Button, Col, Input, Row, Select, Slider, Space, Tag, Typography} from "antd";
+import {Button, Col, Empty, Input, Pagination, Row, Select, Slider, Space, Tag, Typography} from "antd";
 import Title from "antd/es/typography/Title";
 import {AppstoreOutlined, HeartOutlined, SearchOutlined, ShoppingCartOutlined} from "@ant-design/icons";
 import ProductImage from "@/assets/pre-product-img.png";
 import NavBar from "@/app/components/navigations/nav-bar";
 import Footer from "@/app/components/footer/footer";
-import {ProductItem} from "@/model/product/product";
+import {ProductItem, ProductType} from "@/model/product/product";
 import "./style.scss";
 
 const {Text, Paragraph} = Typography;
-
-const categories = ["All", "On sale", "Regular"];
+const PRODUCT_PAGE_SIZE = 8;
 
 export default function ProductOverview() {
-    const [selectedCategory, setSelectedCategory] = useState("All");
+    const [selectedProductTypeId, setSelectedProductTypeId] = useState<string>();
     const [sortBy, setSortBy] = useState("featured");
+    const [page, setPage] = useState(1);
+    const [totalProducts, setTotalProducts] = useState(0);
     const [products, setProducts] = useState<ProductItem[]>([]);
+    const [productTypes, setProductTypes] = useState<ProductType[]>([]);
+    const selectedProductTypeName = productTypes.find((productType) => productType.id === selectedProductTypeId)?.name;
 
     useEffect(() => {
         const loadProducts = async () => {
-            const response = await fetch('/api/products');
+            const searchParams = new URLSearchParams({
+                page: page.toString(),
+                limit: PRODUCT_PAGE_SIZE.toString(),
+            });
+
+            if (selectedProductTypeId) {
+                searchParams.set("product_type_id", selectedProductTypeId);
+            }
+
+            const response = await fetch(`/api/products?${searchParams.toString()}`);
 
             if (!response.ok) {
                 setProducts([]);
+                setTotalProducts(0);
                 return;
             }
 
             const result = await response.json();
             setProducts(result.data || []);
+            setTotalProducts(result.pagination?.total || 0);
         }
 
         loadProducts();
+    }, [page, selectedProductTypeId]);
+
+    useEffect(() => {
+        const loadProductTypes = async () => {
+            const response = await fetch('/api/product-types');
+
+            if (!response.ok) {
+                setProductTypes([]);
+                return;
+            }
+
+            const result = await response.json();
+            setProductTypes(result.data || []);
+        }
+
+        loadProductTypes();
     }, []);
 
     const filteredProducts = useMemo(() => {
-        const visibleProducts = products.filter((product) => {
-            if (selectedCategory === "On sale") return product.is_sale;
-            if (selectedCategory === "Regular") return !product.is_sale;
-
-            return true;
-        });
-
-        return [...visibleProducts].sort((firstProduct, secondProduct) => {
+        return [...products].sort((firstProduct, secondProduct) => {
             const firstPrice = firstProduct.sale_price || firstProduct.price || 0;
             const secondPrice = secondProduct.sale_price || secondProduct.price || 0;
 
@@ -59,7 +82,19 @@ export default function ProductOverview() {
 
             return 0;
         });
-    }, [products, selectedCategory, sortBy]);
+    }, [products, sortBy]);
+
+    const productTypeOptions = productTypes
+        .filter((productType) => productType.id)
+        .map((productType) => ({
+            label: productType.name || "Unnamed type",
+            value: productType.id || "",
+        }));
+
+    const sidebarProductTypeOptions = [
+        {label: "All types", value: ""},
+        ...productTypeOptions,
+    ];
 
     return (
         <>
@@ -100,9 +135,14 @@ export default function ProductOverview() {
                     <div className={"product-overview-filter-group"}>
                         <Select
                             size={"large"}
-                            value={selectedCategory}
-                            onChange={setSelectedCategory}
-                            options={categories.map((category) => ({label: category, value: category}))}
+                            value={selectedProductTypeId}
+                            allowClear
+                            placeholder={"All product types"}
+                            onChange={(value) => {
+                                setSelectedProductTypeId(value);
+                                setPage(1);
+                            }}
+                            options={productTypeOptions}
                         />
                         <Select
                             size={"large"}
@@ -120,15 +160,18 @@ export default function ProductOverview() {
                 <section className={"product-overview-content"} id={"product-grid"}>
                     <aside className={"product-overview-sidebar"} aria-label={"Refine products"}>
                         <div>
-                            <Text strong>Categories</Text>
+                            <Text strong>Product type</Text>
                             <div className={"product-overview-category-list"}>
-                                {categories.map((category) => (
+                                {sidebarProductTypeOptions.map((productType) => (
                                     <Button
-                                        key={category}
-                                        type={selectedCategory === category ? "primary" : "text"}
-                                        onClick={() => setSelectedCategory(category)}
+                                        key={productType.value}
+                                        type={(selectedProductTypeId || "") === productType.value ? "primary" : "text"}
+                                        onClick={() => {
+                                            setSelectedProductTypeId(productType.value || undefined);
+                                            setPage(1);
+                                        }}
                                     >
-                                        {category}
+                                        {productType.label}
                                     </Button>
                                 ))}
                             </div>
@@ -147,6 +190,12 @@ export default function ProductOverview() {
                     </aside>
 
                     <div className={"product-overview-grid"}>
+                        <div className={"product-overview-results"}>
+                            <Text strong>{totalProducts} {totalProducts === 1 ? "item" : "items"}</Text>
+                            <Text type={"secondary"}>
+                                {selectedProductTypeName ? `Showing ${selectedProductTypeName}` : "Showing all product types"}
+                            </Text>
+                        </div>
                         {filteredProducts.map((product) => {
                             const activePrice = product.sale_price || product.price || 0;
 
@@ -158,7 +207,7 @@ export default function ProductOverview() {
                                     </Link>
                                     <div className={"product-overview-card-body"}>
                                         <div>
-                                            <Text type={"secondary"}>{product.quality || 0} in stock</Text>
+                                            <Text type={"secondary"}>{product.product_type?.name || "Uncategorized"}</Text>
                                             <Title level={4}>
                                                 <Link href={`/products/${product.id}`}>{product.name}</Link>
                                             </Title>
@@ -179,6 +228,23 @@ export default function ProductOverview() {
                                 </article>
                             );
                         })}
+                        {!filteredProducts.length && (
+                            <Empty
+                                className={"product-overview-empty"}
+                                description={selectedProductTypeName ? `No products found for ${selectedProductTypeName}.` : "No products found."}
+                            />
+                        )}
+                        {totalProducts > PRODUCT_PAGE_SIZE && (
+                            <div className={"col-span-full flex justify-center"}>
+                                <Pagination
+                                    current={page}
+                                    pageSize={PRODUCT_PAGE_SIZE}
+                                    total={totalProducts}
+                                    onChange={setPage}
+                                    showSizeChanger={false}
+                                />
+                            </div>
+                        )}
                     </div>
                 </section>
             </main>

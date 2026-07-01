@@ -10,7 +10,7 @@ const ProductList: React.FC = () => {
     const isDelete = useAppSelector(state => state.products.isDelete);
     const productList = useAppSelector(state => state.products.productList);
     useEffect(() => {
-         dispatch(getProductData());
+         dispatch(getProductData({agent_only: true}));
 
     }, [dispatch, isDelete]);
     useEffect(() => {

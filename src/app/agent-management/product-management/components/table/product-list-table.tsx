@@ -8,10 +8,14 @@ interface ListProduct {
     name: string;
     price: number;
     quality: number;
+    sold_items: number;
     description: string;
     is_sale: boolean;
     sale_price: number;
     image: string;
+    product_type?: {
+        name?: string;
+    };
 }
 
 
@@ -32,6 +36,11 @@ const columns: TableProps<ListProduct>['columns'] = [
         key: 'quality',
     },
     {
+        title: 'Sold Items',
+        dataIndex: 'sold_items',
+        key: 'sold_items',
+    },
+    {
         title: 'Description',
         dataIndex: 'description',
         key: 'description',
@@ -40,6 +49,11 @@ const columns: TableProps<ListProduct>['columns'] = [
         title: 'Image',
         dataIndex: 'image',
         key: 'image',
+    },
+    {
+        title: 'Type',
+        dataIndex: ['product_type', 'name'],
+        key: 'product_type',
     },
     {
         title: 'Sale',

@@ -5,7 +5,7 @@ import {usePathname, useRouter} from "next/navigation";
 import React, {useEffect, useState} from 'react';
 import {
     MenuFoldOutlined,
-    MenuUnfoldOutlined, PlusCircleOutlined, ShoppingCartOutlined,
+    MenuUnfoldOutlined, PlusCircleOutlined, SettingFilled, ShoppingCartOutlined,
 } from '@ant-design/icons';
 import {Button, Layout, Menu, MenuProps, Spin, theme} from 'antd';
 
@@ -24,11 +24,17 @@ const AgentManagementLayout = ({children}: { children: React.ReactNode }) => {
     const onClick: MenuProps['onClick'] = (e:any) => {
         const NAVIGATE_CONSTANT = {
             ['1']: '/agent-management/product-management/add-product',
-            ['2']: '/agent-management/product-management/product-list'
+            ['2']: '/agent-management/product-management/product-list',
+            ['3']: '/agent-management/setting',
         }
         // @ts-ignore
         router.push(NAVIGATE_CONSTANT[e.key]);
     };
+    const selectedKey = pathname.includes('/product-management/product-list')
+        ? '2'
+        : pathname.includes('/agent-management/setting')
+            ? '3'
+            : '1';
 
     useEffect(() => {
         if (status === 'unauthenticated') {
@@ -53,24 +59,39 @@ const AgentManagementLayout = ({children}: { children: React.ReactNode }) => {
         <Layout style={{height: '100vh'}}>
             <Sider trigger={null} collapsible collapsed={collapsed} style={{paddingTop: '3rem'}}>
                 <div className="demo-logo-vertical"/>
-                <Menu
-                    onClick={onClick}
-                    theme="dark"
-                    mode="inline"
-                    defaultSelectedKeys={['1']}
-                    items={[
-                        {
-                            key: '1',
-                            icon: <PlusCircleOutlined/>,
-                            label: 'Add Product',
-                        },
-                        {
-                            key: '2',
-                            icon: <ShoppingCartOutlined/>,
-                            label: 'Product List',
-                        },
-                    ]}
-                />
+                <div className="flex h-[calc(100vh-3rem)] flex-col justify-between">
+                    <Menu
+                        onClick={onClick}
+                        theme="dark"
+                        mode="inline"
+                        selectedKeys={[selectedKey]}
+                        items={[
+                            {
+                                key: '1',
+                                icon: <PlusCircleOutlined/>,
+                                label: 'Add Product',
+                            },
+                            {
+                                key: '2',
+                                icon: <ShoppingCartOutlined/>,
+                                label: 'Product List',
+                            },
+                        ]}
+                    />
+                    <Menu
+                        onClick={onClick}
+                        theme="dark"
+                        mode="inline"
+                        selectedKeys={[selectedKey]}
+                        items={[
+                            {
+                                key: '3',
+                                icon: <SettingFilled/>,
+                                label: 'Setting',
+                            },
+                        ]}
+                    />
+                </div>
             </Sider>
             <Layout>
                 <Header style={{padding: 0, background: colorBgContainer}}>

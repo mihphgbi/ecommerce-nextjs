@@ -15,9 +15,9 @@ This file is for AI coding agents working in `D:\source-code\ecommerce-nextjs`. 
 - `src/app/(auth)/` contains sign-in and sign-up pages.
 - `src/app/(home)/` contains the storefront home route and home dialogs.
 - `src/app/products/[productId]/` contains product detail pages.
-- `src/app/agent-management/` contains seller/admin product management UI.
+- `src/app/agent-management/` contains seller/admin product management UI and the agent setting page.
 - `src/app/user/` and `src/app/user-management/[userId]/` contain user-facing and user management routes.
-- `src/app/api/` contains route handlers for auth, products, and users.
+- `src/app/api/` contains route handlers for auth, products, product types, and users.
 - `src/app/components/` contains app-local UI components such as navigation, forms, footer, sidebar, toast, and checkbox.
 - `src/lib/` contains auth, Prisma, and Redux infrastructure.
 - `src/lib/db/prisma.ts` exports the singleton Prisma client.
@@ -28,6 +28,8 @@ This file is for AI coding agents working in `D:\source-code\ecommerce-nextjs`. 
 - `src/assets/` contains imported static assets used by the app.
 - `public/` contains public static files.
 - `prisma/schema.prisma` defines the MongoDB Prisma schema.
+- `database/scripts/changes/` contains dated one-off MongoDB data-change scripts.
+- `document/` contains feature documentation for user-facing pages and the agent dashboard.
 
 ## Build, Test, And Development Commands
 Run commands from the repository root unless noted.
@@ -85,10 +87,12 @@ There is currently no test script in `package.json`. For behavioral changes, run
 ## Prisma And Database Guidance
 - `prisma/schema.prisma` uses `provider = "mongodb"`.
 - Models currently include `Product` mapped to `products` and `User` mapped to `user`.
+- Product type data is stored in `ProductType`, mapped to `product_types`.
 - MongoDB Prisma models use `String @id @default(auto()) @map("_id") @db.ObjectId`.
 - After changing Prisma models, run `npx prisma generate`.
 - Prisma MongoDB does not use normal SQL migration files. Do not add SQL migrations for this project.
-- Be careful changing mapped field names such as `is_sale`, `sale_price`, `is_agent`, and `is_authenticate`; UI/API code may depend on those exact names.
+- Use dated JavaScript scripts in `database/scripts/changes/` for one-off MongoDB data changes.
+- Be careful changing mapped field names such as `is_sale`, `sale_price`, `sold_items`, `saler_id`, `product_type_id`, `is_agent`, and `is_authenticate`; UI/API code may depend on those exact names.
 
 ## Auth Guidance
 - Credentials auth fetches `/api/user` from a resolved app URL in `src/lib/auth.ts`.

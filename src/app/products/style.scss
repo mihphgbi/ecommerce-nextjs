@@ -141,6 +141,25 @@
   gap: 24px;
 }
 
+.product-overview-results,
+.product-overview-empty {
+  grid-column: 1 / -1;
+}
+
+.product-overview-results {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.product-overview-empty {
+  padding: 56px 16px;
+  border: 1px solid rgba(5, 5, 5, 0.06);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
 .product-overview-card {
   min-width: 0;
   overflow: hidden;
@@ -288,6 +307,12 @@
   .product-overview-grid {
     grid-template-columns: 1fr;
     gap: 18px;
+  }
+
+  .product-overview-results {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
   }
 
   .product-overview-sidebar {

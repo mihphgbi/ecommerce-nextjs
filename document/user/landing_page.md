@@ -10,8 +10,10 @@ Main files:
 - `src/app/(home)/style.scss`
 - `src/app/components/navigations/nav-bar.tsx`
 - `src/app/components/navigations/desktop-nav-bar.tsx`
+- `src/app/components/navigations/mobile-nav-bar.tsx`
 - `src/app/components/navigations/top-bar.tsx`
 - `src/app/components/footer/footer.tsx`
+- `src/providers/session-expiration-guard.tsx`
 
 Current implementation status:
 
@@ -22,6 +24,8 @@ Current implementation status:
 - The page does not currently fetch live product data from `/api/products`.
 - The primary unauthenticated call to action links to `/sign-in`.
 - The top notification bar can be dismissed and stores that state in `localStorage` with the key `topbar-dismissed`.
+- The shared navigation includes desktop and mobile variants.
+- `SessionExpirationGuard` signs users out when the NextAuth session expires.
 
 Landing page sections currently shown:
 
@@ -37,9 +41,10 @@ Default storefront flow:
 
 1. User opens `/`.
 2. `src/app/(home)/layout.tsx` renders `NavBar`, optional `ToastAlert`, page content, and `Footer`.
-3. `NavBar` renders `TopBar` and `DesktopNavBar`.
-4. `DesktopNavBar` checks `useSession()` to decide whether to show auth buttons or account controls.
-5. `src/app/(home)/page.tsx` renders the landing page content and checks `useSession()` to decide whether to show the hero `Shop now` button.
+3. `NavBar` renders `TopBar`, `DesktopNavBar`, and `MobileNavBar`.
+4. `MobileNavBar` opens the shared navigation items inside an Ant Design drawer on smaller screens.
+5. `DesktopNavBar` and `MobileNavBar` check `useSession()` to decide whether to show auth buttons or account controls.
+6. `src/app/(home)/page.tsx` renders the landing page content and checks `useSession()` to decide whether to show the hero `Shop now` button.
 
 Unauthenticated sign-in flow from the landing page:
 
@@ -53,7 +58,7 @@ Unauthenticated sign-in flow from the landing page:
 
 Unauthenticated sign-in flow from the nav dialog:
 
-1. User clicks `Sign in` in the desktop nav.
+1. User clicks `Sign in` in the desktop nav or mobile drawer.
 2. `src/app/(home)/dialog/sign-in.tsx` opens an Ant Design modal.
 3. The modal renders the shared `SignInForm`.
 4. Submitting the form dispatches the same `login` thunk.
@@ -61,7 +66,7 @@ Unauthenticated sign-in flow from the nav dialog:
 
 Unauthenticated sign-up flow from the nav dialog:
 
-1. User clicks `Sign up` in the desktop nav.
+1. User clicks `Sign up` in the desktop nav or mobile drawer.
 2. `src/app/(home)/dialog/sign-up.tsx` opens an Ant Design modal.
 3. The modal renders the shared `SignUpForm`.
 4. Submitting the form dispatches `createUser` from `src/lib/redux/action/users.ts`.
@@ -74,13 +79,13 @@ Separate sign-up page flow:
 3. Submitting the form dispatches `createUser`.
 4. The page observes `state.auth.isLogin`, but account creation does not currently set that flag directly.
 
-## For User Who Have Been Login And Not
+## User States
 
 ### Not Logged In
 
 When there is no `session.user`:
 
-- The desktop nav shows `Sign in` and `Sign up`.
+- The desktop nav and mobile drawer show `Sign in` and `Sign up`.
 - `Sign in` opens a modal on the landing page.
 - `Sign up` opens a modal on the landing page.
 - The hero section shows a `Shop now` button linking to `/sign-in`.
@@ -101,17 +106,18 @@ When a NextAuth session exists:
 
 - The desktop nav shows a user icon dropdown.
 - The desktop nav shows `Sign out`.
+- The mobile drawer shows `Information` and `Sign out`.
 - The nav no longer shows `Sign in` or `Sign up`.
 - The hero `Shop now` button is hidden because `page.tsx` only renders it when `!session?.user`.
 - The promo section still shows `Shop now` and links to `/sign-in`; this is a current behavior gap.
-- The account dropdown contains links to `/user-management/useId=1` for `Information` and `Setting`.
+- The account information link points to `/user-management/me`, which redirects to `/user-management/useId={actualUserId}` after the server resolves the signed-in user.
 - `Sign out` calls NextAuth `signOut()`.
 
 Expected available actions:
 
 - Browse landing page content.
-- Open account dropdown.
-- Navigate to the user management placeholder route.
+- Open account dropdown or mobile drawer.
+- Navigate to the user information route.
 - Sign out.
 
 ### Agent User
@@ -120,7 +126,7 @@ Agent status is not directly used by the landing page, but it exists in the sess
 
 - The agent flag is loaded during credentials login from `User.is_agent`.
 - Agent users can access `/agent-management`.
-- The landing page does not currently show an agent dashboard link.
+- The desktop account dropdown and mobile drawer show an `Agent Management` link for agent users.
 
 ## API
 
@@ -208,6 +214,7 @@ Auth behavior:
 - On login success, Redux opens a success toast and the UI routes to `/`.
 - On login failure, Redux opens an error toast.
 - NextAuth uses JWT sessions with a two-day max age.
+- `SessionExpirationGuard` signs out expired sessions and sends users to `/sign-in`.
 
 ### Product APIs
 
@@ -216,18 +223,23 @@ The landing page currently does not use product APIs.
 Existing product API:
 
 - `GET /api/products`
+- `GET /api/products?page={page}&limit={limit}`
+- `GET /api/products?product_type_id={productTypeId}`
+- `GET /api/products?is_sale=true`
+- `GET /api/products?sort_by=sold_items`
 - `POST /api/products`
 - `PUT /api/products?id={id}`
 - `DELETE /api/products?id={id}`
 
-These are used by the agent dashboard product management flow, not by the landing page. If the landing page is later connected to live products, `GET /api/products` is the likely source for the product preview and similar product sections.
+These are used by the product list and agent dashboard product management flow, not by the landing page. If the landing page is later connected to live products, `GET /api/products` is the likely source for the product preview and similar product sections.
 
 ## Related Components
 
 Navigation:
 
-- `NavBar` composes the top notification bar and desktop navigation.
-- `DesktopNavBar` controls auth-aware nav rendering.
+- `NavBar` composes the top notification bar, desktop navigation, and mobile navigation.
+- `DesktopNavBar` controls auth-aware desktop nav rendering.
+- `MobileNavBar` renders the same navigation items in a drawer and shows auth or account actions for mobile.
 - `TopBar` stores dismissed state in `localStorage`.
 
 Forms:
@@ -239,18 +251,16 @@ State:
 
 - `authSlice` stores `isLogin` and login error state.
 - `layoutSlice` stores toast visibility, status, and message.
-- `ClientProvider` wraps the app with NextAuth `SessionProvider` and Redux `StoreProvider`.
+- `ClientProvider` wraps the app with NextAuth `SessionProvider`, Redux `StoreProvider`, and session expiration behavior.
 
 ## Current Gaps
 
 - Landing page product data is static instead of API-driven.
 - Static product cards do not link to product detail pages.
 - Logged-in users still see the promo section `Shop now` link to `/sign-in`.
-- Desktop nav product/docs/about/pricing menu items are placeholders and do not route to real pages.
-- Account dropdown links use `/user-management/useId=1` instead of a real session user id.
+- Product, docs, about, and pricing menu items are partly placeholders; only product overview links to `/products`.
 - Sign-up does not currently log the user in after account creation.
 - `rePassword` is collected by the form but is not compared in the API route.
-- Landing page has no mobile-specific navigation documented here, although a mobile nav component exists in the app.
 
 ## Suggested Improvements
 
@@ -258,6 +268,4 @@ State:
 - Hide or change the promo `Shop now` CTA for logged-in users.
 - Link product cards to `/products/[productId]` when live products are available.
 - Replace placeholder nav links with real routes or remove them until pages exist.
-- Use `session.user.id` for account/profile links.
 - Validate sign-up payloads with Zod and compare `password` with `rePassword`.
-- Add an agent dashboard entry point for users with `session.user.isAgent`.

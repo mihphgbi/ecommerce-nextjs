@@ -1,7 +1,7 @@
 'use client';
-import React, {useState} from "react";
-import {ProductItem} from "@/model/product/product";
-import {Button, Checkbox, Form, Input} from "antd";
+import React, {useEffect, useState} from "react";
+import {ProductItem, ProductType} from "@/model/product/product";
+import {Button, Checkbox, Form, Input, Select} from "antd";
 interface AdjustProductFormProps {
     onFinish: any,
     onFinishFailed: any,
@@ -9,7 +9,25 @@ interface AdjustProductFormProps {
 }
 const AdjustProductForm : React.FC<AdjustProductFormProps> = (props) => {
     const [componentDisabled, setComponentDisabled] = useState(false);
+    const [productTypes, setProductTypes] = useState<ProductType[]>([]);
     const {onFinish, onFinishFailed,fields } = props;
+
+    useEffect(() => {
+        const loadProductTypes = async () => {
+            const response = await fetch('/api/product-types');
+
+            if (!response.ok) {
+                setProductTypes([]);
+                return;
+            }
+
+            const result = await response.json();
+            setProductTypes(result.data || []);
+        }
+
+        loadProductTypes();
+    }, []);
+
     return (
         <Form
             name="basic"
@@ -46,9 +64,32 @@ const AdjustProductForm : React.FC<AdjustProductFormProps> = (props) => {
             </Form.Item>
 
             <Form.Item<ProductItem>
+                label="Product type"
+                name="product_type_id"
+                rules={[{required: true, message: 'Please select your product type!'}]}
+            >
+                <Select
+                    placeholder="Select product type"
+                    options={productTypes.map((productType) => ({
+                        label: productType.name,
+                        value: productType.id,
+                    }))}
+                />
+            </Form.Item>
+
+            <Form.Item<ProductItem>
                 label="Quality"
                 name="quality"
                 rules={[{required: true, message: 'Please input your quantity!'}]}
+            >
+                <Input/>
+            </Form.Item>
+
+            <Form.Item<ProductItem>
+                label="Sold items"
+                name="sold_items"
+                initialValue={0}
+                rules={[{required: true, message: 'Please input your sold items!'}]}
             >
                 <Input/>
             </Form.Item>
